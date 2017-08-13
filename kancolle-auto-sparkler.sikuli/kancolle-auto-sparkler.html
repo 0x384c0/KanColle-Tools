@@ -71,6 +71,7 @@
 </div>
 <pre class="sikuli-code">
 WAIT_TIMEOUT = <span class="dig">10</span>
+FLEET_NUMBER = <span class="dig">4</span>
 setAutoWaitTimeout(WAIT_TIMEOUT)
 <span class="kw">def</span> accept_battle_results():
     <span class="kw">print</span>(<span class="str">"wait for battle finish"</span>)
@@ -92,6 +93,7 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
     <span class="skw">click</span>(<img src="1499956703868.png" />)
     <span class="skw">sleep</span>(<span class="dig">1</span>)
     <span class="skw">click</span>(<img src="1499956703868.png" />)
+    waitVanish(<img src="1502635171297.png" />)
     <span class="cmt"># new ship</span>
     <span class="kw">if</span> exists(<img src="1499956814235.png" />):
         <span class="skw">click</span>(<img src="1499956814235.png" />)
@@ -102,9 +104,17 @@ hover(<img src="1499957259515.png" />)
 <span class="skw">click</span>(<img src="1499956459323.png" />)
 hover(<img src="1499957259515.png" />)
 
-<span class="skw">click</span>(Pattern(<img src="1499966616577.png" />).similar(<span class="dig">0.90</span>))
+<span class="skw">click</span>(Pattern(<img src="1502634102077.png" />).similar(<span class="dig">0.95</span>))
 <span class="skw">click</span>(<img src="1499956562272.png" />)
 hover(<img src="1499957259515.png" />)
+
+<span class="kw">if</span> FLEET_NUMBER == <span class="dig">2</span>:
+    <span class="skw">click</span>(<img src="fleet_2.png" />)
+<span class="kw">if</span> FLEET_NUMBER == <span class="dig">3</span>:
+    <span class="skw">click</span>(<img src="fleet_3.png" />)
+<span class="kw">if</span> FLEET_NUMBER == <span class="dig">4</span>:
+    <span class="skw">click</span>(<img src="fleet_4.png" />)
+
 <span class="skw">click</span>(<img src="1499956601222.png" />)
 
 accept_battle_results()
