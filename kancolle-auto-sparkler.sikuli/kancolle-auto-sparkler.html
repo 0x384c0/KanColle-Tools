@@ -70,57 +70,93 @@
 <h2>kancolle-auto-sparkler.sikuli</h2> <a href="kancolle-auto-sparkler.zip">(Download this script)</a>
 </div>
 <pre class="sikuli-code">
+<span class="kw">from</span> random <span class="kw">import</span> randrange, uniform
+
 WAIT_TIMEOUT = <span class="dig">10</span>
-FLEET_NUMBER = <span class="dig">4</span>
+FLEET_NUMBER = <span class="dig">1</span>
 setAutoWaitTimeout(WAIT_TIMEOUT)
+
+<span class="kw">def</span> sleep_random(min,max):
+    time = uniform(min, max)
+    LONG_DELAY_CHANCE = <span class="dig">0.1</span>
+    <span class="kw">if</span> time &gt; max - (max - min) * LONG_DELAY_CHANCE:
+        time = time * <span class="dig">2</span>
+    <span class="skw">sleep</span>(time)
+
+<span class="kw">def</span> click_random(pic, out_of_area_click = False):
+    sleep_random(<span class="dig">0.2</span>, <span class="dig">1.8</span>)
+    match = <span class="skw">find</span>(pic)
+    h = match.getH()
+    w = match.getW()
+    h_offset = randrange(-(h/<span class="dig">2</span>), h/<span class="dig">2</span>)
+    w_offset = randrange(-(w/<span class="dig">2</span>), w/<span class="dig">2</span>)
+    <span class="kw">if</span> out_of_area_click:
+        h_offset = h_offset - randrange(<span class="dig">0</span>, <span class="dig">200</span>)
+        w_offset = h_offset - randrange(<span class="dig">0</span>, <span class="dig">200</span>)
+
+    pattern = Pattern(pic).targetOffset(w_offset,h_offset)
+    <span class="skw">click</span>(pattern)
+
 <span class="kw">def</span> accept_battle_results():
     <span class="kw">print</span>(<span class="str">"wait for battle finish"</span>)
 
     <span class="kw">while</span> True:
         <span class="cmt"># night battle</span>
         <span class="kw">if</span> exists(<img src="1499960148905.png" />):
-            <span class="skw">click</span>(<img src="1499957281501.png" />)
+            click_random(<img src="1499957281501.png" />)
             <span class="kw">break</span>
 
         <span class="cmt"># battle results</span>
         <span class="kw">if</span> exists(<img src="1499956703868.png" />):
             <span class="kw">break</span>
-        <span class="skw">sleep</span>(<span class="dig">1</span>)
+        sleep_random(<span class="dig">1</span>,<span class="dig">1.5</span>)
 
     <span class="kw">print</span>(<span class="str">"battle finished"</span>)
     <span class="cmt"># wait for end </span>
     <span class="skw">wait</span>(<img src="1499956703868.png" />,FOREVER)
-    <span class="skw">click</span>(<img src="1499956703868.png" />)
-    <span class="skw">sleep</span>(<span class="dig">1</span>)
-    <span class="skw">click</span>(<img src="1499956703868.png" />)
+    click_random(<img src="1499956703868.png" />,out_of_area_click = True)
+    sleep_random(<span class="dig">1</span>,<span class="dig">1.5</span>)
+    click_random(<img src="1499956703868.png" />,out_of_area_click = True)
     waitVanish(<img src="1502635171297.png" />)
     <span class="cmt"># new ship</span>
     <span class="kw">if</span> exists(<img src="1499956814235.png" />):
-        <span class="skw">click</span>(<img src="1499956814235.png" />)
+        click_random(<img src="1499956814235.png" />,out_of_area_click = True)
+    sleep_random(<span class="dig">0.5</span>,<span class="dig">1.0</span>)
 
 
-<span class="skw">click</span>(<img src="1499956402975.png" />)
+
+
+<span class="cmt"># main</span>
+<span class="kw">if</span> <span class="kw">not</span> exists(<img src="1499956402975.png" />,<span class="dig">0</span>):
+    <span class="kw">print</span>(<span class="str">"going to home"</span>)
+    click_random(<img src="menu_side_home.png" />)
+
+<span class="kw">print</span>(<span class="str">"Beginning"</span>)
+click_random(<img src="1499956402975.png" />)
 hover(<img src="1499957259515.png" />)
-<span class="skw">click</span>(<img src="1499956459323.png" />)
+click_random(<img src="1499956459323.png" />)
 hover(<img src="1499957259515.png" />)
+<span class="skw">wait</span>(<img src="1502723824704.png" />)
+sleep_random(<span class="dig">0.5</span>,<span class="dig">1.0</span>)
 
-<span class="skw">click</span>(Pattern(<img src="1502634102077.png" />).similar(<span class="dig">0.95</span>))
+click_random(Pattern(<img src="1502634102077.png" />).similar(<span class="dig">0.95</span>))
 <span class="skw">click</span>(<img src="1499956562272.png" />)
 hover(<img src="1499957259515.png" />)
 
 <span class="kw">if</span> FLEET_NUMBER == <span class="dig">2</span>:
-    <span class="skw">click</span>(<img src="fleet_2.png" />)
+    click_random(<img src="fleet_2.png" />)
 <span class="kw">if</span> FLEET_NUMBER == <span class="dig">3</span>:
-    <span class="skw">click</span>(<img src="fleet_3.png" />)
+    click_random(<img src="fleet_3.png" />)
 <span class="kw">if</span> FLEET_NUMBER == <span class="dig">4</span>:
-    <span class="skw">click</span>(<img src="fleet_4.png" />)
+    click_random(<img src="fleet_4.png" />)
 
-<span class="skw">click</span>(<img src="1499956601222.png" />)
+click_random(<img src="1499956601222.png" />)
 
 accept_battle_results()
 
-<span class="skw">click</span>(<img src="1499956999900.png" />)
-<span class="skw">click</span>(<img src="1499957036043.png" />)
+click_random(<img src="1499956999900.png" />)
+<span class="skw">wait</span>(<img src="1499957036043.png" />,FOREVER)
+click_random(<img src="1499957036043.png" />)
 hover(<img src="1499957259515.png" />)
 accept_battle_results()
 </pre>
