@@ -73,7 +73,7 @@
 <span class="kw">from</span> random <span class="kw">import</span> randrange, uniform
 
 WAIT_TIMEOUT = <span class="dig">10</span>
-FLEET_NUMBER = <span class="dig">1</span>
+FLEET_NUMBER = <span class="dig">2</span>
 setAutoWaitTimeout(WAIT_TIMEOUT)
 
 <span class="kw">def</span> sleep_random(min,max):
@@ -82,6 +82,7 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
     <span class="kw">if</span> time &gt; max - (max - min) * LONG_DELAY_CHANCE:
         time = time * <span class="dig">2</span>
     <span class="skw">sleep</span>(time)
+
 
 <span class="kw">def</span> click_random(pic, out_of_area_click = False):
     sleep_random(<span class="dig">0.2</span>, <span class="dig">1.8</span>)
@@ -96,6 +97,11 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
 
     pattern = Pattern(pic).targetOffset(w_offset,h_offset)
     <span class="skw">click</span>(pattern)
+
+<span class="kw">def</span> check_taiha():
+    <span class="kw">if</span> exists(Pattern(<img src="1504453740301.png" />).exact(),<span class="dig">0.5</span>):
+        <span class="kw">print</span> <span class="str">"Error: TAIHA"</span>
+        exit(<span class="dig">1</span>)
 
 <span class="kw">def</span> accept_battle_results():
     <span class="kw">print</span>(<span class="str">"wait for battle finish"</span>)
@@ -127,6 +133,7 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
 
 
 <span class="cmt"># main</span>
+check_taiha()
 <span class="kw">if</span> <span class="kw">not</span> exists(<img src="1499956402975.png" />,<span class="dig">0</span>):
     <span class="kw">print</span>(<span class="str">"going to home"</span>)
     click_random(<img src="menu_side_home.png" />)
@@ -150,12 +157,13 @@ hover(<img src="1499957259515.png" />)
 <span class="kw">if</span> FLEET_NUMBER == <span class="dig">4</span>:
     click_random(<img src="fleet_4.png" />)
 
+
 click_random(<img src="1499956601222.png" />)
 
 accept_battle_results()
-
+check_taiha()
 click_random(<img src="1499956999900.png" />)
-<span class="skw">wait</span>(<img src="1499957036043.png" />,FOREVER)
+<span class="skw">wait</span>(<img src="1499957036043.png" />,<span class="dig">25</span>)
 click_random(<img src="1499957036043.png" />)
 hover(<img src="1499957259515.png" />)
 accept_battle_results()

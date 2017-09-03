@@ -1,7 +1,7 @@
 from random import randrange, uniform
 
 WAIT_TIMEOUT = 10
-FLEET_NUMBER = 1
+FLEET_NUMBER = 2
 setAutoWaitTimeout(WAIT_TIMEOUT)
 
 def sleep_random(min,max):
@@ -10,6 +10,7 @@ def sleep_random(min,max):
     if time > max - (max - min) * LONG_DELAY_CHANCE:
         time = time * 2
     sleep(time)
+
 
 def click_random(pic, out_of_area_click = False):
     sleep_random(0.2, 1.8)
@@ -25,6 +26,11 @@ def click_random(pic, out_of_area_click = False):
     pattern = Pattern(pic).targetOffset(w_offset,h_offset)
     click(pattern)
 
+def check_taiha():
+    if exists(Pattern("1504453740301.png").exact(),0.5):
+        print "Error: TAIHA"
+        exit(1)
+    
 def accept_battle_results():
     print("wait for battle finish")
 
@@ -55,6 +61,7 @@ def accept_battle_results():
 
 
 # main
+check_taiha()
 if not exists("1499956402975.png",0):
     print("going to home")
     click_random("menu_side_home.png")
@@ -77,13 +84,14 @@ if FLEET_NUMBER == 3:
     click_random("fleet_3.png")
 if FLEET_NUMBER == 4:
     click_random("fleet_4.png")
+    
    
 click_random("1499956601222.png")
 
 accept_battle_results()
-    
+check_taiha()
 click_random("1499956999900.png")
-wait("1499957036043.png",FOREVER)
+wait("1499957036043.png",25)
 click_random("1499957036043.png")
 hover("1499957259515.png")
 accept_battle_results()
