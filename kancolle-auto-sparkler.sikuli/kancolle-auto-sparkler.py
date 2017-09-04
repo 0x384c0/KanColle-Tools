@@ -26,9 +26,16 @@ def click_random(pic, out_of_area_click = False):
     pattern = Pattern(pic).targetOffset(w_offset,h_offset)
     click(pattern)
 
+def check_fleet():
+    if not exists(Pattern("1504531102816.png").exact()):
+        print "ERROR: wrong fleet"
+        exit(1)
+        
+        
+
 def check_taiha():
     if exists(Pattern("1504453740301.png").exact(),0.5):
-        print "Error: TAIHA"
+        print "ERROR: taiha"
         exit(1)
     
 def accept_battle_results():
@@ -85,7 +92,8 @@ if FLEET_NUMBER == 3:
 if FLEET_NUMBER == 4:
     click_random("fleet_4.png")
     
-   
+
+check_fleet()
 click_random("1499956601222.png")
 
 accept_battle_results()

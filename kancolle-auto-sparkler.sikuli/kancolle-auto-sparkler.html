@@ -98,9 +98,16 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
     pattern = Pattern(pic).targetOffset(w_offset,h_offset)
     <span class="skw">click</span>(pattern)
 
+<span class="kw">def</span> check_fleet():
+    <span class="kw">if</span> <span class="kw">not</span> exists(Pattern(<img src="1504531102816.png" />).exact()):
+        <span class="kw">print</span> <span class="str">"ERROR: wrong fleet"</span>
+        exit(<span class="dig">1</span>)
+
+
+
 <span class="kw">def</span> check_taiha():
     <span class="kw">if</span> exists(Pattern(<img src="1504453740301.png" />).exact(),<span class="dig">0.5</span>):
-        <span class="kw">print</span> <span class="str">"Error: TAIHA"</span>
+        <span class="kw">print</span> <span class="str">"ERROR: taiha"</span>
         exit(<span class="dig">1</span>)
 
 <span class="kw">def</span> accept_battle_results():
@@ -158,6 +165,7 @@ hover(<img src="1499957259515.png" />)
     click_random(<img src="fleet_4.png" />)
 
 
+check_fleet()
 click_random(<img src="1499956601222.png" />)
 
 accept_battle_results()
