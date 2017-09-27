@@ -25,11 +25,6 @@ def click_random(pic, out_of_area_click = False):
     
     pattern = Pattern(pic).targetOffset(w_offset,h_offset)
     click(pattern)
-
-def check_fleet():
-    if not exists(Pattern("1504531102816.png").exact()):
-        print "ERROR: wrong fleet"
-        exit(1)
         
         
 
@@ -65,6 +60,11 @@ def accept_battle_results():
     sleep_random(0.5,1.0)
 
 
+
+def check_fleet():
+    if not exists(Pattern("1504531102816.png").exact()):
+        print "ERROR: wrong fleet"
+        exit(1)
 
 
 # main
