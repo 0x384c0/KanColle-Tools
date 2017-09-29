@@ -10,15 +10,11 @@ LONG_WAIT_TIMEOUT = 50
 setAutoWaitTimeout(WAIT_TIMEOUT)
 
 # BASICS
-def sllep_random(min,max):
-    time = uniform(min, max)
-    LONG_DELAY_CHANCE = 0.05
-    if time > max - (max - min) * LONG_DELAY_CHANCE:
-        time = time * 2
-    sleep(time)
+def sleep_random(min,max):
+    sleep(uniform(min, max))
 
 def click_random(pic, out_of_area_click = False):
-    sleep_random(0.2, 1.8)
+    sleep_random(0.2, 1)
     match = find(pic)
     h = match.getH()
     w = match.getW()
@@ -31,7 +27,10 @@ def click_random(pic, out_of_area_click = False):
     pattern = Pattern(pic).targetOffset(w_offset,h_offset)
     click(pattern)
 
-
+def wait_and_click(pic):
+    wait(pic,LONG_WAIT_TIMEOUT)
+    sleep(0.5)
+    click_random(pic)
 # GAME ACTIONS
 
 def check_taiha():
@@ -53,10 +52,10 @@ def go_home():
     print inspect.getframeinfo(inspect.currentframe()).function
     if not exists("menu_main_sortie.png",0):
         click_random("menu_side_home.png")
+    hover("chrome_refresh.png")
 
 def select_sortie_combat():
-        
-    click_random("menu_main_sortie.png")
+    wait_and_click("menu_main_sortie.png")
     hover("chrome_refresh.png")
     click_random("sortie_combat.png")
     hover("chrome_refresh.png")
@@ -68,20 +67,21 @@ def select_w_1_1():
     print inspect.getframeinfo(inspect.currentframe()).function
     select_sortie_combat()
     click_random("combat_panel_1-1.png")
-    ("decision.png")
+    wait_and_click("decision.png")
     hover("chrome_refresh.png")
     
 
 def select_w_3_2():
     print inspect.getframeinfo(inspect.currentframe()).function
     select_sortie_combat()
-    click_random(Pattern("ensei_area_03.png").similar(0.94))
+    click_random("ensei_area_03.png")
     click_random("combat_panel_3-2.png")
-    ("decision.png")
+    wait_and_click("decision.png")
     hover("chrome_refresh.png")
 
 
 def select_fleet(FLEET_NUMBER):
+    print inspect.getframeinfo(inspect.currentframe()).function
     if FLEET_NUMBER == 2:
         click_random("fleet_2.png")
     if FLEET_NUMBER == 3:
@@ -98,36 +98,36 @@ def accept_battle_results():
     print inspect.getframeinfo(inspect.currentframe()).function
     while True:
         # night battle
-        if exists("is_night_battle.png"):
+        if exists("is_night_battle.png",3):
             click_random("combat_nb_retreat.png")
             break
             
         # battle results
-        if exists("next.png"):
+        if exists("next.png",3):
             break
         sleep_random(1,1.5)
             
     # wait for end 
     wait("next.png",FOREVER)
+    sleep(0.5)
     click_random("next.png",out_of_area_click = True)
     sleep_random(1,1.5)
     click_random("next.png",out_of_area_click = True)
     waitVanish("friend_fleet_area.png")
     # new ship
-    if exists("next_alt.png"):
+    if exists("next_alt.png",3):
+        sleep(0.5)
         click_random("next_alt.png",out_of_area_click = True)
     sleep_random(0.5,1.0)
 
 
 def compass():
     print inspect.getframeinfo(inspect.currentframe()).function
-    wait("compass.png",LONG_WAIT_TIMEOUT)
-    click_random("compass.png")
+    wait_and_click("compass.png")
 
 def line_ahead():
     print inspect.getframeinfo(inspect.currentframe()).function
-    wait(Pattern("line_ahead.png").similar(0.97),LONG_WAIT_TIMEOUT)
-    click_random(Pattern("line_ahead.png").similar(0.97))
+    wait_and_click(Pattern("line_ahead.png").similar(0.97))
 
 
 def next_node():
@@ -139,10 +139,10 @@ def rethreat():
     click_random("combat_retreat.png")
 
 def accept_expeditions():
+    print inspect.getframeinfo(inspect.currentframe()).function
     wait("menu_main_sortie.png",180)
-    sleep(3)
-    while exists("expedition_finish.png"):
-        sleep(3)
+    sleep(2)
+    while exists("expedition_finish.png",0.3):
         print "--CAWD-- INFO: Fleet was returned. Welcome home, my darlings"
         click_random("expedition_finish.png")
         wait("next.png",20)
@@ -151,17 +151,14 @@ def accept_expeditions():
         sleep(3)
         click_random("next.png",out_of_area_click = True)
         wait("menu_main_sortie.png",180)
-        sleep(3)
+        sleep(1.5)
         
     
 
 def resupply():
     print inspect.getframeinfo(inspect.currentframe()).function
-    wait("menu_main_resupply.png",LONG_WAIT_TIMEOUT)
-    click_random("menu_main_resupply.png")
-    wait("resupply_all.png")
-    sleep(1)
-    click_random("resupply_all.png")
+    wait_and_click("menu_main_resupply.png")
+    wait_and_click(Pattern("resupply_all.png").similar(0.95))
     sleep(1)
     wait("resupply_not_available.png")
     sleep(1)

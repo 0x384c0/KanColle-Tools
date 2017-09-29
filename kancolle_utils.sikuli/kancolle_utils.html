@@ -82,15 +82,11 @@ LONG_WAIT_TIMEOUT = <span class="dig">50</span>
 setAutoWaitTimeout(WAIT_TIMEOUT)
 
 <span class="cmt"># BASICS</span>
-<span class="kw">def</span> sllep_random(min,max):
-    time = uniform(min, max)
-    LONG_DELAY_CHANCE = <span class="dig">0.05</span>
-    <span class="kw">if</span> time &gt; max - (max - min) * LONG_DELAY_CHANCE:
-        time = time * <span class="dig">2</span>
-    <span class="skw">sleep</span>(time)
+<span class="kw">def</span> sleep_random(min,max):
+    <span class="skw">sleep</span>(uniform(min, max))
 
 <span class="kw">def</span> click_random(pic, out_of_area_click = False):
-    sleep_random(<span class="dig">0.2</span>, <span class="dig">1.8</span>)
+    sleep_random(<span class="dig">0.2</span>, <span class="dig">1</span>)
     match = <span class="skw">find</span>(pic)
     h = match.getH()
     w = match.getW()
@@ -103,7 +99,10 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
     pattern = Pattern(pic).targetOffset(w_offset,h_offset)
     <span class="skw">click</span>(pattern)
 
-
+<span class="kw">def</span> wait_and_click(pic):
+    <span class="skw">wait</span>(pic,LONG_WAIT_TIMEOUT)
+    <span class="skw">sleep</span>(<span class="dig">0.5</span>)
+    click_random(pic)
 <span class="cmt"># GAME ACTIONS</span>
 
 <span class="kw">def</span> check_taiha():
@@ -125,10 +124,10 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     <span class="kw">if</span> <span class="kw">not</span> exists(<img src="menu_main_sortie.png" />,<span class="dig">0</span>):
         click_random(<img src="menu_side_home.png" />)
+    hover(<img src="chrome_refresh.png" />)
 
 <span class="kw">def</span> select_sortie_combat():
-
-    click_random(<img src="menu_main_sortie.png" />)
+    wait_and_click(<img src="menu_main_sortie.png" />)
     hover(<img src="chrome_refresh.png" />)
     click_random(<img src="sortie_combat.png" />)
     hover(<img src="chrome_refresh.png" />)
@@ -140,20 +139,21 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     select_sortie_combat()
     click_random(<img src="combat_panel_1-1.png" />)
-    (<img src="decision.png" />)
+    wait_and_click(<img src="decision.png" />)
     hover(<img src="chrome_refresh.png" />)
 
 
 <span class="kw">def</span> select_w_3_2():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     select_sortie_combat()
-    click_random(Pattern(<img src="ensei_area_03.png" />).similar(<span class="dig">0.94</span>))
+    click_random(<img src="ensei_area_03.png" />)
     click_random(<img src="combat_panel_3-2.png" />)
-    (<img src="decision.png" />)
+    wait_and_click(<img src="decision.png" />)
     hover(<img src="chrome_refresh.png" />)
 
 
 <span class="kw">def</span> select_fleet(FLEET_NUMBER):
+    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     <span class="kw">if</span> FLEET_NUMBER == <span class="dig">2</span>:
         click_random(<img src="fleet_2.png" />)
     <span class="kw">if</span> FLEET_NUMBER == <span class="dig">3</span>:
@@ -170,36 +170,36 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     <span class="kw">while</span> True:
         <span class="cmt"># night battle</span>
-        <span class="kw">if</span> exists(<img src="is_night_battle.png" />):
+        <span class="kw">if</span> exists(<img src="is_night_battle.png" />,<span class="dig">3</span>):
             click_random(<img src="combat_nb_retreat.png" />)
             <span class="kw">break</span>
 
         <span class="cmt"># battle results</span>
-        <span class="kw">if</span> exists(<img src="next.png" />):
+        <span class="kw">if</span> exists(<img src="next.png" />,<span class="dig">3</span>):
             <span class="kw">break</span>
         sleep_random(<span class="dig">1</span>,<span class="dig">1.5</span>)
 
     <span class="cmt"># wait for end </span>
     <span class="skw">wait</span>(<img src="next.png" />,FOREVER)
+    <span class="skw">sleep</span>(<span class="dig">0.5</span>)
     click_random(<img src="next.png" />,out_of_area_click = True)
     sleep_random(<span class="dig">1</span>,<span class="dig">1.5</span>)
     click_random(<img src="next.png" />,out_of_area_click = True)
     waitVanish(<img src="friend_fleet_area.png" />)
     <span class="cmt"># new ship</span>
-    <span class="kw">if</span> exists(<img src="next_alt.png" />):
+    <span class="kw">if</span> exists(<img src="next_alt.png" />,<span class="dig">3</span>):
+        <span class="skw">sleep</span>(<span class="dig">0.5</span>)
         click_random(<img src="next_alt.png" />,out_of_area_click = True)
     sleep_random(<span class="dig">0.5</span>,<span class="dig">1.0</span>)
 
 
 <span class="kw">def</span> compass():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    <span class="skw">wait</span>(<img src="compass.png" />,LONG_WAIT_TIMEOUT)
-    click_random(<img src="compass.png" />)
+    wait_and_click(<img src="compass.png" />)
 
 <span class="kw">def</span> line_ahead():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    <span class="skw">wait</span>(Pattern(<img src="line_ahead.png" />).similar(<span class="dig">0.97</span>),LONG_WAIT_TIMEOUT)
-    click_random(Pattern(<img src="line_ahead.png" />).similar(<span class="dig">0.97</span>))
+    wait_and_click(Pattern(<img src="line_ahead.png" />).similar(<span class="dig">0.97</span>))
 
 
 <span class="kw">def</span> next_node():
@@ -211,10 +211,10 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
     click_random(<img src="combat_retreat.png" />)
 
 <span class="kw">def</span> accept_expeditions():
+    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     <span class="skw">wait</span>(<img src="menu_main_sortie.png" />,<span class="dig">180</span>)
-    <span class="skw">sleep</span>(<span class="dig">3</span>)
-    <span class="kw">while</span> exists(<img src="expedition_finish.png" />):
-        <span class="skw">sleep</span>(<span class="dig">3</span>)
+    <span class="skw">sleep</span>(<span class="dig">2</span>)
+    <span class="kw">while</span> exists(<img src="expedition_finish.png" />,<span class="dig">0.3</span>):
         <span class="kw">print</span> <span class="str">"--CAWD-- INFO: Fleet was returned. Welcome home, my darlings"</span>
         click_random(<img src="expedition_finish.png" />)
         <span class="skw">wait</span>(<img src="next.png" />,<span class="dig">20</span>)
@@ -223,17 +223,14 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
         <span class="skw">sleep</span>(<span class="dig">3</span>)
         click_random(<img src="next.png" />,out_of_area_click = True)
         <span class="skw">wait</span>(<img src="menu_main_sortie.png" />,<span class="dig">180</span>)
-        <span class="skw">sleep</span>(<span class="dig">3</span>)
+        <span class="skw">sleep</span>(<span class="dig">1.5</span>)
 
 
 
 <span class="kw">def</span> resupply():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    <span class="skw">wait</span>(<img src="menu_main_resupply.png" />,LONG_WAIT_TIMEOUT)
-    click_random(<img src="menu_main_resupply.png" />)
-    <span class="skw">wait</span>(<img src="resupply_all.png" />)
-    <span class="skw">sleep</span>(<span class="dig">1</span>)
-    click_random(<img src="resupply_all.png" />)
+    wait_and_click(<img src="menu_main_resupply.png" />)
+    wait_and_click(Pattern(<img src="resupply_all.png" />).similar(<span class="dig">0.95</span>))
     <span class="skw">sleep</span>(<span class="dig">1</span>)
     <span class="skw">wait</span>(<img src="resupply_not_available.png" />)
     <span class="skw">sleep</span>(<span class="dig">1</span>)
