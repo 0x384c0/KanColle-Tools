@@ -70,143 +70,20 @@
 <h2>kancolle-auto-w2-3.sikuli</h2> <a href="kancolle-auto-w2-3.zip">(Download this script)</a>
 </div>
 <pre class="sikuli-code">
-<span class="kw">from</span> random <span class="kw">import</span> randrange, uniform
-
-WAIT_TIMEOUT = <span class="dig">20</span>
-LONG_WAIT_TIMEOUT = <span class="dig">50</span>
-setAutoWaitTimeout(WAIT_TIMEOUT)
-
-<span class="kw">def</span> sleep_random(min,max):
-    time = uniform(min, max)
-    LONG_DELAY_CHANCE = <span class="dig">0.05</span>
-    <span class="kw">if</span> time &gt; max - (max - min) * LONG_DELAY_CHANCE:
-        time = time * <span class="dig">2</span>
-    <span class="skw">sleep</span>(time)
-
-
-<span class="kw">def</span> click_random(pic, out_of_area_click = False):
-    sleep_random(<span class="dig">0.2</span>, <span class="dig">1.8</span>)
-    match = <span class="skw">find</span>(pic)
-    h = match.getH()
-    w = match.getW()
-    h_offset = randrange(-(h/<span class="dig">2</span>), h/<span class="dig">2</span>)
-    w_offset = randrange(-(w/<span class="dig">2</span>), w/<span class="dig">2</span>)
-    <span class="kw">if</span> out_of_area_click:
-        h_offset = h_offset - randrange(<span class="dig">0</span>, <span class="dig">200</span>)
-        w_offset = h_offset - randrange(<span class="dig">0</span>, <span class="dig">200</span>)
-
-    pattern = Pattern(pic).targetOffset(w_offset,h_offset)
-    <span class="skw">click</span>(pattern)
-
-
-
-<span class="kw">def</span> check_taiha():
-    <span class="kw">if</span> exists(Pattern(<img src="kc3_fleet_taiha.png" />).similar(<span class="dig">0.95</span>),<span class="dig">0.5</span>):
-        <span class="kw">print</span> <span class="str">"ERROR: taiha"</span>
-        exit(<span class="dig">1</span>)
-    <span class="kw">if</span> exists(<img src="kc3_fleet_critical_state.png" />,<span class="dig">0.5</span>):
-        <span class="kw">print</span> <span class="str">"ERROR: critical"</span>
-        exit(<span class="dig">1</span>)
-
-    <span class="cmt"># check is kc3 working</span>
-    <span class="skw">wait</span>(<img src="kc3_1st_fleet_selected.png" />)
-    <span class="skw">click</span>(<img src="kc3_combined_button.png" />)
-    <span class="skw">click</span>(<img src="kc3_1st_fleet_button.png" />)
-
-    <span class="kw">print</span> <span class="str">"ships are OK"</span>
-
-<span class="kw">def</span> go_home():
-    <span class="kw">if</span> <span class="kw">not</span> exists(<img src="menu_main_sortie.png" />,<span class="dig">0</span>):
-        click_random(<img src="menu_side_home.png" />)
-
-<span class="kw">def</span> select_w_3_2():
-
-    click_random(<img src="menu_main_sortie.png" />)
-    hover(<img src="chrome_refresh.png" />)
-    click_random(<img src="sortie_combat.png" />)
-    hover(<img src="chrome_refresh.png" />)
-    <span class="skw">wait</span>(<img src="select_world.png" />)
-    sleep_random(<span class="dig">0.5</span>,<span class="dig">1.0</span>)
-    click_random(Pattern(<img src="ensei_area_03.png" />).similar(<span class="dig">0.94</span>))
-    click_random(<img src="combat_panel_3-2.png" />)
-    <span class="skw">click</span>(<img src="decision.png" />)
-    hover(<img src="chrome_refresh.png" />)
-
-<span class="kw">def</span> accept_battle_results():
-
-    <span class="kw">while</span> True:
-        <span class="cmt"># night battle</span>
-        <span class="kw">if</span> exists(<img src="is_night_battle.png" />):
-            click_random(<img src="combat_nb_retreat.png" />)
-            <span class="kw">break</span>
-
-        <span class="cmt"># battle results</span>
-        <span class="kw">if</span> exists(<img src="next.png" />):
-            <span class="kw">break</span>
-        sleep_random(<span class="dig">1</span>,<span class="dig">1.5</span>)
-
-    <span class="cmt"># wait for end </span>
-    <span class="skw">wait</span>(<img src="next.png" />,FOREVER)
-    click_random(<img src="next.png" />,out_of_area_click = True)
-    sleep_random(<span class="dig">1</span>,<span class="dig">1.5</span>)
-    click_random(<img src="next.png" />,out_of_area_click = True)
-    waitVanish(<img src="friend_fleet_area.png" />)
-    <span class="cmt"># new ship</span>
-    <span class="kw">if</span> exists(<img src="next_alt.png" />):
-        click_random(<img src="next_alt.png" />,out_of_area_click = True)
-    sleep_random(<span class="dig">0.5</span>,<span class="dig">1.0</span>)
-
-<span class="kw">def</span> begin_battle():
-    check_taiha() <span class="cmt"># safety - is number one priority</span>
-    click_random(<img src="combat_start.png" />)
-
-<span class="kw">def</span> compass():
-    <span class="skw">wait</span>(<img src="compass.png" />,LONG_WAIT_TIMEOUT)
-    click_random(<img src="compass.png" />)
-
-<span class="kw">def</span> line_ahead():
-    <span class="skw">wait</span>(Pattern(<img src="line_ahead.png" />).similar(<span class="dig">0.97</span>),LONG_WAIT_TIMEOUT)
-    click_random(Pattern(<img src="line_ahead.png" />).similar(<span class="dig">0.97</span>))
-
-<span class="kw">def</span> rethreat():
-    hover(<img src="chrome_refresh.png" />)
-    click_random(<img src="combat_retreat.png" />)
-
-<span class="kw">def</span> resupply():
-    <span class="skw">wait</span>(<img src="menu_main_resupply.png" />,LONG_WAIT_TIMEOUT)
-    click_random(<img src="menu_main_resupply.png" />)
-    <span class="skw">wait</span>(<img src="resupply_all.png" />)
-    <span class="skw">sleep</span>(<span class="dig">1</span>)
-    click_random(<img src="resupply_all.png" />)
-    <span class="skw">sleep</span>(<span class="dig">1</span>)
-    <span class="skw">wait</span>(<img src="resupply_not_available.png" />)
-    <span class="skw">sleep</span>(<span class="dig">1</span>)
-
-
+<span class="kw">from</span>  kancolle_utils <span class="kw">import</span> *
 
 <span class="cmt"># main</span>
 <span class="kw">while</span> True:
     <span class="kw">print</span> <span class="str">"BEGIN LOOP"</span>
-
-    <span class="kw">print</span> <span class="str">"check_taiha"</span>
     check_taiha()
-    <span class="kw">print</span> <span class="str">"go_home"</span>
     go_home()
-    <span class="kw">print</span> <span class="str">"select_w"</span>
     select_w_3_2()
-    <span class="kw">print</span> <span class="str">"begin_battle"</span>
     begin_battle()
-    <span class="kw">print</span> <span class="str">"compass"</span>
     compass()
-    <span class="kw">print</span> <span class="str">"line_ahead"</span>
     line_ahead()
-    <span class="kw">print</span> <span class="str">"accept_battle_results"</span>
     accept_battle_results()
-    <span class="kw">print</span> <span class="str">"rethreat"</span>
     rethreat()
-    <span class="kw">print</span> <span class="str">"resupply"</span>
     resupply()
-
     <span class="kw">print</span> <span class="str">"END LOOP"</span>
 </pre>
 </body>
