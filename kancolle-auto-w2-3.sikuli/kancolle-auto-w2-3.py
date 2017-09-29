@@ -5,11 +5,13 @@ while True:
     print "BEGIN LOOP"
     check_taiha()
     go_home()
+    accept_expeditions()
     select_w_3_2()
     begin_battle()
     compass()
     line_ahead()
     accept_battle_results()
     rethreat()
+    accept_expeditions()
     resupply()
     print "END LOOP"

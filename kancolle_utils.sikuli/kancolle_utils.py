@@ -54,8 +54,7 @@ def go_home():
     if not exists("menu_main_sortie.png",0):
         click_random("menu_side_home.png")
 
-def select_w_3_2():
-    print inspect.getframeinfo(inspect.currentframe()).function
+def select_sortie_combat():
         
     click_random("menu_main_sortie.png")
     hover("chrome_refresh.png")
@@ -63,11 +62,38 @@ def select_w_3_2():
     hover("chrome_refresh.png")
     wait("select_world.png")
     sleep_random(0.5,1.0)
-    click_random(Pattern("ensei_area_03.png").similar(0.94))
-    click_random("combat_panel_3-2.png")
-    click("decision.png")
+    
+
+def select_w_1_1():
+    print inspect.getframeinfo(inspect.currentframe()).function
+    select_sortie_combat()
+    click_random("combat_panel_1-1.png")
+    ("decision.png")
     hover("chrome_refresh.png")
     
+
+def select_w_3_2():
+    print inspect.getframeinfo(inspect.currentframe()).function
+    select_sortie_combat()
+    click_random(Pattern("ensei_area_03.png").similar(0.94))
+    click_random("combat_panel_3-2.png")
+    ("decision.png")
+    hover("chrome_refresh.png")
+
+
+def select_fleet(FLEET_NUMBER):
+    if FLEET_NUMBER == 2:
+        click_random("fleet_2.png")
+    if FLEET_NUMBER == 3:
+        click_random("fleet_3.png")
+    if FLEET_NUMBER == 4:
+        click_random("fleet_4.png")
+
+def begin_battle():
+    print inspect.getframeinfo(inspect.currentframe()).function
+    check_taiha() # safety - is number one priority
+    click_random("combat_start.png")
+
 def accept_battle_results():
     print inspect.getframeinfo(inspect.currentframe()).function
     while True:
@@ -92,10 +118,6 @@ def accept_battle_results():
         click_random("next_alt.png",out_of_area_click = True)
     sleep_random(0.5,1.0)
 
-def begin_battle():
-    print inspect.getframeinfo(inspect.currentframe()).function
-    check_taiha() # safety - is number one priority
-    click_random("combat_start.png")
 
 def compass():
     print inspect.getframeinfo(inspect.currentframe()).function
@@ -107,10 +129,31 @@ def line_ahead():
     wait(Pattern("line_ahead.png").similar(0.97),LONG_WAIT_TIMEOUT)
     click_random(Pattern("line_ahead.png").similar(0.97))
 
+
+def next_node():
+    click_random("combat_nextnode.png")
+
 def rethreat():
     print inspect.getframeinfo(inspect.currentframe()).function
     hover("chrome_refresh.png")
     click_random("combat_retreat.png")
+
+def accept_expeditions():
+    wait("menu_main_sortie.png",180)
+    sleep(3)
+    while exists("expedition_finish.png"):
+        sleep(3)
+        print "--CAWD-- INFO: Fleet was returned. Welcome home, my darlings"
+        click_random("expedition_finish.png")
+        wait("next.png",20)
+        sleep(3)
+        click_random("next.png",out_of_area_click = True)
+        sleep(3)
+        click_random("next.png",out_of_area_click = True)
+        wait("menu_main_sortie.png",180)
+        sleep(3)
+        
+    
 
 def resupply():
     print inspect.getframeinfo(inspect.currentframe()).function
