@@ -103,6 +103,21 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
     <span class="skw">wait</span>(pic,LONG_WAIT_TIMEOUT)
     <span class="skw">sleep</span>(<span class="dig">0.5</span>)
     click_random(pic)
+
+<span class="kw">def</span> remove_cursor():
+    hover(Location(<span class="dig">0</span>,<span class="dig">0</span>))
+
+<span class="kw">def</span> show_kancolle_page():
+    <span class="kw">if</span> exists(Pattern(<img src="chrome_kancolle_page_icon.png" />).similar(<span class="dig">0.90</span>)):
+        <span class="skw">click</span>(Pattern(<img src="chrome_kancolle_page_icon.png" />).similar(<span class="dig">0.90</span>))
+    <span class="skw">sleep</span>(<span class="dig">2</span>)
+
+<span class="kw">def</span> hide_kancolle_page():
+    <span class="kw">if</span> exists(<img src="chrome_empty_tab_header.png" />):
+        <span class="skw">click</span>(<img src="chrome_empty_tab_header.png" />)
+    <span class="kw">else</span>:
+        <span class="skw">click</span>(<img src="chrome_new_tab_button.png" />)
+
 <span class="cmt"># GAME ACTIONS</span>
 
 <span class="kw">def</span> check_taiha():
@@ -124,23 +139,45 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     <span class="kw">if</span> <span class="kw">not</span> exists(<img src="menu_main_sortie.png" />,<span class="dig">0</span>):
         click_random(<img src="menu_side_home.png" />)
-    hover(<img src="chrome_refresh.png" />)
+    remove_cursor()
+
+
+<span class="kw">def</span> refresh_home():
+    <span class="skw">sleep</span>(<span class="dig">2</span>)
+    remove_cursor()
+    <span class="kw">if</span> exists(<img src="menu_main_sortie.png" />):
+        click_random(<img src="menu_main_sortie.png" />)
+        <span class="skw">wait</span>(<img src="sortie_combat.png" />,<span class="dig">60</span> * <span class="dig">3</span>)
+        <span class="skw">sleep</span>(<span class="dig">2</span>)
+    go_home()
 
 <span class="kw">def</span> select_sortie_combat():
     wait_and_click(<img src="menu_main_sortie.png" />)
-    hover(<img src="chrome_refresh.png" />)
+    remove_cursor()
     click_random(<img src="sortie_combat.png" />)
-    hover(<img src="chrome_refresh.png" />)
+    remove_cursor()
     <span class="skw">wait</span>(<img src="select_world.png" />)
     sleep_random(<span class="dig">0.5</span>,<span class="dig">1.0</span>)
 
+
+
+
+<span class="kw">def</span> select_fleet(FLEET_NUMBER):
+    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
+    <span class="kw">if</span> FLEET_NUMBER == <span class="dig">2</span>:
+        <span class="kw">if</span> <span class="kw">not</span> exists(<img src="fleet_2s.png" />):
+            click_random(<img src="fleet_2.png" />)
+    <span class="kw">if</span> FLEET_NUMBER == <span class="dig">3</span>:
+        click_random(<img src="fleet_3.png" />)
+    <span class="kw">if</span> FLEET_NUMBER == <span class="dig">4</span>:
+        click_random(<img src="fleet_4.png" />)
 
 <span class="kw">def</span> select_w_1_1():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     select_sortie_combat()
     click_random(<img src="combat_panel_1-1.png" />)
     wait_and_click(<img src="decision.png" />)
-    hover(<img src="chrome_refresh.png" />)
+    remove_cursor()
 
 
 <span class="kw">def</span> select_w_3_2():
@@ -149,17 +186,9 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
     click_random(<img src="ensei_area_03.png" />)
     click_random(<img src="combat_panel_3-2.png" />)
     wait_and_click(<img src="decision.png" />)
-    hover(<img src="chrome_refresh.png" />)
+    remove_cursor()
 
 
-<span class="kw">def</span> select_fleet(FLEET_NUMBER):
-    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    <span class="kw">if</span> FLEET_NUMBER == <span class="dig">2</span>:
-        click_random(<img src="fleet_2.png" />)
-    <span class="kw">if</span> FLEET_NUMBER == <span class="dig">3</span>:
-        click_random(<img src="fleet_3.png" />)
-    <span class="kw">if</span> FLEET_NUMBER == <span class="dig">4</span>:
-        click_random(<img src="fleet_4.png" />)
 
 <span class="kw">def</span> begin_battle():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
@@ -187,7 +216,8 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
     click_random(<img src="next.png" />,out_of_area_click = True)
     waitVanish(<img src="friend_fleet_area.png" />)
     <span class="cmt"># new ship</span>
-    <span class="kw">if</span> exists(<img src="next_alt.png" />,<span class="dig">3</span>):
+    <span class="skw">sleep</span>(<span class="dig">1</span>)
+    <span class="kw">if</span> exists(<img src="next_alt.png" />,<span class="dig">6</span>):
         <span class="skw">sleep</span>(<span class="dig">0.5</span>)
         click_random(<img src="next_alt.png" />,out_of_area_click = True)
     sleep_random(<span class="dig">0.5</span>,<span class="dig">1.0</span>)
@@ -207,7 +237,7 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
 
 <span class="kw">def</span> rethreat():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    hover(<img src="chrome_refresh.png" />)
+    remove_cursor()
     click_random(<img src="combat_retreat.png" />)
 
 <span class="kw">def</span> accept_expeditions():
@@ -226,13 +256,56 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
         <span class="skw">sleep</span>(<span class="dig">1.5</span>)
 
 
-
 <span class="kw">def</span> resupply():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     wait_and_click(<img src="menu_main_resupply.png" />)
     wait_and_click(Pattern(<img src="resupply_all.png" />).similar(<span class="dig">0.95</span>))
     <span class="skw">sleep</span>(<span class="dig">1</span>)
     <span class="skw">wait</span>(<img src="resupply_not_available.png" />)
+    <span class="skw">sleep</span>(<span class="dig">1</span>)
+
+<span class="cmt">#EXPED</span>
+<span class="kw">def</span> send_fleet_to_expedition(fleet_number,expedition_number):
+    <span class="kw">if</span> <span class="kw">not</span> exists(<img src="sortie_top_combat.png" />):
+        <span class="cmt"># go to exp screen</span>
+        wait_and_click(<img src="menu_main_sortie.png" />)
+        remove_cursor()
+        click_random(<img src="sortie_expedition.png" />)
+        remove_cursor()
+        <span class="skw">wait</span>(<img src="sortie_top_combat.png" />)
+        <span class="skw">sleep</span>(<span class="dig">1</span>)
+    <span class="cmt"># on exp screen</span>
+    expeditions = {
+            <span class="dig">2</span>      : Pattern(<img src="ensei_name_02.png" />).similar(<span class="dig">0.95</span>),
+            <span class="dig">6</span>      : Pattern(<img src="ensei_name_06.png" />).similar(<span class="dig">0.95</span>),
+            <span class="dig">21</span>     : Pattern(<img src="ensei_name_21.png" />).similar(<span class="dig">0.95</span>),
+            <span class="dig">38</span>     : Pattern(<img src="ensei_name_38.png" />).similar(<span class="dig">0.95</span>)
+            }
+    expedition_world = {
+            <span class="dig">2</span>      : Pattern(<img src="ensei_area_01.png" />).similar(<span class="dig">0.95</span>),
+            <span class="dig">6</span>      : Pattern(<img src="ensei_area_01.png" />).similar(<span class="dig">0.95</span>),
+            <span class="dig">21</span>     : Pattern(<img src="ensei_area_03.png" />).similar(<span class="dig">0.95</span>),
+            <span class="dig">38</span>     : Pattern(<img src="ensei_area_05.png" />).similar(<span class="dig">0.95</span>)
+            }
+
+    <span class="kw">if</span> exists(expedition_world[expedition_number]):
+        click_random(expedition_world[expedition_number])
+        <span class="skw">sleep</span>(<span class="dig">1</span>)
+    click_random(expeditions[expedition_number])
+    <span class="kw">if</span> exists(Pattern(<img src="decision.png" />).similar(<span class="dig">0.95</span>)):
+        click_random(<img src="decision.png" />)
+        select_fleet(fleet_number)
+        remove_cursor()
+        <span class="skw">sleep</span>(<span class="dig">1</span>)
+        <span class="cmt"># resupply</span>
+        <span class="kw">if</span> exists(<img src="temporary_resupply.png" />):
+            click_random(<img src="temporary_resupply.png" />)
+            <span class="skw">sleep</span>(<span class="dig">2</span>)
+            <span class="skw">wait</span>(<img src="fleet_stats.png" />)
+
+        <span class="cmt"># send exp</span>
+        wait_and_click(Pattern(<img src="ensei_start.png" />).similar(<span class="dig">0.95</span>))
+        <span class="skw">wait</span>(<img src="exp_started.png" />)
     <span class="skw">sleep</span>(<span class="dig">1</span>)
 </pre>
 </body>
