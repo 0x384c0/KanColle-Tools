@@ -3,6 +3,7 @@ from sikuli import *
 from org.sikuli.script import *
 from time import sleep
 import inspect
+import datetime
 
 # SETTINGS
 WAIT_TIMEOUT = 20
@@ -36,8 +37,8 @@ def remove_cursor():
     hover(Location(0,0))
     
 def show_kancolle_page():
-    if exists(Pattern("chrome_kancolle_page_icon.png").similar(0.90)):
-        click(Pattern("chrome_kancolle_page_icon.png").similar(0.90))
+    if exists(Pattern("chrome_kancolle_page_icon.png").similar(0.80)):
+        click(Pattern("chrome_kancolle_page_icon.png").similar(0.80))
     sleep(2)
 
 def hide_kancolle_page():
@@ -45,6 +46,18 @@ def hide_kancolle_page():
         click("chrome_empty_tab_header.png")
     else:
         click("chrome_new_tab_button.png")
+
+
+
+last_crash_date = datetime.datetime(2000,01,01)
+def check_crash_frequency(e):
+    global last_crash_date
+    minutes_since_last_crash = (datetime.datetime.now() - last_crash_date).total_seconds() / 60
+    if (minutes_since_last_crash < 5):
+        print "CRASHED after " + str(minutes_since_last_crash) + " min."
+        print e
+        exit()
+    last_crash_date = datetime.datetime.now()
 
 # GAME ACTIONS
 
@@ -204,23 +217,23 @@ def send_fleet_to_expedition(fleet_number,expedition_number):
         sleep(1)
     # on exp screen
     expeditions = {
-            2      : Pattern("ensei_name_02.png").similar(0.95),
-            6      : Pattern("ensei_name_06.png").similar(0.95),
-            21     : Pattern("ensei_name_21.png").similar(0.95),
-            38     : Pattern("ensei_name_38.png").similar(0.95)
+            2      : Pattern("ensei_name_02.png").similar(0.90),
+            6      : Pattern("ensei_name_06.png").similar(0.90),
+            21     : Pattern("ensei_name_21.png").similar(0.90),
+            38     : Pattern("ensei_name_38.png").similar(0.90)
             }
     expedition_world = {
-            2      : Pattern("ensei_area_01.png").similar(0.95),
-            6      : Pattern("ensei_area_01.png").similar(0.95),
-            21     : Pattern("ensei_area_03.png").similar(0.95),
-            38     : Pattern("ensei_area_05.png").similar(0.95)
+            2      : "ensei_area_01.png",
+            6      : "ensei_area_01.png",
+            21     : "ensei_area_03.png",
+            38     : "ensei_area_05.png"
             }
 
     if exists(expedition_world[expedition_number]):
         click_random(expedition_world[expedition_number])
         sleep(1)
     click_random(expeditions[expedition_number])
-    if exists(Pattern("decision.png").similar(0.95)):
+    if exists("decision.png"):
         click_random("decision.png")
         select_fleet(fleet_number)
         remove_cursor()
@@ -232,7 +245,7 @@ def send_fleet_to_expedition(fleet_number,expedition_number):
             wait("fleet_stats.png")
             
         # send exp
-        wait_and_click(Pattern("ensei_start.png").similar(0.95))
+        wait_and_click("ensei_start.png")
         wait("exp_started.png")
     sleep(1)
   

@@ -73,17 +73,22 @@
 <span class="kw">from</span>  kancolle_utils <span class="kw">import</span> *
 
 <span class="cmt"># main</span>
+<span class="kw">def</span> main_loop():
+    <span class="kw">while</span> True:
+        show_kancolle_page()
+        refresh_home()
+        accept_expeditions()
+        send_fleet_to_expedition(<span class="dig">2</span>,<span class="dig">2</span>)
+        send_fleet_to_expedition(<span class="dig">3</span>,<span class="dig">21</span>)
+        send_fleet_to_expedition(<span class="dig">4</span>,<span class="dig">38</span>)
+        hide_kancolle_page()
+        sleep_random(<span class="dig">60</span> * <span class="dig">15</span>,<span class="dig">60</span> * <span class="dig">25</span>)
+
 <span class="kw">while</span> True:
-    <span class="kw">print</span> <span class="str">"BEGIN LOOP"</span>
-    show_kancolle_page()
-    refresh_home()
-    accept_expeditions()
-    send_fleet_to_expedition(<span class="dig">2</span>,<span class="dig">2</span>)
-    send_fleet_to_expedition(<span class="dig">3</span>,<span class="dig">21</span>)
-    send_fleet_to_expedition(<span class="dig">4</span>,<span class="dig">38</span>)
-    hide_kancolle_page()
-    sleep_random(<span class="dig">60</span> * <span class="dig">15</span>,<span class="dig">60</span> * <span class="dig">25</span>)
-    <span class="kw">print</span> <span class="str">"END LOOP"</span>
+    <span class="kw">try</span>:
+        main_loop()
+    <span class="kw">except</span> FindFailed, e:
+        check_crash_frequency(e)
 </pre>
 </body>
 </html>
