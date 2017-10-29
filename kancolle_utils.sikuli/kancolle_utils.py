@@ -53,9 +53,9 @@ last_crash_date = datetime.datetime(2000,01,01)
 def check_crash_frequency(e):
     global last_crash_date
     minutes_since_last_crash = (datetime.datetime.now() - last_crash_date).total_seconds() / 60
+    print "CRASHED after " + str(minutes_since_last_crash) + " min."
+    print e
     if (minutes_since_last_crash < 5):
-        print "CRASHED after " + str(minutes_since_last_crash) + " min."
-        print e
         exit()
     last_crash_date = datetime.datetime.now()
 
@@ -151,9 +151,9 @@ def accept_battle_results():
             
     # wait for end 
     wait("next.png",FOREVER)
-    sleep(0.5)
+    sleep(5)
     click_random("next.png",out_of_area_click = True)
-    sleep_random(1,1.5)
+    sleep_random(4,5)
     click_random("next.png",out_of_area_click = True)
     waitVanish("friend_fleet_area.png")
     # new ship
@@ -247,5 +247,5 @@ def send_fleet_to_expedition(fleet_number,expedition_number):
         # send exp
         wait_and_click("ensei_start.png")
         wait("exp_started.png")
-    sleep(1)
+    sleep(5)
   

@@ -125,9 +125,9 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
 <span class="kw">def</span> check_crash_frequency(e):
     <span class="kw">global</span> last_crash_date
     minutes_since_last_crash = (datetime.datetime.now() - last_crash_date).total_seconds() / <span class="dig">60</span>
+    <span class="kw">print</span> <span class="str">"CRASHED after "</span> + str(minutes_since_last_crash) + <span class="str">" min."</span>
+    <span class="kw">print</span> e
     <span class="kw">if</span> (minutes_since_last_crash &lt; <span class="dig">5</span>):
-        <span class="kw">print</span> <span class="str">"CRASHED after "</span> + str(minutes_since_last_crash) + <span class="str">" min."</span>
-        <span class="kw">print</span> e
         exit()
     last_crash_date = datetime.datetime.now()
 
@@ -223,9 +223,9 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
 
     <span class="cmt"># wait for end </span>
     <span class="skw">wait</span>(<img src="next.png" />,FOREVER)
-    <span class="skw">sleep</span>(<span class="dig">0.5</span>)
+    <span class="skw">sleep</span>(<span class="dig">5</span>)
     click_random(<img src="next.png" />,out_of_area_click = True)
-    sleep_random(<span class="dig">1</span>,<span class="dig">1.5</span>)
+    sleep_random(<span class="dig">4</span>,<span class="dig">5</span>)
     click_random(<img src="next.png" />,out_of_area_click = True)
     waitVanish(<img src="friend_fleet_area.png" />)
     <span class="cmt"># new ship</span>
@@ -319,7 +319,7 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
         <span class="cmt"># send exp</span>
         wait_and_click(<img src="ensei_start.png" />)
         <span class="skw">wait</span>(<img src="exp_started.png" />)
-    <span class="skw">sleep</span>(<span class="dig">1</span>)
+    <span class="skw">sleep</span>(<span class="dig">5</span>)
 </pre>
 </body>
 </html>
