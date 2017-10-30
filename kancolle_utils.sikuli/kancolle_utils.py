@@ -247,7 +247,7 @@ def send_fleet_to_expedition(fleet_number,expedition_number):
         if exists("temporary_resupply.png"):
             click_random("temporary_resupply.png")
             sleep(2)
-            wait("fleet_stats.png")
+            wait("1509338929184.png")
             
         # send exp
         wait_and_click("ensei_start.png")
