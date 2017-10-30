@@ -15,6 +15,7 @@ def sleep_random(min,max):
     sleep(uniform(min, max))
 
 def click_random(pic, out_of_area_click = False):
+    print inspect.getframeinfo(inspect.currentframe()).function + " " + pic
     sleep_random(0.2, 1)
     match = find(pic)
     h = match.getH()
@@ -37,11 +38,13 @@ def remove_cursor():
     hover(Location(0,0))
     
 def show_kancolle_page():
+    print inspect.getframeinfo(inspect.currentframe()).function
     if exists(Pattern("chrome_kancolle_page_icon.png").similar(0.80)):
         click(Pattern("chrome_kancolle_page_icon.png").similar(0.80))
     sleep(2)
 
 def hide_kancolle_page():
+    print inspect.getframeinfo(inspect.currentframe()).function
     if exists("chrome_empty_tab_header.png"):
         click("chrome_empty_tab_header.png")
     else:
@@ -84,6 +87,7 @@ def go_home():
 
 
 def refresh_home():
+    print inspect.getframeinfo(inspect.currentframe()).function
     sleep(2)
     remove_cursor()
     if exists("menu_main_sortie.png"):
@@ -93,6 +97,7 @@ def refresh_home():
     go_home()
 
 def select_sortie_combat():
+    print inspect.getframeinfo(inspect.currentframe()).function
     wait_and_click("menu_main_sortie.png")
     remove_cursor()
     click_random("sortie_combat.png")
@@ -189,9 +194,9 @@ def accept_expeditions():
         print "--CAWD-- INFO: Fleet was returned. Welcome home, my darlings"
         click_random("expedition_finish.png")
         wait("next.png",20)
-        sleep(3)
+        sleep(5)
         click_random("next.png",out_of_area_click = True)
-        sleep(3)
+        sleep(5)
         click_random("next.png",out_of_area_click = True)
         wait("menu_main_sortie.png",180)
         sleep(1.5)
