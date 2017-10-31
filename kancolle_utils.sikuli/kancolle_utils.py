@@ -15,7 +15,7 @@ def sleep_random(min,max):
     sleep(uniform(min, max))
 
 def click_random(pic, out_of_area_click = False):
-    print inspect.getframeinfo(inspect.currentframe()).function + " " + pic
+    print str(inspect.getframeinfo(inspect.currentframe()).function) + " " + str(pic)
     sleep_random(0.2, 1)
     match = find(pic)
     h = match.getH()
@@ -245,9 +245,10 @@ def send_fleet_to_expedition(fleet_number,expedition_number):
         sleep(1)
         # resupply
         if exists("temporary_resupply.png"):
+            sleep(2)
             click_random("temporary_resupply.png")
             sleep(2)
-            wait("1509338929184.png")
+            wait(Pattern("fleet_stats.png").similar(0.60))
             
         # send exp
         wait_and_click("ensei_start.png")

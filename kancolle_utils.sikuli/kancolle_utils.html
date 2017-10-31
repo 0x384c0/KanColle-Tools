@@ -87,6 +87,7 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
     <span class="skw">sleep</span>(uniform(min, max))
 
 <span class="kw">def</span> click_random(pic, out_of_area_click = False):
+    <span class="kw">print</span> str(inspect.getframeinfo(inspect.currentframe()).function) + <span class="str">" "</span> + str(pic)
     sleep_random(<span class="dig">0.2</span>, <span class="dig">1</span>)
     match = <span class="skw">find</span>(pic)
     h = match.getH()
@@ -109,11 +110,13 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
     hover(Location(<span class="dig">0</span>,<span class="dig">0</span>))
 
 <span class="kw">def</span> show_kancolle_page():
+    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     <span class="kw">if</span> exists(Pattern(<img src="chrome_kancolle_page_icon.png" />).similar(<span class="dig">0.80</span>)):
         <span class="skw">click</span>(Pattern(<img src="chrome_kancolle_page_icon.png" />).similar(<span class="dig">0.80</span>))
     <span class="skw">sleep</span>(<span class="dig">2</span>)
 
 <span class="kw">def</span> hide_kancolle_page():
+    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     <span class="kw">if</span> exists(<img src="chrome_empty_tab_header.png" />):
         <span class="skw">click</span>(<img src="chrome_empty_tab_header.png" />)
     <span class="kw">else</span>:
@@ -156,6 +159,7 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
 
 
 <span class="kw">def</span> refresh_home():
+    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     <span class="skw">sleep</span>(<span class="dig">2</span>)
     remove_cursor()
     <span class="kw">if</span> exists(<img src="menu_main_sortie.png" />):
@@ -165,6 +169,7 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
     go_home()
 
 <span class="kw">def</span> select_sortie_combat():
+    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     wait_and_click(<img src="menu_main_sortie.png" />)
     remove_cursor()
     click_random(<img src="sortie_combat.png" />)
@@ -261,9 +266,9 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
         <span class="kw">print</span> <span class="str">"--CAWD-- INFO: Fleet was returned. Welcome home, my darlings"</span>
         click_random(<img src="expedition_finish.png" />)
         <span class="skw">wait</span>(<img src="next.png" />,<span class="dig">20</span>)
-        <span class="skw">sleep</span>(<span class="dig">3</span>)
+        <span class="skw">sleep</span>(<span class="dig">5</span>)
         click_random(<img src="next.png" />,out_of_area_click = True)
-        <span class="skw">sleep</span>(<span class="dig">3</span>)
+        <span class="skw">sleep</span>(<span class="dig">5</span>)
         click_random(<img src="next.png" />,out_of_area_click = True)
         <span class="skw">wait</span>(<img src="menu_main_sortie.png" />,<span class="dig">180</span>)
         <span class="skw">sleep</span>(<span class="dig">1.5</span>)
@@ -312,9 +317,10 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
         <span class="skw">sleep</span>(<span class="dig">1</span>)
         <span class="cmt"># resupply</span>
         <span class="kw">if</span> exists(<img src="temporary_resupply.png" />):
+            <span class="skw">sleep</span>(<span class="dig">2</span>)
             click_random(<img src="temporary_resupply.png" />)
             <span class="skw">sleep</span>(<span class="dig">2</span>)
-            <span class="skw">wait</span>(<img src="1509338929184.png" />)
+            <span class="skw">wait</span>(Pattern(<img src="fleet_stats.png" />).similar(<span class="dig">0.60</span>))
 
         <span class="cmt"># send exp</span>
         wait_and_click(<img src="ensei_start.png" />)
