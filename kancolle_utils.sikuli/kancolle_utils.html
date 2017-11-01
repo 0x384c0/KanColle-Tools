@@ -79,7 +79,7 @@
 
 <span class="cmt"># SETTINGS</span>
 WAIT_TIMEOUT = <span class="dig">20</span>
-LONG_WAIT_TIMEOUT = <span class="dig">50</span>
+LONG_WAIT_TIMEOUT = <span class="dig">60</span> * <span class="dig">3</span>
 setAutoWaitTimeout(WAIT_TIMEOUT)
 
 <span class="cmt"># BASICS</span>
@@ -153,8 +153,13 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
 
 <span class="kw">def</span> go_home():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    <span class="kw">if</span> <span class="kw">not</span> exists(<img src="menu_main_sortie.png" />,<span class="dig">0</span>):
+    <span class="kw">if</span> <span class="kw">not</span> exists(<img src="menu_main_sortie.png" />,<span class="dig">0</span>) <span class="kw">and</span> <span class="kw">not</span> exists(<img src="next.png" />):
         click_random(<img src="menu_side_home.png" />)
+    <span class="skw">sleep</span>(<span class="dig">5</span>)
+    <span class="kw">while</span> exists(<img src="next.png" />):
+        click_random(<img src="next.png" />,out_of_area_click = True)
+        sleep_random(<span class="dig">4</span>,<span class="dig">5</span>)
+
     remove_cursor()
 
 
@@ -164,7 +169,7 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
     remove_cursor()
     <span class="kw">if</span> exists(<img src="menu_main_sortie.png" />):
         click_random(<img src="menu_main_sortie.png" />)
-        <span class="skw">wait</span>(<img src="sortie_combat.png" />,<span class="dig">60</span> * <span class="dig">3</span>)
+        <span class="skw">wait</span>(<img src="sortie_combat.png" />,LONG_WAIT_TIMEOUT)
         <span class="skw">sleep</span>(<span class="dig">2</span>)
     go_home()
 
@@ -174,7 +179,7 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
     remove_cursor()
     click_random(<img src="sortie_combat.png" />)
     remove_cursor()
-    <span class="skw">wait</span>(<img src="select_world.png" />)
+    <span class="skw">wait</span>(<img src="select_world.png" />,WAIT_TIMEOUT)
     sleep_random(<span class="dig">0.5</span>,<span class="dig">1.0</span>)
 
 
@@ -260,17 +265,17 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
 
 <span class="kw">def</span> accept_expeditions():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    <span class="skw">wait</span>(<img src="menu_main_sortie.png" />,<span class="dig">180</span>)
+    <span class="skw">wait</span>(<img src="menu_main_sortie.png" />,LONG_WAIT_TIMEOUT)
     <span class="skw">sleep</span>(<span class="dig">2</span>)
     <span class="kw">while</span> exists(<img src="expedition_finish.png" />,<span class="dig">0.3</span>):
         <span class="kw">print</span> <span class="str">"--CAWD-- INFO: Fleet was returned. Welcome home, my darlings"</span>
         click_random(<img src="expedition_finish.png" />)
-        <span class="skw">wait</span>(<img src="next.png" />,<span class="dig">20</span>)
+        <span class="skw">wait</span>(<img src="next.png" />,WAIT_TIMEOUT)
         <span class="skw">sleep</span>(<span class="dig">5</span>)
         click_random(<img src="next.png" />,out_of_area_click = True)
         <span class="skw">sleep</span>(<span class="dig">5</span>)
         click_random(<img src="next.png" />,out_of_area_click = True)
-        <span class="skw">wait</span>(<img src="menu_main_sortie.png" />,<span class="dig">180</span>)
+        <span class="skw">wait</span>(<img src="menu_main_sortie.png" />,LONG_WAIT_TIMEOUT)
         <span class="skw">sleep</span>(<span class="dig">1.5</span>)
 
 
@@ -279,7 +284,7 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
     wait_and_click(<img src="menu_main_resupply.png" />)
     wait_and_click(Pattern(<img src="resupply_all.png" />).similar(<span class="dig">0.95</span>))
     <span class="skw">sleep</span>(<span class="dig">1</span>)
-    <span class="skw">wait</span>(<img src="resupply_not_available.png" />)
+    <span class="skw">wait</span>(<img src="resupply_not_available.png" />,WAIT_TIMEOUT)
     <span class="skw">sleep</span>(<span class="dig">1</span>)
 
 <span class="cmt">#EXPED</span>
@@ -290,7 +295,7 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
         remove_cursor()
         click_random(<img src="sortie_expedition.png" />)
         remove_cursor()
-        <span class="skw">wait</span>(<img src="sortie_top_combat.png" />)
+        <span class="skw">wait</span>(<img src="sortie_top_combat.png" />,WAIT_TIMEOUT)
         <span class="skw">sleep</span>(<span class="dig">1</span>)
     <span class="cmt"># on exp screen</span>
     expeditions = {
@@ -320,11 +325,11 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
             <span class="skw">sleep</span>(<span class="dig">2</span>)
             click_random(<img src="temporary_resupply.png" />)
             <span class="skw">sleep</span>(<span class="dig">2</span>)
-            <span class="skw">wait</span>(Pattern(<img src="fleet_stats.png" />).similar(<span class="dig">0.60</span>))
+            <span class="skw">wait</span>(Pattern(<img src="fleet_stats.png" />).similar(<span class="dig">0.60</span>),WAIT_TIMEOUT)
 
         <span class="cmt"># send exp</span>
         wait_and_click(<img src="ensei_start.png" />)
-        <span class="skw">wait</span>(<img src="exp_started.png" />)
+        <span class="skw">wait</span>(<img src="exp_started.png" />,WAIT_TIMEOUT)
     <span class="skw">sleep</span>(<span class="dig">5</span>)
 </pre>
 </body>

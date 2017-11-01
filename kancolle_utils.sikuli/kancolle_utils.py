@@ -7,7 +7,7 @@ import datetime
 
 # SETTINGS
 WAIT_TIMEOUT = 20
-LONG_WAIT_TIMEOUT = 50
+LONG_WAIT_TIMEOUT = 60 * 3
 setAutoWaitTimeout(WAIT_TIMEOUT)
 
 # BASICS
@@ -81,8 +81,13 @@ def check_taiha():
 
 def go_home():
     print inspect.getframeinfo(inspect.currentframe()).function
-    if not exists("menu_main_sortie.png",0):
+    if not exists("menu_main_sortie.png",0) and not exists("next.png"):
         click_random("menu_side_home.png")
+    sleep(5)
+    while exists("next.png"):
+        click_random("next.png",out_of_area_click = True)
+        sleep_random(4,5)
+        
     remove_cursor()
 
 
@@ -92,7 +97,7 @@ def refresh_home():
     remove_cursor()
     if exists("menu_main_sortie.png"):
         click_random("menu_main_sortie.png")
-        wait("sortie_combat.png",60 * 3)
+        wait("sortie_combat.png",LONG_WAIT_TIMEOUT)
         sleep(2)
     go_home()
 
@@ -102,7 +107,7 @@ def select_sortie_combat():
     remove_cursor()
     click_random("sortie_combat.png")
     remove_cursor()
-    wait("select_world.png")
+    wait("select_world.png",WAIT_TIMEOUT)
     sleep_random(0.5,1.0)
     
 
@@ -188,17 +193,17 @@ def rethreat():
 
 def accept_expeditions():
     print inspect.getframeinfo(inspect.currentframe()).function
-    wait("menu_main_sortie.png",180)
+    wait("menu_main_sortie.png",LONG_WAIT_TIMEOUT)
     sleep(2)
     while exists("expedition_finish.png",0.3):
         print "--CAWD-- INFO: Fleet was returned. Welcome home, my darlings"
         click_random("expedition_finish.png")
-        wait("next.png",20)
+        wait("next.png",WAIT_TIMEOUT)
         sleep(5)
         click_random("next.png",out_of_area_click = True)
         sleep(5)
         click_random("next.png",out_of_area_click = True)
-        wait("menu_main_sortie.png",180)
+        wait("menu_main_sortie.png",LONG_WAIT_TIMEOUT)
         sleep(1.5)
         
 
@@ -207,7 +212,7 @@ def resupply():
     wait_and_click("menu_main_resupply.png")
     wait_and_click(Pattern("resupply_all.png").similar(0.95))
     sleep(1)
-    wait("resupply_not_available.png")
+    wait("resupply_not_available.png",WAIT_TIMEOUT)
     sleep(1)
 
 #EXPED
@@ -218,7 +223,7 @@ def send_fleet_to_expedition(fleet_number,expedition_number):
         remove_cursor()
         click_random("sortie_expedition.png")
         remove_cursor()
-        wait("sortie_top_combat.png")
+        wait("sortie_top_combat.png",WAIT_TIMEOUT)
         sleep(1)
     # on exp screen
     expeditions = {
@@ -248,10 +253,10 @@ def send_fleet_to_expedition(fleet_number,expedition_number):
             sleep(2)
             click_random("temporary_resupply.png")
             sleep(2)
-            wait(Pattern("fleet_stats.png").similar(0.60))
+            wait(Pattern("fleet_stats.png").similar(0.60),WAIT_TIMEOUT)
             
         # send exp
         wait_and_click("ensei_start.png")
-        wait("exp_started.png")
+        wait("exp_started.png",WAIT_TIMEOUT)
     sleep(5)
   
