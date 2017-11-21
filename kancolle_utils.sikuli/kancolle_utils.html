@@ -124,6 +124,15 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
 
 
 
+<span class="kw">def</span> recover(e):
+    check_crash_frequency(e)
+    remove_cursor()
+    <span class="skw">click</span>(Pattern(<img src="chrome_to_window_mode.png" />).similar(<span class="dig">0.80</span>))
+    <span class="skw">sleep</span>(<span class="dig">1</span>)
+    remove_cursor()
+    <span class="skw">click</span>(Pattern(<img src="chrome_to_fullscreen_mode.png" />).similar(<span class="dig">0.80</span>))
+
+
 last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="dig">01</span>,<span class="dig">01</span>)
 <span class="kw">def</span> check_crash_frequency(e):
     <span class="kw">global</span> last_crash_date
@@ -236,6 +245,8 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
     <span class="skw">sleep</span>(<span class="dig">5</span>)
     click_random(<img src="next.png" />,out_of_area_click = True)
     sleep_random(<span class="dig">4</span>,<span class="dig">5</span>)
+    <span class="skw">wait</span>(<img src="next.png" />)
+    is_taiha_after_battle()
     click_random(<img src="next.png" />,out_of_area_click = True)
     waitVanish(<img src="friend_fleet_area.png" />)
     <span class="cmt"># new ship</span>
@@ -244,6 +255,12 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
         <span class="skw">sleep</span>(<span class="dig">0.5</span>)
         click_random(<img src="next_alt.png" />,out_of_area_click = True)
     sleep_random(<span class="dig">0.5</span>,<span class="dig">1.0</span>)
+
+<span class="kw">def</span> is_taiha_after_battle():
+    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
+    <span class="kw">if</span> exists(<img src="dmg_critical.png" />,<span class="dig">5</span>):
+        <span class="kw">print</span> <span class="str">"ERROR: taiha"</span>
+        exit(<span class="dig">1</span>)
 
 
 <span class="kw">def</span> compass():

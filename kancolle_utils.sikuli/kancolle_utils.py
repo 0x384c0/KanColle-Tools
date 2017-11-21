@@ -52,6 +52,15 @@ def hide_kancolle_page():
 
 
 
+def recover(e):
+    check_crash_frequency(e)
+    remove_cursor()
+    click(Pattern("chrome_to_window_mode.png").similar(0.80))
+    sleep(1)
+    remove_cursor()
+    click(Pattern("chrome_to_fullscreen_mode.png").similar(0.80))
+    
+
 last_crash_date = datetime.datetime(2000,01,01)
 def check_crash_frequency(e):
     global last_crash_date
@@ -164,6 +173,8 @@ def accept_battle_results():
     sleep(5)
     click_random("next.png",out_of_area_click = True)
     sleep_random(4,5)
+    wait("next.png")
+    is_taiha_after_battle()
     click_random("next.png",out_of_area_click = True)
     waitVanish("friend_fleet_area.png")
     # new ship
@@ -173,6 +184,12 @@ def accept_battle_results():
         click_random("next_alt.png",out_of_area_click = True)
     sleep_random(0.5,1.0)
 
+def is_taiha_after_battle():
+    print inspect.getframeinfo(inspect.currentframe()).function
+    if exists("dmg_critical.png",5):
+        print "ERROR: taiha"
+        exit(1)     
+    
 
 def compass():
     print inspect.getframeinfo(inspect.currentframe()).function

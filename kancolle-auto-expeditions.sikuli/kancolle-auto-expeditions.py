@@ -16,4 +16,4 @@ while True:
     try:
         main_loop()
     except FindFailed, e:
-        check_crash_frequency(e)
+        recover(e)
