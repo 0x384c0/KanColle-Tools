@@ -245,12 +245,14 @@ def send_fleet_to_expedition(fleet_number,expedition_number):
     # on exp screen
     expeditions = {
             2      : Pattern("ensei_name_02.png").similar(0.90),
+            5      : Pattern("ensei_name_05.png").similar(0.90),
             6      : Pattern("ensei_name_06.png").similar(0.90),
             21     : Pattern("ensei_name_21.png").similar(0.90),
             38     : Pattern("ensei_name_38.png").similar(0.90)
             }
     expedition_world = {
             2      : "ensei_area_01.png",
+            5      : "ensei_area_01.png",
             6      : "ensei_area_01.png",
             21     : "ensei_area_03.png",
             38     : "ensei_area_05.png"
