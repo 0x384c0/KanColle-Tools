@@ -67,29 +67,12 @@
    </head>
 <body>
 <div class="info">
-<h2>kancolle-auto-sparkler.sikuli</h2> <a href="kancolle-auto-sparkler.zip">(Download this script)</a>
+<h2>kancolle_auto_recover.sikuli</h2> <a href="kancolle_auto_recover.zip">(Download this script)</a>
 </div>
 <pre class="sikuli-code">
 <span class="kw">from</span>  kancolle_utils <span class="kw">import</span> *
 
-FLEET_NUMBER = <span class="dig">2</span>
-
-<span class="kw">def</span> check_fleet_for_sparkling():
-    <span class="kw">if</span> <span class="kw">not</span> exists(Pattern(<img src="three_ships_fleet.png" />).exact()):
-        <span class="kw">print</span> <span class="str">"ERROR: wrong fleet"</span>
-        exit(<span class="dig">1</span>)
-
-<span class="cmt"># main</span>
-go_home()
-accept_expeditions()
-select_w_1_1()
-select_fleet(FLEET_NUMBER)
-check_fleet_for_sparkling()
-begin_battle()
-accept_battle_results()
-next_node()
-compass()
-accept_battle_results()
+<span class="kw">def</span> recover_cancolle_auto():
 </pre>
 </body>
 </html>

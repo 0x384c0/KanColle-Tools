@@ -150,7 +150,7 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
     <span class="kw">if</span> exists(Pattern(<img src="kc3_fleet_taiha.png" />).similar(<span class="dig">0.95</span>),<span class="dig">0.5</span>):
         <span class="kw">print</span> <span class="str">"ERROR: taiha"</span>
         exit(<span class="dig">1</span>)
-    <span class="kw">if</span> exists(<img src="kc3_fleet_critical_state.png" />,<span class="dig">0.5</span>):
+    <span class="kw">if</span> exists(Pattern(<img src="kc3_fleet_critical_state.png" />).similar(<span class="dig">0.95</span>),<span class="dig">0.5</span>):
         <span class="kw">print</span> <span class="str">"ERROR: critical"</span>
         exit(<span class="dig">1</span>)
 
@@ -162,10 +162,12 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
 
 <span class="kw">def</span> go_home():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    <span class="kw">if</span> <span class="kw">not</span> exists(<img src="menu_main_sortie.png" />,<span class="dig">0</span>) <span class="kw">and</span> <span class="kw">not</span> exists(<img src="next.png" />):
+    <span class="kw">if</span> <span class="kw">not</span> exists(<img src="menu_main_sortie.png" />,<span class="dig">0.5</span>) <span class="kw">and</span> <span class="kw">not</span> exists(<img src="next.png" />,<span class="dig">0.5</span>):
         click_random(<img src="menu_side_home.png" />)
-    <span class="skw">sleep</span>(<span class="dig">5</span>)
-    <span class="kw">while</span> exists(<img src="next.png" />):
+    <span class="skw">sleep</span>(<span class="dig">1</span>)
+    <span class="skw">wait</span>(<img src="menu_main_sortie.png" />)
+    <span class="skw">sleep</span>(<span class="dig">1</span>)
+    <span class="kw">while</span> exists(<img src="next.png" />,<span class="dig">1</span>):
         click_random(<img src="next.png" />,out_of_area_click = True)
         sleep_random(<span class="dig">4</span>,<span class="dig">5</span>)
 
@@ -197,7 +199,7 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
 <span class="kw">def</span> select_fleet(FLEET_NUMBER):
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     <span class="kw">if</span> FLEET_NUMBER == <span class="dig">2</span>:
-        <span class="kw">if</span> <span class="kw">not</span> exists(<img src="fleet_2s.png" />):
+        <span class="kw">if</span> <span class="kw">not</span> exists(Pattern(<img src="fleet_2s.png" />).similar(<span class="dig">0.90</span>),<span class="dig">1</span>):
             click_random(<img src="fleet_2.png" />)
     <span class="kw">if</span> FLEET_NUMBER == <span class="dig">3</span>:
         click_random(<img src="fleet_3.png" />)
@@ -224,7 +226,7 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
 
 <span class="kw">def</span> begin_battle():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    check_taiha() <span class="cmt"># safety - is number one priority</span>
+    is_taiha_after_battle() <span class="cmt"># safety - is number one priority</span>
     click_random(<img src="combat_start.png" />)
 
 <span class="kw">def</span> accept_battle_results():
@@ -282,9 +284,11 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
 
 <span class="kw">def</span> accept_expeditions():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
+    <span class="kw">print</span> <span class="str">"1"</span>
     <span class="skw">wait</span>(<img src="menu_main_sortie.png" />,LONG_WAIT_TIMEOUT)
     <span class="skw">sleep</span>(<span class="dig">2</span>)
-    <span class="kw">while</span> exists(<img src="expedition_finish.png" />,<span class="dig">0.3</span>):
+    <span class="kw">print</span> <span class="str">"2"</span>
+    <span class="kw">while</span> exists(<img src="expedition_finish.png" />,<span class="dig">0.5</span>):
         <span class="kw">print</span> <span class="str">"--CAWD-- INFO: Fleet was returned. Welcome home, my darlings"</span>
         click_random(<img src="expedition_finish.png" />)
         <span class="skw">wait</span>(<img src="next.png" />,WAIT_TIMEOUT)
@@ -294,6 +298,7 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
         click_random(<img src="next.png" />,out_of_area_click = True)
         <span class="skw">wait</span>(<img src="menu_main_sortie.png" />,LONG_WAIT_TIMEOUT)
         <span class="skw">sleep</span>(<span class="dig">1.5</span>)
+    <span class="kw">print</span> <span class="str">"2"</span>
 
 
 <span class="kw">def</span> resupply():

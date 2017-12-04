@@ -78,7 +78,7 @@ def check_taiha():
     if exists(Pattern("kc3_fleet_taiha.png").similar(0.95),0.5):
         print "ERROR: taiha"
         exit(1)                                                                                                                            
-    if exists("kc3_fleet_critical_state.png",0.5):
+    if exists(Pattern("kc3_fleet_critical_state.png").similar(0.95),0.5):
         print "ERROR: critical"
         exit(1)
 
@@ -90,10 +90,12 @@ def check_taiha():
 
 def go_home():
     print inspect.getframeinfo(inspect.currentframe()).function
-    if not exists("menu_main_sortie.png",0) and not exists("next.png"):
+    if not exists("menu_main_sortie.png",0.5) and not exists("next.png",0.5):
         click_random("menu_side_home.png")
-    sleep(5)
-    while exists("next.png"):
+    sleep(1)
+    wait("menu_main_sortie.png")
+    sleep(1)
+    while exists("next.png",1):
         click_random("next.png",out_of_area_click = True)
         sleep_random(4,5)
         
@@ -125,7 +127,7 @@ def select_sortie_combat():
 def select_fleet(FLEET_NUMBER):
     print inspect.getframeinfo(inspect.currentframe()).function
     if FLEET_NUMBER == 2:
-        if not exists("fleet_2s.png"):
+        if not exists(Pattern("fleet_2s.png").similar(0.90),1):
             click_random("fleet_2.png")
     if FLEET_NUMBER == 3:
         click_random("fleet_3.png")
@@ -152,7 +154,7 @@ def select_w_3_2():
 
 def begin_battle():
     print inspect.getframeinfo(inspect.currentframe()).function
-    check_taiha() # safety - is number one priority
+    is_taiha_after_battle() # safety - is number one priority
     click_random("combat_start.png")
 
 def accept_battle_results():
@@ -210,9 +212,11 @@ def rethreat():
 
 def accept_expeditions():
     print inspect.getframeinfo(inspect.currentframe()).function
+    print "1"
     wait("menu_main_sortie.png",LONG_WAIT_TIMEOUT)
     sleep(2)
-    while exists("expedition_finish.png",0.3):
+    print "2"
+    while exists("expedition_finish.png",0.5):
         print "--CAWD-- INFO: Fleet was returned. Welcome home, my darlings"
         click_random("expedition_finish.png")
         wait("next.png",WAIT_TIMEOUT)
@@ -222,6 +226,7 @@ def accept_expeditions():
         click_random("next.png",out_of_area_click = True)
         wait("menu_main_sortie.png",LONG_WAIT_TIMEOUT)
         sleep(1.5)
+    print "2"
         
 
 def resupply():
