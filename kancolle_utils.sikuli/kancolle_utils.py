@@ -197,9 +197,13 @@ def compass():
     print inspect.getframeinfo(inspect.currentframe()).function
     wait_and_click("compass.png")
 
-def line_ahead():
+def formation_line_ahead():
     print inspect.getframeinfo(inspect.currentframe()).function
     wait_and_click(Pattern("line_ahead.png").similar(0.97))
+
+def formation_guard():
+    print inspect.getframeinfo(inspect.currentframe()).function
+    wait_and_click(Pattern("1512406978269.png").similar(0.85))
 
 
 def next_node():

@@ -269,9 +269,13 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     wait_and_click(<img src="compass.png" />)
 
-<span class="kw">def</span> line_ahead():
+<span class="kw">def</span> formation_line_ahead():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     wait_and_click(Pattern(<img src="line_ahead.png" />).similar(<span class="dig">0.97</span>))
+
+<span class="kw">def</span> formation_guard():
+    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
+    wait_and_click(Pattern(<img src="1512406978269.png" />).similar(<span class="dig">0.85</span>))
 
 
 <span class="kw">def</span> next_node():

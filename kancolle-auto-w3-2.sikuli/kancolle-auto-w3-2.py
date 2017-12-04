@@ -9,7 +9,7 @@ while True:
     select_w_3_2()
     begin_battle()
     compass()
-    line_ahead()
+    formation_guard()
     accept_battle_results()
     rethreat()
     accept_expeditions()
