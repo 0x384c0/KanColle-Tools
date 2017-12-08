@@ -154,7 +154,9 @@ def select_w_3_2():
 
 def begin_battle():
     print inspect.getframeinfo(inspect.currentframe()).function
-    is_taiha_after_battle() # safety - is number one priority
+    if is_taiha():
+        print "ERROR: taiha"
+        exit(1)# safety first
     click_random("combat_start.png")
 
 def accept_battle_results():
@@ -176,7 +178,7 @@ def accept_battle_results():
     click_random("next.png",out_of_area_click = True)
     sleep_random(4,5)
     wait("next.png")
-    is_taiha_after_battle()
+    isTaiha = is_taiha()
     click_random("next.png",out_of_area_click = True)
     waitVanish("friend_fleet_area.png")
     # new ship
@@ -185,13 +187,18 @@ def accept_battle_results():
         sleep(0.5)
         click_random("next_alt.png",out_of_area_click = True)
     sleep_random(0.5,1.0)
+    rethreat_if_taiha(isTaiha)
+        
 
-def is_taiha_after_battle():
+def is_taiha():
     print inspect.getframeinfo(inspect.currentframe()).function
-    if exists("dmg_critical.png",5):
-        print "ERROR: taiha"
-        exit(1)     
-    
+    return exists("dmg_critical.png",5)
+
+def rethreat_if_taiha(is_taiha):
+    if is_taiha:
+        rethreat()
+        print "ERROR: taiha, "
+        exit(1)# safety first 
 
 def compass():
     print inspect.getframeinfo(inspect.currentframe()).function
