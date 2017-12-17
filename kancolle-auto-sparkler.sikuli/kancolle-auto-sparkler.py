@@ -3,9 +3,11 @@ from  kancolle_utils import *
 FLEET_NUMBER = 1
 
 def check_fleet_for_sparkling():
+    sleep(1)
     if not exists(Pattern("three_ships_fleet.png").exact()):
         print "ERROR: wrong fleet"
         exit(1)
+        
 
 # main
 go_home()
