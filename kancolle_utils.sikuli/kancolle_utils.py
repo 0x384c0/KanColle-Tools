@@ -73,7 +73,7 @@ def check_crash_frequency(e):
 
 # GAME ACTIONS
 
-def check_taiha():
+def check_taiha_on_KC3():
     print inspect.getframeinfo(inspect.currentframe()).function
     if exists(Pattern("kc3_fleet_taiha.png").similar(0.95),0.5):
         print "ERROR: taiha"
@@ -270,8 +270,8 @@ def send_fleet_to_expedition(fleet_number,expedition_number):
             2      : "ensei_area_01.png",
             5      : "ensei_area_01.png",
             6      : "ensei_area_01.png",
-            21     : "ensei_area_03.png",
-            38     : "ensei_area_05.png"
+            21     : Pattern("ensei_area_03.png").similar(0.80),
+            38     : Pattern("ensei_area_05.png").similar(0.85)
             }
 
     if exists(expedition_world[expedition_number]):

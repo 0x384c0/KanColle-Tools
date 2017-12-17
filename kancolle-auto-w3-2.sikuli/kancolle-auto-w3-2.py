@@ -3,7 +3,7 @@ from  kancolle_utils import *
 # main
 while True:
     print "BEGIN LOOP"
-    check_taiha()
+    check_taiha_on_KC3()
     go_home()
     accept_expeditions()
     select_w_3_2()

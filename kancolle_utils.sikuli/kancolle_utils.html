@@ -145,7 +145,7 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
 
 <span class="cmt"># GAME ACTIONS</span>
 
-<span class="kw">def</span> check_taiha():
+<span class="kw">def</span> check_taiha_on_KC3():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     <span class="kw">if</span> exists(Pattern(<img src="kc3_fleet_taiha.png" />).similar(<span class="dig">0.95</span>),<span class="dig">0.5</span>):
         <span class="kw">print</span> <span class="str">"ERROR: taiha"</span>
@@ -342,8 +342,8 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
             <span class="dig">2</span>      : <img src="ensei_area_01.png" />,
             <span class="dig">5</span>      : <img src="ensei_area_01.png" />,
             <span class="dig">6</span>      : <img src="ensei_area_01.png" />,
-            <span class="dig">21</span>     : <img src="ensei_area_03.png" />,
-            <span class="dig">38</span>     : <img src="ensei_area_05.png" />
+            <span class="dig">21</span>     : Pattern(<img src="ensei_area_03.png" />).similar(<span class="dig">0.80</span>),
+            <span class="dig">38</span>     : Pattern(<img src="ensei_area_05.png" />).similar(<span class="dig">0.85</span>)
             }
 
     <span class="kw">if</span> exists(expedition_world[expedition_number]):
