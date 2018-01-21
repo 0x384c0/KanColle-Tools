@@ -139,6 +139,7 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
 crash_count = <span class="dig">0</span>
 <span class="kw">def</span> check_crash_frequency(e):
     <span class="kw">global</span> last_crash_date
+    <span class="kw">global</span> crash_count
     minutes_since_last_crash = (datetime.datetime.now() - last_crash_date).total_seconds() / <span class="dig">60</span>
     <span class="kw">print</span> <span class="str">"*** WARNING: CRASH ***"</span>
     <span class="kw">print</span> <span class="str">"minutes_since_last_crash: "</span> + str(minutes_since_last_crash)
@@ -146,7 +147,7 @@ crash_count = <span class="dig">0</span>
     <span class="kw">print</span> e
     <span class="kw">print</span> <span class="str">"**********************"</span>
     <span class="kw">if</span> (minutes_since_last_crash &lt; MAX_MINUTES_SINCE_LAST_CRASH):
-        <span class="kw">if</span> (crash_count &gt; MAX_CRASH_COUNT)
+        <span class="kw">if</span> (crash_count &gt; MAX_CRASH_COUNT):
             exit()
         crash_count += <span class="dig">1</span>
     last_crash_date = datetime.datetime.now()

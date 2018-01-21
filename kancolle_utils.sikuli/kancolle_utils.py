@@ -67,6 +67,7 @@ last_crash_date = datetime.datetime(2000,01,01)
 crash_count = 0
 def check_crash_frequency(e):
     global last_crash_date
+    global crash_count
     minutes_since_last_crash = (datetime.datetime.now() - last_crash_date).total_seconds() / 60
     print "*** WARNING: CRASH ***" 
     print "minutes_since_last_crash: " + str(minutes_since_last_crash)
@@ -74,7 +75,7 @@ def check_crash_frequency(e):
     print e
     print "**********************"
     if (minutes_since_last_crash < MAX_MINUTES_SINCE_LAST_CRASH):
-        if (crash_count > MAX_CRASH_COUNT)
+        if (crash_count > MAX_CRASH_COUNT):
             exit()
         crash_count += 1
     last_crash_date = datetime.datetime.now()
