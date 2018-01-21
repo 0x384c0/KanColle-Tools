@@ -80,6 +80,8 @@
 <span class="cmt"># SETTINGS</span>
 WAIT_TIMEOUT = <span class="dig">20</span>
 LONG_WAIT_TIMEOUT = <span class="dig">60</span> * <span class="dig">3</span>
+MAX_MINUTES_SINCE_LAST_CRASH = <span class="dig">5</span>
+MAX_CRASH_COUNT = <span class="dig">5</span>
 setAutoWaitTimeout(WAIT_TIMEOUT)
 
 <span class="cmt"># BASICS</span>
@@ -134,13 +136,19 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
 
 
 last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="dig">01</span>,<span class="dig">01</span>)
+crash_count = <span class="dig">0</span>
 <span class="kw">def</span> check_crash_frequency(e):
     <span class="kw">global</span> last_crash_date
     minutes_since_last_crash = (datetime.datetime.now() - last_crash_date).total_seconds() / <span class="dig">60</span>
-    <span class="kw">print</span> <span class="str">"CRASHED after "</span> + str(minutes_since_last_crash) + <span class="str">" min."</span>
+    <span class="kw">print</span> <span class="str">"*** WARNING: CRASH ***"</span>
+    <span class="kw">print</span> <span class="str">"minutes_since_last_crash: "</span> + str(minutes_since_last_crash)
+    <span class="kw">print</span> <span class="str">"crash_count: "</span> + str(crash_count)
     <span class="kw">print</span> e
-    <span class="kw">if</span> (minutes_since_last_crash &lt; <span class="dig">5</span>):
-        exit()
+    <span class="kw">print</span> <span class="str">"**********************"</span>
+    <span class="kw">if</span> (minutes_since_last_crash &lt; MAX_MINUTES_SINCE_LAST_CRASH):
+        <span class="kw">if</span> (crash_count &gt; MAX_CRASH_COUNT)
+            exit()
+        crash_count += <span class="dig">1</span>
     last_crash_date = datetime.datetime.now()
 
 <span class="cmt"># GAME ACTIONS</span>
@@ -162,6 +170,7 @@ last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="d
 
 <span class="kw">def</span> go_home():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
+
     <span class="kw">if</span> <span class="kw">not</span> exists(<img src="menu_main_sortie.png" />,<span class="dig">0.5</span>) <span class="kw">and</span> <span class="kw">not</span> exists(<img src="next.png" />,<span class="dig">0.5</span>):
         click_random(<img src="menu_side_home.png" />)
     <span class="skw">sleep</span>(<span class="dig">1</span>)

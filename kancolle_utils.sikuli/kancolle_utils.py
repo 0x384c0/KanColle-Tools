@@ -8,6 +8,8 @@ import datetime
 # SETTINGS
 WAIT_TIMEOUT = 20
 LONG_WAIT_TIMEOUT = 60 * 3
+MAX_MINUTES_SINCE_LAST_CRASH = 5
+MAX_CRASH_COUNT = 5
 setAutoWaitTimeout(WAIT_TIMEOUT)
 
 # BASICS
@@ -62,13 +64,19 @@ def recover(e):
     
 
 last_crash_date = datetime.datetime(2000,01,01)
+crash_count = 0
 def check_crash_frequency(e):
     global last_crash_date
     minutes_since_last_crash = (datetime.datetime.now() - last_crash_date).total_seconds() / 60
-    print "CRASHED after " + str(minutes_since_last_crash) + " min."
+    print "*** WARNING: CRASH ***" 
+    print "minutes_since_last_crash: " + str(minutes_since_last_crash)
+    print "crash_count: " + str(crash_count)
     print e
-    if (minutes_since_last_crash < 5):
-        exit()
+    print "**********************"
+    if (minutes_since_last_crash < MAX_MINUTES_SINCE_LAST_CRASH):
+        if (crash_count > MAX_CRASH_COUNT)
+            exit()
+        crash_count += 1
     last_crash_date = datetime.datetime.now()
 
 # GAME ACTIONS
@@ -90,6 +98,7 @@ def check_taiha_on_KC3():
 
 def go_home():
     print inspect.getframeinfo(inspect.currentframe()).function
+    
     if not exists("menu_main_sortie.png",0.5) and not exists("next.png",0.5):
         click_random("menu_side_home.png")
     sleep(1)
