@@ -173,12 +173,14 @@ crash_count = <span class="dig">0</span>
 
     <span class="kw">if</span> <span class="kw">not</span> exists(<img src="menu_main_sortie.png" />,<span class="dig">0.5</span>) <span class="kw">and</span> <span class="kw">not</span> exists(<img src="next.png" />,<span class="dig">0.5</span>):
         click_random(<img src="menu_side_home.png" />)
-    <span class="skw">sleep</span>(<span class="dig">1</span>)
-    <span class="skw">wait</span>(<img src="menu_main_sortie.png" />)
-    <span class="skw">sleep</span>(<span class="dig">1</span>)
+    <span class="cmt"># accept exp</span>
     <span class="kw">while</span> exists(<img src="next.png" />,<span class="dig">1</span>):
         click_random(<img src="next.png" />,out_of_area_click = True)
         sleep_random(<span class="dig">4</span>,<span class="dig">5</span>)
+
+    <span class="skw">sleep</span>(<span class="dig">1</span>)
+    <span class="skw">wait</span>(<img src="menu_main_sortie.png" />,LONG_WAIT_TIMEOUT)
+    <span class="skw">sleep</span>(<span class="dig">1</span>)
 
     remove_cursor()
 

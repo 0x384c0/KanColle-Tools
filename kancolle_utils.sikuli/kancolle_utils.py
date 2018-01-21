@@ -101,12 +101,14 @@ def go_home():
     
     if not exists("menu_main_sortie.png",0.5) and not exists("next.png",0.5):
         click_random("menu_side_home.png")
-    sleep(1)
-    wait("menu_main_sortie.png")
-    sleep(1)
+    # accept exp
     while exists("next.png",1):
         click_random("next.png",out_of_area_click = True)
         sleep_random(4,5)
+        
+    sleep(1)
+    wait("menu_main_sortie.png",LONG_WAIT_TIMEOUT)
+    sleep(1)
         
     remove_cursor()
 
