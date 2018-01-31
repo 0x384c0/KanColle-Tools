@@ -27,8 +27,13 @@ def click_random(pic, out_of_area_click = False):
     if out_of_area_click:
         h_offset = h_offset - randrange(0, 200)
         w_offset = h_offset - randrange(0, 200)
-    
-    pattern = Pattern(pic).targetOffset(w_offset,h_offset)
+        
+    if isinstance(pic,Pattern):
+        curr_h_offset = pic.getTargetOffset().getX()
+        curr_w_offset = pic.getTargetOffset().getY()
+        pattern = pic.targetOffset(curr_h_offset + w_offset,curr_w_offset + h_offset)
+    else:
+        pattern = Pattern(pic).targetOffset(w_offset,h_offset)
     click(pattern)
 
 def wait_and_click(pic):
@@ -79,6 +84,13 @@ def check_crash_frequency(e):
             exit()
         crash_count += 1
     last_crash_date = datetime.datetime.now()
+
+def get_pattern_for_world(world_number):
+    print inspect.getframeinfo(inspect.currentframe()).function + " " + str(world_number)
+    SPACE_BETWEEN_WORLD_BUTTONS = 61
+    print str((world_number - 1) * SPACE_BETWEEN_WORLD_BUTTONS)
+    pattern = Pattern("ensei_area_01.png").targetOffset((world_number - 1) * SPACE_BETWEEN_WORLD_BUTTONS, 0)
+    return pattern
 
 # GAME ACTIONS
 
@@ -157,7 +169,7 @@ def select_w_1_1():
 def select_w_3_2():
     print inspect.getframeinfo(inspect.currentframe()).function
     select_sortie_combat()
-    click_random("ensei_area_03.png")
+    click_random(get_pattern_for_world(3))
     click_random("combat_panel_3-2.png")
     wait_and_click("decision.png")
     remove_cursor()
@@ -222,7 +234,7 @@ def formation_line_ahead():
 
 def formation_guard():
     print inspect.getframeinfo(inspect.currentframe()).function
-    wait_and_click(Pattern("1512406978269.png").similar(0.85))
+    wait_and_click(Pattern("formation_guard.png").similar(0.85))
 
 
 def next_node():
@@ -279,11 +291,11 @@ def send_fleet_to_expedition(fleet_number,expedition_number):
             38     : Pattern("ensei_name_38.png").similar(0.90)
             }
     expedition_world = {
-            2      : "ensei_area_01.png",
-            5      : "ensei_area_01.png",
-            6      : "ensei_area_01.png",
-            21     : Pattern("ensei_area_03.png").similar(0.80),
-            38     : Pattern("ensei_area_05.png").similar(0.85)
+            2      : get_pattern_for_world(1),
+            5      : get_pattern_for_world(1),
+            6      : get_pattern_for_world(1),
+            21     : get_pattern_for_world(3),
+            38     : get_pattern_for_world(5)
             }
 
     if exists(expedition_world[expedition_number]):
@@ -306,4 +318,3 @@ def send_fleet_to_expedition(fleet_number,expedition_number):
         wait_and_click("ensei_start.png")
         wait("exp_started.png",WAIT_TIMEOUT)
     sleep(5)
-  
