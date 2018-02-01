@@ -74,11 +74,11 @@ def check_crash_frequency(e):
     global last_crash_date
     global crash_count
     minutes_since_last_crash = (datetime.datetime.now() - last_crash_date).total_seconds() / 60
-    print "*** WARNING: CRASH ***" 
+    print "\n*** WARNING: CRASH ***" 
     print "minutes_since_last_crash: " + str(minutes_since_last_crash)
     print "crash_count: " + str(crash_count)
     print e
-    print "**********************"
+    print "**********************\n"
     if (minutes_since_last_crash < MAX_MINUTES_SINCE_LAST_CRASH):
         if (crash_count > MAX_CRASH_COUNT):
             exit()
@@ -118,12 +118,11 @@ def go_home():
     while exists("next.png",1):
         click_random("next.png",out_of_area_click = True)
         sleep_random(4,5)
-        
+    
+    remove_cursor()
     sleep(1)
     wait("menu_main_sortie.png",LONG_WAIT_TIMEOUT)
     sleep(1)
-        
-    remove_cursor()
 
 
 def refresh_home():
