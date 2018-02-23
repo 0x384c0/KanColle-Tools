@@ -100,7 +100,12 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
         h_offset = h_offset - randrange(<span class="dig">0</span>, <span class="dig">200</span>)
         w_offset = h_offset - randrange(<span class="dig">0</span>, <span class="dig">200</span>)
 
-    pattern = Pattern(pic).targetOffset(w_offset,h_offset)
+    <span class="kw">if</span> isinstance(pic,Pattern):
+        curr_h_offset = pic.getTargetOffset().getX()
+        curr_w_offset = pic.getTargetOffset().getY()
+        pattern = pic.targetOffset(curr_h_offset + w_offset,curr_w_offset + h_offset)
+    <span class="kw">else</span>:
+        pattern = Pattern(pic).targetOffset(w_offset,h_offset)
     <span class="skw">click</span>(pattern)
 
 <span class="kw">def</span> wait_and_click(pic):
@@ -151,6 +156,13 @@ crash_count = <span class="dig">0</span>
             exit()
         crash_count += <span class="dig">1</span>
     last_crash_date = datetime.datetime.now()
+
+<span class="kw">def</span> get_pattern_for_world(world_number):
+    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function + <span class="str">" "</span> + str(world_number)
+    SPACE_BETWEEN_WORLD_BUTTONS = <span class="dig">61</span>
+    <span class="kw">print</span> str((world_number - <span class="dig">1</span>) * SPACE_BETWEEN_WORLD_BUTTONS)
+    pattern = Pattern(<img src="ensei_area_01.png" />).targetOffset((world_number - <span class="dig">1</span>) * SPACE_BETWEEN_WORLD_BUTTONS, <span class="dig">0</span>)
+    <span class="kw">return</span> pattern
 
 <span class="cmt"># GAME ACTIONS</span>
 
@@ -229,7 +241,7 @@ crash_count = <span class="dig">0</span>
 <span class="kw">def</span> select_w_3_2():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     select_sortie_combat()
-    click_random(<img src="ensei_area_03.png" />)
+    click_random(get_pattern_for_world(<span class="dig">3</span>))
     click_random(<img src="combat_panel_3-2.png" />)
     wait_and_click(<img src="decision.png" />)
     remove_cursor()
@@ -345,17 +357,19 @@ crash_count = <span class="dig">0</span>
     <span class="cmt"># on exp screen</span>
     expeditions = {
             <span class="dig">2</span>      : Pattern(<img src="ensei_name_02.png" />).similar(<span class="dig">0.90</span>),
+            <span class="dig">4</span>      : Pattern(<img src="ensei_name_04.png" />).similar(<span class="dig">0.90</span>),
             <span class="dig">5</span>      : Pattern(<img src="ensei_name_05.png" />).similar(<span class="dig">0.90</span>),
             <span class="dig">6</span>      : Pattern(<img src="ensei_name_06.png" />).similar(<span class="dig">0.90</span>),
             <span class="dig">21</span>     : Pattern(<img src="ensei_name_21.png" />).similar(<span class="dig">0.90</span>),
             <span class="dig">38</span>     : Pattern(<img src="ensei_name_38.png" />).similar(<span class="dig">0.90</span>)
             }
     expedition_world = {
-            <span class="dig">2</span>      : <img src="ensei_area_01.png" />,
-            <span class="dig">5</span>      : <img src="ensei_area_01.png" />,
-            <span class="dig">6</span>      : <img src="ensei_area_01.png" />,
-            <span class="dig">21</span>     : Pattern(<img src="ensei_area_03.png" />).similar(<span class="dig">0.80</span>),
-            <span class="dig">38</span>     : Pattern(<img src="ensei_area_05.png" />).similar(<span class="dig">0.85</span>)
+            <span class="dig">2</span>      : get_pattern_for_world(<span class="dig">1</span>),
+            <span class="dig">4</span>      : get_pattern_for_world(<span class="dig">1</span>),
+            <span class="dig">5</span>      : get_pattern_for_world(<span class="dig">1</span>),
+            <span class="dig">6</span>      : get_pattern_for_world(<span class="dig">1</span>),
+            <span class="dig">21</span>     : get_pattern_for_world(<span class="dig">3</span>),
+            <span class="dig">38</span>     : get_pattern_for_world(<span class="dig">5</span>)
             }
 
     <span class="kw">if</span> exists(expedition_world[expedition_number]):
