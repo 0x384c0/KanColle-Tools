@@ -87,16 +87,15 @@
         i = bisect.bisect_left(self.x_list, x) - <span class="dig">1</span>
         <span class="kw">return</span> self.y_list[i] + self.slopes[i] * (x - self.x_list[i])
 
-    <span class="kw">def</span> diff(self,x):
-        n = self[i + <span class="dig">1</span>]
-        <span class="kw">return</span> int(n) - int(self[i])
+    <span class="kw">def</span> diff(self,i):
+        <span class="kw">return</span> int(self[i + <span class="dig">1</span>]) - int(self[i])
 
 <span class="kw">def</span> human_like_hover(dest):
 
     MOVE_MOUSE_DELAY = <span class="dig">0.7</span>
     FPS = <span class="dig">30.0</span>
     FRAME_COUNT = int(FPS * MOVE_MOUSE_DELAY)
-    MAX_RAND_OFFSET = <span class="dig">5</span>
+    MAX_RAND_OFFSET = <span class="dig">10</span>
 
 
     Settings.MoveMouseDelay = <span class="dig">0</span>
@@ -104,21 +103,21 @@
     x_interpolator = Interpolate([<span class="dig">0</span>, FRAME_COUNT], [start.x,dest.x])
     y_interpolator = Interpolate([<span class="dig">0</span>, FRAME_COUNT], [start.y,dest.y])
 
-    curr = start
-    curr_linear = start
+    curr = Env.getMouseLocation()
+    curr_linear = Env.getMouseLocation()
 
     <span class="kw">for</span> i <span class="kw">in</span> range(<span class="dig">0</span>,FRAME_COUNT):
-        random_multiplyer = sin(i/float(FRAME_COUNT) * pi)
+        <span class="cmt">#decrease randomm offsets at beginning and ending of hover</span>
+        half_frames_count = float((FRAME_COUNT - <span class="dig">1</span>)/<span class="dig">2</span>)
+        random_multiplyer = (half_frames_count - abs(half_frames_count - i))/half_frames_count <span class="cmt">#window function</span>
+        <span class="cmt">#get random offsets</span>
         x_random_modifyer = int(float(randint(- MAX_RAND_OFFSET,MAX_RAND_OFFSET)) * random_multiplyer)
         y_random_modifyer = int(float(randint(- MAX_RAND_OFFSET,MAX_RAND_OFFSET)) * random_multiplyer)
-        <span class="cmt">#print x_random_modifyer</span>
-        <span class="kw">print</span> i/float(FRAME_COUNT) * pi
-
+        <span class="cmt">#get linear diff</span>
         lin_offsets = (x_interpolator.diff(i),y_interpolator.diff(i))
-
+        <span class="cmt">#get random diff</span>
         rand_offsets = ( lin_offsets[<span class="dig">0</span>] + x_random_modifyer, lin_offsets[<span class="dig">1</span>] + y_random_modifyer )
-
-
+        <span class="cmt">#calculate new diff</span>
         offsets = (
                 rand_offsets[<span class="dig">0</span>] - (curr.x - curr_linear.x),
                 rand_offsets[<span class="dig">1</span>] - (curr.y - curr_linear.y)
@@ -142,9 +141,10 @@
 
     Settings.MoveMouseDelay = MOVE_MOUSE_DELAY
 
-<span class="cmt">#test</span>
-<span class="cmt">#human_like_hover(Location(500,500))</span>
+<span class="kw">def</span> test():
+    human_like_hover(Location(<span class="dig">500</span>,<span class="dig">500</span>))
 
+test()
 </pre>
 </body>
 </html>

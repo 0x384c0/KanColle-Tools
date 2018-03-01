@@ -15,16 +15,15 @@ class Interpolate(object):
         i = bisect.bisect_left(self.x_list, x) - 1
         return self.y_list[i] + self.slopes[i] * (x - self.x_list[i])
 
-    def diff(self,x):
-        n = self[i + 1]
-        return int(n) - int(self[i])
+    def diff(self,i):
+        return int(self[i + 1]) - int(self[i])
 
 def human_like_hover(dest):
 
     MOVE_MOUSE_DELAY = 0.7
     FPS = 30.0
     FRAME_COUNT = int(FPS * MOVE_MOUSE_DELAY)
-    MAX_RAND_OFFSET = 5
+    MAX_RAND_OFFSET = 10
     
     
     Settings.MoveMouseDelay = 0
@@ -32,21 +31,21 @@ def human_like_hover(dest):
     x_interpolator = Interpolate([0, FRAME_COUNT], [start.x,dest.x])
     y_interpolator = Interpolate([0, FRAME_COUNT], [start.y,dest.y])
     
-    curr = start
-    curr_linear = start
+    curr = Env.getMouseLocation()
+    curr_linear = Env.getMouseLocation()
     
     for i in range(0,FRAME_COUNT):
-        random_multiplyer = sin(i/float(FRAME_COUNT) * pi)
+        #decrease randomm offsets at beginning and ending of hover
+        half_frames_count = float((FRAME_COUNT - 1)/2)
+        random_multiplyer = (half_frames_count - abs(half_frames_count - i))/half_frames_count #window function
+        #get random offsets
         x_random_modifyer = int(float(randint(- MAX_RAND_OFFSET,MAX_RAND_OFFSET)) * random_multiplyer)
         y_random_modifyer = int(float(randint(- MAX_RAND_OFFSET,MAX_RAND_OFFSET)) * random_multiplyer)
-        #print x_random_modifyer
-        print i/float(FRAME_COUNT) * pi
-    
-        lin_offsets = (x_interpolator.diff(i),y_interpolator.diff(i))
-        
+        #get linear diff
+        lin_offsets = (x_interpolator.diff(i),y_interpolator.diff(i)) 
+        #get random diff
         rand_offsets = ( lin_offsets[0] + x_random_modifyer, lin_offsets[1] + y_random_modifyer )
-    
-        
+        #calculate new diff
         offsets = (
                 rand_offsets[0] - (curr.x - curr_linear.x),
                 rand_offsets[1] - (curr.y - curr_linear.y)
@@ -70,5 +69,7 @@ def human_like_hover(dest):
     
     Settings.MoveMouseDelay = MOVE_MOUSE_DELAY
 
-#test
-#human_like_hover(Location(500,500))
+def test():
+    human_like_hover(Location(500,500))
+
+test()
