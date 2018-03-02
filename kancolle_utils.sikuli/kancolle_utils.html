@@ -146,11 +146,11 @@ crash_count = <span class="dig">0</span>
     <span class="kw">global</span> last_crash_date
     <span class="kw">global</span> crash_count
     minutes_since_last_crash = (datetime.datetime.now() - last_crash_date).total_seconds() / <span class="dig">60</span>
-    <span class="kw">print</span> <span class="str">"*** WARNING: CRASH ***"</span>
+    <span class="kw">print</span> <span class="str">"\n*** WARNING: CRASH ***"</span>
     <span class="kw">print</span> <span class="str">"minutes_since_last_crash: "</span> + str(minutes_since_last_crash)
     <span class="kw">print</span> <span class="str">"crash_count: "</span> + str(crash_count)
     <span class="kw">print</span> e
-    <span class="kw">print</span> <span class="str">"**********************"</span>
+    <span class="kw">print</span> <span class="str">"**********************\n"</span>
     <span class="kw">if</span> (minutes_since_last_crash &lt; MAX_MINUTES_SINCE_LAST_CRASH):
         <span class="kw">if</span> (crash_count &gt; MAX_CRASH_COUNT):
             exit()
@@ -191,11 +191,10 @@ crash_count = <span class="dig">0</span>
         click_random(<img src="next.png" />,out_of_area_click = True)
         sleep_random(<span class="dig">4</span>,<span class="dig">5</span>)
 
+    remove_cursor()
     <span class="skw">sleep</span>(<span class="dig">1</span>)
     <span class="skw">wait</span>(<img src="menu_main_sortie.png" />,LONG_WAIT_TIMEOUT)
     <span class="skw">sleep</span>(<span class="dig">1</span>)
-
-    remove_cursor()
 
 
 <span class="kw">def</span> refresh_home():
@@ -360,6 +359,7 @@ crash_count = <span class="dig">0</span>
             <span class="dig">4</span>      : Pattern(<img src="ensei_name_04.png" />).similar(<span class="dig">0.90</span>),
             <span class="dig">5</span>      : Pattern(<img src="ensei_name_05.png" />).similar(<span class="dig">0.90</span>),
             <span class="dig">6</span>      : Pattern(<img src="ensei_name_06.png" />).similar(<span class="dig">0.90</span>),
+            <span class="dig">11</span>     : Pattern(<img src="ensei_name_11.png" />).similar(<span class="dig">0.90</span>)
             <span class="dig">21</span>     : Pattern(<img src="ensei_name_21.png" />).similar(<span class="dig">0.90</span>),
             <span class="dig">38</span>     : Pattern(<img src="ensei_name_38.png" />).similar(<span class="dig">0.90</span>)
             }
@@ -368,6 +368,7 @@ crash_count = <span class="dig">0</span>
             <span class="dig">4</span>      : get_pattern_for_world(<span class="dig">1</span>),
             <span class="dig">5</span>      : get_pattern_for_world(<span class="dig">1</span>),
             <span class="dig">6</span>      : get_pattern_for_world(<span class="dig">1</span>),
+            <span class="dig">11</span>     : get_pattern_for_world(<span class="dig">2</span>),
             <span class="dig">21</span>     : get_pattern_for_world(<span class="dig">3</span>),
             <span class="dig">38</span>     : get_pattern_for_world(<span class="dig">5</span>)
             }

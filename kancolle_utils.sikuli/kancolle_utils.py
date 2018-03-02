@@ -287,6 +287,7 @@ def send_fleet_to_expedition(fleet_number,expedition_number):
             4      : Pattern("ensei_name_04.png").similar(0.90),
             5      : Pattern("ensei_name_05.png").similar(0.90),
             6      : Pattern("ensei_name_06.png").similar(0.90),
+            11     : Pattern("ensei_name_11.png").similar(0.90),
             21     : Pattern("ensei_name_21.png").similar(0.90),
             38     : Pattern("ensei_name_38.png").similar(0.90)
             }
@@ -295,6 +296,7 @@ def send_fleet_to_expedition(fleet_number,expedition_number):
             4      : get_pattern_for_world(1),
             5      : get_pattern_for_world(1),
             6      : get_pattern_for_world(1),
+            11     : get_pattern_for_world(2),
             21     : get_pattern_for_world(3),
             38     : get_pattern_for_world(5)
             }
