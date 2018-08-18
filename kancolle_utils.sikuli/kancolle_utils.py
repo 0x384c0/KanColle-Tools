@@ -86,11 +86,31 @@ def check_crash_frequency(e):
     last_crash_date = datetime.datetime.now()
 
 def get_pattern_for_world(world_number):
-    print inspect.getframeinfo(inspect.currentframe()).function + " " + str(world_number)
-    SPACE_BETWEEN_WORLD_BUTTONS = 61
-    print str((world_number - 1) * SPACE_BETWEEN_WORLD_BUTTONS)
-    pattern = Pattern("ensei_area_01.png").targetOffset((world_number - 1) * SPACE_BETWEEN_WORLD_BUTTONS, 0)
-    return pattern
+    worlds_sortie = {
+            1:"ensei_area_01_sortie.png",
+            2:"ensei_area_02_sortie.png",
+            3:"ensei_area_03_sortie.png",
+            4:Pattern("ensei_area_04_sortie.png").similar(0.80),
+            5:Pattern("ensei_area_05_sortie.png").similar(0.85),
+            6:Pattern("ensei_area_06_sortie.png").similar(0.90)
+            }
+    worlds_exp = {
+            1:"ensei_area_01_exp.png",
+            2:"ensei_area_02_exp.png",
+            3:"ensei_area_03_exp.png",
+            4:Pattern("ensei_area_04_exp.png").similar(0.80),
+            5:Pattern("ensei_area_05_exp.png").similar(0.85),
+            6:Pattern("ensei_area_06_exp.png").similar(0.90)
+            }
+    is_exp = exists("sortie_top_combat.png",1)
+    worlds = worlds_exp if is_exp else worlds_sortie
+    return worlds[world_number]
+    # TODO: remove if needed
+    # print inspect.getframeinfo(inspect.currentframe()).function + " " + str(world_number)
+    # SPACE_BETWEEN_WORLD_BUTTONS = 61
+    # print str((world_number - 1) * SPACE_BETWEEN_WORLD_BUTTONS)
+    # pattern = Pattern("ensei_area_01_sortie.png").targetOffset((world_number - 1) * SPACE_BETWEEN_WORLD_BUTTONS, 0)
+    # return pattern
 
 # GAME ACTIONS
 
@@ -169,7 +189,9 @@ def select_w_3_2():
     print inspect.getframeinfo(inspect.currentframe()).function
     select_sortie_combat()
     click_random(get_pattern_for_world(3))
-    click_random("combat_panel_3-2.png")
+    
+    exit()
+    click_random("combat_panel_3-2.png") #TODO: update
     wait_and_click("decision.png")
     remove_cursor()
 
@@ -185,7 +207,7 @@ def begin_battle():
 def accept_battle_results():
     print inspect.getframeinfo(inspect.currentframe()).function
     while True:
-        # night battle
+        # skip night battle
         if exists("is_night_battle.png",3):
             click_random("combat_nb_retreat.png")
             break
@@ -233,7 +255,8 @@ def formation_line_ahead():
 
 def formation_guard():
     print inspect.getframeinfo(inspect.currentframe()).function
-    wait_and_click(Pattern("formation_guard.png").similar(0.85))
+    exit()
+    wait_and_click(Pattern("formation_guard.png").similar(0.85))# TODO: update
 
 
 def next_node():
@@ -298,7 +321,7 @@ def send_fleet_to_expedition(fleet_number,expedition_number):
             6      : get_pattern_for_world(1),
             11     : get_pattern_for_world(2),
             21     : get_pattern_for_world(3),
-            38     : get_pattern_for_world(5)
+            38     : get_pattern_for_world(6)
             }
 
     if exists(expedition_world[expedition_number]):

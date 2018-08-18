@@ -158,11 +158,31 @@ crash_count = <span class="dig">0</span>
     last_crash_date = datetime.datetime.now()
 
 <span class="kw">def</span> get_pattern_for_world(world_number):
-    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function + <span class="str">" "</span> + str(world_number)
-    SPACE_BETWEEN_WORLD_BUTTONS = <span class="dig">61</span>
-    <span class="kw">print</span> str((world_number - <span class="dig">1</span>) * SPACE_BETWEEN_WORLD_BUTTONS)
-    pattern = Pattern(<img src="ensei_area_01.png" />).targetOffset((world_number - <span class="dig">1</span>) * SPACE_BETWEEN_WORLD_BUTTONS, <span class="dig">0</span>)
-    <span class="kw">return</span> pattern
+    worlds_sortie = {
+            <span class="dig">1</span>:<img src="ensei_area_01_sortie.png" />,
+            <span class="dig">2</span>:<img src="ensei_area_02_sortie.png" />,
+            <span class="dig">3</span>:<img src="ensei_area_03_sortie.png" />,
+            <span class="dig">4</span>:Pattern(<img src="ensei_area_04_sortie.png" />).similar(<span class="dig">0.80</span>),
+            <span class="dig">5</span>:Pattern(<img src="ensei_area_05_sortie.png" />).similar(<span class="dig">0.85</span>),
+            <span class="dig">6</span>:Pattern(<img src="ensei_area_06_sortie.png" />).similar(<span class="dig">0.90</span>)
+            }
+    worlds_exp = {
+            <span class="dig">1</span>:<img src="ensei_area_01_exp.png" />,
+            <span class="dig">2</span>:<img src="ensei_area_02_exp.png" />,
+            <span class="dig">3</span>:<img src="ensei_area_03_exp.png" />,
+            <span class="dig">4</span>:Pattern(<img src="ensei_area_04_exp.png" />).similar(<span class="dig">0.80</span>),
+            <span class="dig">5</span>:Pattern(<img src="ensei_area_05_exp.png" />).similar(<span class="dig">0.85</span>),
+            <span class="dig">6</span>:Pattern(<img src="ensei_area_06_exp.png" />).similar(<span class="dig">0.90</span>)
+            }
+    is_exp = exists(<img src="sortie_top_combat.png" />,<span class="dig">1</span>)
+    worlds = worlds_exp <span class="kw">if</span> is_exp <span class="kw">else</span> worlds_sortie
+    <span class="kw">return</span> worlds[world_number]
+    <span class="cmt"># TODO: remove if needed</span>
+    <span class="cmt"># print inspect.getframeinfo(inspect.currentframe()).function + " " + str(world_number)</span>
+    <span class="cmt"># SPACE_BETWEEN_WORLD_BUTTONS = 61</span>
+    <span class="cmt"># print str((world_number - 1) * SPACE_BETWEEN_WORLD_BUTTONS)</span>
+    <span class="cmt"># pattern = Pattern("ensei_area_01_sortie.png").targetOffset((world_number - 1) * SPACE_BETWEEN_WORLD_BUTTONS, 0)</span>
+    <span class="cmt"># return pattern</span>
 
 <span class="cmt"># GAME ACTIONS</span>
 
@@ -241,7 +261,9 @@ crash_count = <span class="dig">0</span>
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     select_sortie_combat()
     click_random(get_pattern_for_world(<span class="dig">3</span>))
-    click_random(<img src="combat_panel_3-2.png" />)
+
+    exit()
+    click_random(<img src="combat_panel_3-2.png" />) <span class="cmt">#TODO: update</span>
     wait_and_click(<img src="decision.png" />)
     remove_cursor()
 
@@ -257,7 +279,7 @@ crash_count = <span class="dig">0</span>
 <span class="kw">def</span> accept_battle_results():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     <span class="kw">while</span> True:
-        <span class="cmt"># night battle</span>
+        <span class="cmt"># skip night battle</span>
         <span class="kw">if</span> exists(<img src="is_night_battle.png" />,<span class="dig">3</span>):
             click_random(<img src="combat_nb_retreat.png" />)
             <span class="kw">break</span>
@@ -305,7 +327,8 @@ crash_count = <span class="dig">0</span>
 
 <span class="kw">def</span> formation_guard():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    wait_and_click(Pattern(<img src="formation_guard.png" />).similar(<span class="dig">0.85</span>))
+    exit()
+    wait_and_click(Pattern(<img src="formation_guard.png" />).similar(<span class="dig">0.85</span>))<span class="cmt"># TODO: update</span>
 
 
 <span class="kw">def</span> next_node():
@@ -359,7 +382,7 @@ crash_count = <span class="dig">0</span>
             <span class="dig">4</span>      : Pattern(<img src="ensei_name_04.png" />).similar(<span class="dig">0.90</span>),
             <span class="dig">5</span>      : Pattern(<img src="ensei_name_05.png" />).similar(<span class="dig">0.90</span>),
             <span class="dig">6</span>      : Pattern(<img src="ensei_name_06.png" />).similar(<span class="dig">0.90</span>),
-            <span class="dig">11</span>     : Pattern(<img src="ensei_name_11.png" />).similar(<span class="dig">0.90</span>)
+            <span class="dig">11</span>     : Pattern(<img src="ensei_name_11.png" />).similar(<span class="dig">0.90</span>),
             <span class="dig">21</span>     : Pattern(<img src="ensei_name_21.png" />).similar(<span class="dig">0.90</span>),
             <span class="dig">38</span>     : Pattern(<img src="ensei_name_38.png" />).similar(<span class="dig">0.90</span>)
             }
@@ -370,7 +393,7 @@ crash_count = <span class="dig">0</span>
             <span class="dig">6</span>      : get_pattern_for_world(<span class="dig">1</span>),
             <span class="dig">11</span>     : get_pattern_for_world(<span class="dig">2</span>),
             <span class="dig">21</span>     : get_pattern_for_world(<span class="dig">3</span>),
-            <span class="dig">38</span>     : get_pattern_for_world(<span class="dig">5</span>)
+            <span class="dig">38</span>     : get_pattern_for_world(<span class="dig">6</span>)
             }
 
     <span class="kw">if</span> exists(expedition_world[expedition_number]):

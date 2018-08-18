@@ -67,28 +67,35 @@
    </head>
 <body>
 <div class="info">
-<h2>kancolle-auto-expeditions.sikuli</h2> <a href="kancolle-auto-expeditions.zip">(Download this script)</a>
+<h2>kancolle-auto-w1-1.sikuli</h2> <a href="kancolle-auto-w1-1.zip">(Download this script)</a>
 </div>
 <pre class="sikuli-code">
 <span class="kw">from</span>  kancolle_utils <span class="kw">import</span> *
 
-<span class="cmt"># main</span>
-<span class="kw">def</span> main_loop():
-    <span class="kw">while</span> True:
-        show_kancolle_page()
-        refresh_home()
-        accept_expeditions()
-        send_fleet_to_expedition(<span class="dig">2</span>,<span class="dig">2</span>)
-        send_fleet_to_expedition(<span class="dig">3</span>,<span class="dig">21</span>)
-        send_fleet_to_expedition(<span class="dig">4</span>,<span class="dig">38</span>)
-        hide_kancolle_page()
-        sleep_random(<span class="dig">60</span> * <span class="dig">15</span>,<span class="dig">60</span> * <span class="dig">25</span>)
+FLEET_NUMBER = <span class="dig">1</span>
 
+<span class="kw">def</span> check_fleet_for_sparkling():
+    <span class="skw">sleep</span>(<span class="dig">1</span>)
+    <span class="kw">if</span> <span class="kw">not</span> exists(Pattern(<img src="three_ships_fleet.png" />).exact()):
+        <span class="kw">print</span> <span class="str">"ERROR: wrong fleet"</span>
+        exit(<span class="dig">1</span>)
+
+
+<span class="cmt"># main</span>
 <span class="kw">while</span> True:
-    <span class="kw">try</span>:
-        main_loop()
-    <span class="kw">except</span> FindFailed, e:
-        recover(e)
+    check_taiha_on_KC3()
+    go_home()
+    select_w_1_1()
+    select_fleet(FLEET_NUMBER)
+    begin_battle()
+    formation_line_ahead()
+    accept_battle_results()
+    next_node()
+    compass()
+    formation_line_ahead()
+    accept_battle_results()
+    accept_expeditions()
+    resupply()
 </pre>
 </body>
 </html>
