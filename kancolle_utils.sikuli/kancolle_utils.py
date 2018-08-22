@@ -237,7 +237,7 @@ def accept_battle_results():
 
 def is_taiha():
     print inspect.getframeinfo(inspect.currentframe()).function
-    return exists("dmg_critical.png",5)
+    return exists("kc3_fleet_critical_state.png",0.5) or exists("dmg_critical.png",5)
 
 def rethreat_if_taiha(is_taiha):
     if is_taiha:
@@ -269,13 +269,12 @@ def rethreat():
 
 def accept_expeditions():
     print inspect.getframeinfo(inspect.currentframe()).function
-    print "1"
     wait("menu_main_sortie.png",LONG_WAIT_TIMEOUT)
-    sleep(2)
-    print "2"
-    while exists("expedition_finish.png",0.5):
+    sleep(3)
+    print "Will look for returned expeditions"
+    while exists(Pattern("expedition_finish.png").similar(0.65),0.5):
         print "--CAWD-- INFO: Fleet was returned. Welcome home, my darlings"
-        click_random("expedition_finish.png")
+        click_random(Pattern("expedition_finish.png").similar(0.65))
         wait("next.png",WAIT_TIMEOUT)
         sleep(5)
         click_random("next.png",out_of_area_click = True)
@@ -283,7 +282,7 @@ def accept_expeditions():
         click_random("next.png",out_of_area_click = True)
         wait("menu_main_sortie.png",LONG_WAIT_TIMEOUT)
         sleep(1.5)
-    print "2"
+    print "Finished accepting expeditions"
         
 
 def resupply():
@@ -312,7 +311,7 @@ def send_fleet_to_expedition(fleet_number,expedition_number):
             6      : Pattern("ensei_name_06.png").similar(0.90),
             11     : Pattern("ensei_name_11.png").similar(0.90),
             21     : Pattern("ensei_name_21.png").similar(0.90),
-            38     : Pattern("ensei_name_38.png").similar(0.90)
+            38     : Pattern("ensei_name_38.png").similar(0.95)
             }
     expedition_world = {
             2      : get_pattern_for_world(1),

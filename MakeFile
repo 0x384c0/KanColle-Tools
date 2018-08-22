@@ -1,0 +1,48 @@
+DOCKER_SCRIPTS_FOLDER=/home/seluser/mount_folder/scripts/
+DOCKER_USER=sudo -E -i -u seluser 
+DOCKER_VM_NAME=sikuli_5901
+KC_AUTO_SCRIPT=run_kc_auto.sh
+EXPED_SCRIPT=run_exp.sh
+
+# private
+show_crash_alert:
+	osascript -e 'set alertReply to display alert "WARNING!!!" message "Kancolle auto is crashed"'
+
+# setup
+build_vm:
+	docker build -t ${DOCKER_VM_NAME} https://github.com/kkochubey1/docker_sikuli_chrome_x11vnc.git#master:.
+
+run_vm:
+	docker run -d -t --name ${DOCKER_VM_NAME} -v $$PWD:/home/seluser/mount_folder -p 5901:5900 ${DOCKER_VM_NAME}
+	echo "vnc server: localhost:5901 passord: secret"
+
+vnc_vm:
+	open "vnc://localhost:5901"
+
+
+# utils
+docker_cpulimit:
+	cpulimit -p $(pgrep hyperkit | tail -n 1) -l 100
+
+docker_login:
+	docker exec -it ${DOCKER_VM_NAME} bash -c ${DOCKER_USER}
+
+docker_chrome:
+	docker exec -it ${DOCKER_VM_NAME} bash -c "${DOCKER_USER}/opt/google/chrome/google-chrome"
+
+docker_sikulix:
+	docker exec -w ${DOCKER_SCRIPTS_FOLDER}  -it ${DOCKER_VM_NAME} bash -c "${DOCKER_USER} java -jar sikulix.jar"
+
+# kc auto
+kc_auto:
+	cd scripts && sh ${KC_AUTO_SCRIPT}
+
+docker_kc_auto:
+	docker exec -w ${DOCKER_SCRIPTS_FOLDER}  -it ${DOCKER_VM_NAME} bash -c "${DOCKER_USER}sh ${KC_AUTO_SCRIPT}" && $(MAKE) show_crash_alert
+
+# exped
+exp:
+	cd scripts && sh ${EXPED_SCRIPT}
+
+docker_exp:
+	docker exec -w ${DOCKER_SCRIPTS_FOLDER} -it ${DOCKER_VM_NAME} bash -c "${DOCKER_USER}sh ${EXPED_SCRIPT}" && $(MAKE) show_crash_alert
