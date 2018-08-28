@@ -325,10 +325,14 @@ def send_fleet_to_expedition(fleet_number,expedition_number):
             38     : get_pattern_for_world(6)
             }
 
-    if exists(expedition_world[expedition_number]):
+    if exists(expedition_world[expedition_number],1):
         click_random(expedition_world[expedition_number])
         sleep(1)
-    click_random(expeditions[expedition_number])
+    expedition = expeditions[expedition_number]
+    if not exists(expedition):
+        expedition = expedition.similar(0.75)
+    click_random(expedition)
+        
     if exists("decision.png"):
         click_random("decision.png")
         select_fleet(fleet_number)

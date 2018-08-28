@@ -309,7 +309,7 @@ crash_count = <span class="dig">0</span>
 
 <span class="kw">def</span> is_taiha():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    <span class="kw">return</span> exists(<img src="dmg_critical.png" />,<span class="dig">5</span>)
+    <span class="kw">return</span> exists(<img src="kc3_fleet_critical_state.png" />,<span class="dig">0.5</span>) <span class="kw">or</span> exists(<img src="dmg_critical.png" />,<span class="dig">5</span>)
 
 <span class="kw">def</span> rethreat_if_taiha(is_taiha):
     <span class="kw">if</span> is_taiha:
@@ -341,13 +341,12 @@ crash_count = <span class="dig">0</span>
 
 <span class="kw">def</span> accept_expeditions():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    <span class="kw">print</span> <span class="str">"1"</span>
     <span class="skw">wait</span>(<img src="menu_main_sortie.png" />,LONG_WAIT_TIMEOUT)
-    <span class="skw">sleep</span>(<span class="dig">2</span>)
-    <span class="kw">print</span> <span class="str">"2"</span>
-    <span class="kw">while</span> exists(<img src="expedition_finish.png" />,<span class="dig">0.5</span>):
+    <span class="skw">sleep</span>(<span class="dig">3</span>)
+    <span class="kw">print</span> <span class="str">"Will look for returned expeditions"</span>
+    <span class="kw">while</span> exists(Pattern(<img src="expedition_finish.png" />).similar(<span class="dig">0.65</span>),<span class="dig">0.5</span>):
         <span class="kw">print</span> <span class="str">"--CAWD-- INFO: Fleet was returned. Welcome home, my darlings"</span>
-        click_random(<img src="expedition_finish.png" />)
+        click_random(Pattern(<img src="expedition_finish.png" />).similar(<span class="dig">0.65</span>))
         <span class="skw">wait</span>(<img src="next.png" />,WAIT_TIMEOUT)
         <span class="skw">sleep</span>(<span class="dig">5</span>)
         click_random(<img src="next.png" />,out_of_area_click = True)
@@ -355,7 +354,7 @@ crash_count = <span class="dig">0</span>
         click_random(<img src="next.png" />,out_of_area_click = True)
         <span class="skw">wait</span>(<img src="menu_main_sortie.png" />,LONG_WAIT_TIMEOUT)
         <span class="skw">sleep</span>(<span class="dig">1.5</span>)
-    <span class="kw">print</span> <span class="str">"2"</span>
+    <span class="kw">print</span> <span class="str">"Finished accepting expeditions"</span>
 
 
 <span class="kw">def</span> resupply():
@@ -385,7 +384,7 @@ crash_count = <span class="dig">0</span>
             <span class="dig">6</span>      : Pattern(<img src="ensei_name_06.png" />).similar(<span class="dig">0.90</span>),
             <span class="dig">11</span>     : Pattern(<img src="ensei_name_11.png" />).similar(<span class="dig">0.90</span>),
             <span class="dig">21</span>     : Pattern(<img src="ensei_name_21.png" />).similar(<span class="dig">0.90</span>),
-            <span class="dig">38</span>     : Pattern(<img src="ensei_name_38.png" />).similar(<span class="dig">0.90</span>)
+            <span class="dig">38</span>     : Pattern(<img src="ensei_name_38.png" />).similar(<span class="dig">0.95</span>)
             }
     expedition_world = {
             <span class="dig">2</span>      : get_pattern_for_world(<span class="dig">1</span>),
@@ -398,10 +397,14 @@ crash_count = <span class="dig">0</span>
             <span class="dig">38</span>     : get_pattern_for_world(<span class="dig">6</span>)
             }
 
-    <span class="kw">if</span> exists(expedition_world[expedition_number]):
+    <span class="kw">if</span> exists(expedition_world[expedition_number],<span class="dig">1</span>):
         click_random(expedition_world[expedition_number])
         <span class="skw">sleep</span>(<span class="dig">1</span>)
-    click_random(expeditions[expedition_number])
+    expedition = expeditions[expedition_number]
+    <span class="kw">if</span> <span class="kw">not</span> exists(expedition):
+        expedition = expedition.similar(<span class="dig">0.75</span>)
+    click_random(expedition)
+
     <span class="kw">if</span> exists(<img src="decision.png" />):
         click_random(<img src="decision.png" />)
         select_fleet(fleet_number)
