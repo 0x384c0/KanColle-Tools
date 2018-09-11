@@ -147,6 +147,8 @@ def go_home():
 
 def refresh_home():
     print inspect.getframeinfo(inspect.currentframe()).function
+    if exists(Pattern("expedition_finish.png").similar(0.65),0.5):
+    	return
     sleep(2)
     remove_cursor()
     if exists("menu_main_sortie.png"):

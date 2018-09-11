@@ -219,6 +219,8 @@ crash_count = <span class="dig">0</span>
 
 <span class="kw">def</span> refresh_home():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
+    <span class="kw">if</span> exists(Pattern(<img src="expedition_finish.png" />).similar(<span class="dig">0.65</span>),<span class="dig">0.5</span>):
+        <span class="kw">return</span>
     <span class="skw">sleep</span>(<span class="dig">2</span>)
     remove_cursor()
     <span class="kw">if</span> exists(<img src="menu_main_sortie.png" />):
