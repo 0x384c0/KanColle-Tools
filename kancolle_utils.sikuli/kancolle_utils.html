@@ -265,7 +265,7 @@ crash_count = <span class="dig">0</span>
     click_random(get_pattern_for_world(<span class="dig">3</span>))
 
     exit()
-    click_random(<img src="combat_panel_3-2.png" />) <span class="cmt">#TODO: update</span>
+    click_random(<img src="combat_panel_3-2.png" />)
     wait_and_click(<img src="decision.png" />)
     remove_cursor()
 
@@ -282,14 +282,14 @@ crash_count = <span class="dig">0</span>
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     <span class="kw">while</span> True:
         <span class="cmt"># skip night battle</span>
-        <span class="kw">if</span> exists(<img src="is_night_battle.png" />,<span class="dig">3</span>):
+        <span class="kw">if</span> exists(<img src="is_night_battle.png" />,<span class="dig">0.3</span>):
             click_random(<img src="combat_nb_retreat.png" />)
             <span class="kw">break</span>
 
         <span class="cmt"># battle results</span>
-        <span class="kw">if</span> exists(<img src="next.png" />,<span class="dig">3</span>):
+        <span class="kw">if</span> exists(<img src="next.png" />,<span class="dig">0.3</span>):
             <span class="kw">break</span>
-        sleep_random(<span class="dig">1</span>,<span class="dig">1.5</span>)
+        sleep_random(<span class="dig">0.5</span>,<span class="dig">1.0</span>)
 
     <span class="cmt"># wait for end </span>
     <span class="skw">wait</span>(<img src="next.png" />,FOREVER)
@@ -327,10 +327,13 @@ crash_count = <span class="dig">0</span>
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     wait_and_click(Pattern(<img src="line_ahead.png" />).similar(<span class="dig">0.97</span>))
 
+<span class="kw">def</span> formation_line_abreast():
+    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
+    wait_and_click(Pattern(<img src="line_abreast.png" />).similar(<span class="dig">0.90</span>))
+
 <span class="kw">def</span> formation_guard():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    exit()
-    wait_and_click(Pattern(<img src="formation_guard.png" />).similar(<span class="dig">0.85</span>))<span class="cmt"># TODO: update</span>
+    wait_and_click(Pattern(<img src="formation_guard.png" />).similar(<span class="dig">0.85</span>))
 
 
 <span class="kw">def</span> next_node():

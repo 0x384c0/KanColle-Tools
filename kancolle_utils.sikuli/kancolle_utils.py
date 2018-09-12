@@ -193,7 +193,7 @@ def select_w_3_2():
     click_random(get_pattern_for_world(3))
     
     exit()
-    click_random("combat_panel_3-2.png") #TODO: update
+    click_random("combat_panel_3-2.png")
     wait_and_click("decision.png")
     remove_cursor()
 
@@ -210,14 +210,14 @@ def accept_battle_results():
     print inspect.getframeinfo(inspect.currentframe()).function
     while True:
         # skip night battle
-        if exists("is_night_battle.png",3):
+        if exists("is_night_battle.png",0.3):
             click_random("combat_nb_retreat.png")
             break
             
         # battle results
-        if exists("next.png",3):
+        if exists("next.png",0.3):
             break
-        sleep_random(1,1.5)
+        sleep_random(0.5,1.0)
             
     # wait for end 
     wait("next.png",FOREVER)
@@ -255,10 +255,13 @@ def formation_line_ahead():
     print inspect.getframeinfo(inspect.currentframe()).function
     wait_and_click(Pattern("line_ahead.png").similar(0.97))
 
+def formation_line_abreast():
+    print inspect.getframeinfo(inspect.currentframe()).function
+    wait_and_click(Pattern("line_abreast.png").similar(0.90))
+
 def formation_guard():
     print inspect.getframeinfo(inspect.currentframe()).function
-    exit()
-    wait_and_click(Pattern("formation_guard.png").similar(0.85))# TODO: update
+    wait_and_click(Pattern("formation_guard.png").similar(0.85))
 
 
 def next_node():
