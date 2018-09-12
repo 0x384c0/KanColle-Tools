@@ -206,7 +206,7 @@ def begin_battle():
         exit(1)# safety first
     click_random("combat_start.png")
 
-def accept_battle_results():
+def accept_battle_results(combined_fleet=False):
     print inspect.getframeinfo(inspect.currentframe()).function
     while True:
         # skip night battle
@@ -218,16 +218,26 @@ def accept_battle_results():
         if exists("next.png",0.3):
             break
         sleep_random(0.5,1.0)
-            
-    # wait for end 
-    wait("next.png",FOREVER)
+        # wait for end
+
+    wait("next.png",WAIT_TIMEOUT)
     sleep(5)
     click_random("next.png",out_of_area_click = True)
     sleep_random(4,5)
     wait("next.png")
+    wait("friend_fleet_area.png")
     isTaiha = is_taiha()
     click_random("next.png",out_of_area_click = True)
+
+    if combined_fleet:
+        sleep(1)
+        wait("next.png",WAIT_TIMEOUT)
+        wait("friend_fleet_area.png")
+        isTaiha = isTaiha or is_taiha()
+        click_random("next.png",out_of_area_click = True)
+
     waitVanish("friend_fleet_area.png")
+
     # new ship
     sleep(1)
     if exists("next_alt.png",6):
@@ -239,7 +249,7 @@ def accept_battle_results():
 
 def is_taiha():
     print inspect.getframeinfo(inspect.currentframe()).function
-    return exists("kc3_fleet_critical_state.png",0.5) or exists("dmg_critical.png",5)
+    return exists("kc3_fleet_critical_state.png",0.5) or exists("dmg_critical.png",2)
 
 def rethreat_if_taiha(is_taiha):
     if is_taiha:
@@ -257,12 +267,23 @@ def formation_line_ahead():
 
 def formation_line_abreast():
     print inspect.getframeinfo(inspect.currentframe()).function
-    wait_and_click(Pattern("line_abreast.png").similar(0.90))
+    wait_and_click(Pattern("line_abreast.png").similar(0.95))
 
 def formation_guard():
     print inspect.getframeinfo(inspect.currentframe()).function
-    wait_and_click(Pattern("formation_guard.png").similar(0.85))
+    wait_and_click(Pattern("formation_guard.png").similar(0.95))
 
+def formation_combined_asw():
+    print inspect.getframeinfo(inspect.currentframe()).function
+    wait_and_click("formation_combined_asw.png") # asw
+
+def formation_combined_surface():
+    print inspect.getframeinfo(inspect.currentframe()).function
+    wait_and_click("formation_combined_surface.png") #surface
+
+def boss_preview():
+     click_random(Pattern("boss_preview.png").similar(0.95))# boss preview
+    
 
 def next_node():
     click_random("combat_nextnode.png")
@@ -311,7 +332,7 @@ def send_fleet_to_expedition(fleet_number,expedition_number):
     # on exp screen
     expeditions = {
             2      : Pattern("ensei_name_02.png").similar(0.90),
-            3      : Pattern("1535267306650.png").similar(0.90),
+            3      : Pattern("ensei_name_03.png").similar(0.90),
             4      : Pattern("ensei_name_04.png").similar(0.90),
             5      : Pattern("ensei_name_05.png").similar(0.90),
             6      : Pattern("ensei_name_06.png").similar(0.90),
