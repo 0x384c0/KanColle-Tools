@@ -4,6 +4,7 @@ from org.sikuli.script import *
 from time import sleep
 import inspect
 import datetime
+import traceback
 
 # SETTINGS
 WAIT_TIMEOUT = 20
@@ -61,11 +62,6 @@ def hide_kancolle_page():
 
 def recover(e):
     check_crash_frequency(e)
-    remove_cursor()
-    click(Pattern("chrome_to_window_mode.png").similar(0.80))
-    sleep(1)
-    remove_cursor()
-    click(Pattern("chrome_to_fullscreen_mode.png").similar(0.80))
     
 
 last_crash_date = datetime.datetime(2000,01,01)
@@ -77,6 +73,7 @@ def check_crash_frequency(e):
     print "\n*** WARNING: CRASH ***" 
     print "minutes_since_last_crash: " + str(minutes_since_last_crash)
     print "crash_count: " + str(crash_count)
+    traceback.print_exc()
     print e
     print "**********************\n"
     if (minutes_since_last_crash < MAX_MINUTES_SINCE_LAST_CRASH):
@@ -296,11 +293,11 @@ def rethreat():
 def accept_expeditions():
     print inspect.getframeinfo(inspect.currentframe()).function
     wait("menu_main_sortie.png",LONG_WAIT_TIMEOUT)
-    sleep(3)
+    sleep(1)
     print "Will look for returned expeditions"
-    while exists(Pattern("expedition_finish.png").similar(0.65),0.5):
+    while exists(Pattern("expedition_finish.png").similar(0.7),1):
         print "--CAWD-- INFO: Fleet was returned. Welcome home, my darlings"
-        click_random(Pattern("expedition_finish.png").similar(0.65))
+        click_random(Pattern("expedition_finish.png").similar(0.7))
         wait("next.png",WAIT_TIMEOUT)
         sleep(5)
         click_random("next.png",out_of_area_click = True)
