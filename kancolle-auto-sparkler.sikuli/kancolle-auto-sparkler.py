@@ -1,6 +1,6 @@
 from  kancolle_utils import *
 
-FLEET_NUMBER = 3
+FLEET_NUMBER = 1
 
 def check_fleet_for_sparkling():
     sleep(1)

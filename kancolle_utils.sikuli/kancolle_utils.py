@@ -163,7 +163,21 @@ def select_sortie_combat():
     wait("select_world.png",WAIT_TIMEOUT)
     sleep_random(0.5,1.0)
     
+def sortie_to_world():
+    print inspect.getframeinfo(inspect.currentframe()).function
+    wait_and_click("decision.png")
+    remove_cursor()
 
+def select_event_world():
+    print inspect.getframeinfo(inspect.currentframe()).function
+    click_random("event_world.png.png")
+
+def sortie_to_event_world():
+    print inspect.getframeinfo(inspect.currentframe()).function
+    wait_and_click("event_chalkboard.png")
+    sleep(1)
+    wait_and_click("event_chalkboard.png")
+    sortie_to_world()
 
 
 def select_fleet(FLEET_NUMBER):
@@ -180,8 +194,7 @@ def select_w_1_1():
     print inspect.getframeinfo(inspect.currentframe()).function
     select_sortie_combat()
     click_random("combat_panel_1-1.png")
-    wait_and_click("decision.png")
-    remove_cursor()
+    sortie_to_world()
     
 
 def select_w_3_2():
@@ -191,8 +204,7 @@ def select_w_3_2():
     
     exit()
     click_random("combat_panel_3-2.png")
-    wait_and_click("decision.png")
-    remove_cursor()
+    sortie_to_world()
 
 
 
@@ -256,7 +268,9 @@ def rethreat_if_taiha(is_taiha):
 
 def compass():
     print inspect.getframeinfo(inspect.currentframe()).function
-    wait_and_click("compass.png")
+    sleep(1)
+    if exists("compass.png",WAIT_TIMEOUT):
+        click_random("compass.png")
 
 def formation_line_ahead():
     print inspect.getframeinfo(inspect.currentframe()).function

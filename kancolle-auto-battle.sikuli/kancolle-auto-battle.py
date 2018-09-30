@@ -16,7 +16,14 @@ def preboss_formation():
     
 
 #1CL 4DD
-if world == "e1": 
+if world == "e1":
+    go_home()
+    select_sortie_combat()
+    #select e1
+    select_event_world()
+    click_random("w_e_1.png")
+    sortie_to_event_world()
+    
     begin_battle()
     
     compass()
@@ -60,7 +67,7 @@ if world == "w15":
     formation_line_abreast()
     accept_battle_results()
 
-#bw2 4BB 2CV
+#bw2 2CV 4BB 
 if world == "w21": 
     begin_battle()
     
@@ -70,12 +77,12 @@ if world == "w21":
     compass()# check if compass
     compass()
     
-    formation_line_ahead()
+    preboss_formation()
     accept_battle_results()
     next_node()
     compass()
     
-    formation_line_ahead()
+    preboss_formation()
     accept_battle_results()
 
 # bw7 FBB CVB 2CLT 2DD
