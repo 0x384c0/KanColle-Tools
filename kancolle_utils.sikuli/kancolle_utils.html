@@ -76,6 +76,7 @@
 <span class="kw">from</span> time <span class="kw">import</span> <span class="skw">sleep</span>
 <span class="kw">import</span> inspect
 <span class="kw">import</span> datetime
+<span class="kw">import</span> traceback
 
 <span class="cmt"># SETTINGS</span>
 WAIT_TIMEOUT = <span class="dig">20</span>
@@ -133,11 +134,6 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
 
 <span class="kw">def</span> recover(e):
     check_crash_frequency(e)
-    remove_cursor()
-    <span class="skw">click</span>(Pattern(<img src="chrome_to_window_mode.png" />).similar(<span class="dig">0.80</span>))
-    <span class="skw">sleep</span>(<span class="dig">1</span>)
-    remove_cursor()
-    <span class="skw">click</span>(Pattern(<img src="chrome_to_fullscreen_mode.png" />).similar(<span class="dig">0.80</span>))
 
 
 last_crash_date = datetime.datetime(<span class="dig">2000</span>,<span class="dig">01</span>,<span class="dig">01</span>)
@@ -149,6 +145,7 @@ crash_count = <span class="dig">0</span>
     <span class="kw">print</span> <span class="str">"\n*** WARNING: CRASH ***"</span>
     <span class="kw">print</span> <span class="str">"minutes_since_last_crash: "</span> + str(minutes_since_last_crash)
     <span class="kw">print</span> <span class="str">"crash_count: "</span> + str(crash_count)
+    traceback.print_exc()
     <span class="kw">print</span> e
     <span class="kw">print</span> <span class="str">"**********************\n"</span>
     <span class="kw">if</span> (minutes_since_last_crash &lt; MAX_MINUTES_SINCE_LAST_CRASH):
@@ -174,15 +171,10 @@ crash_count = <span class="dig">0</span>
             <span class="dig">5</span>:Pattern(<img src="ensei_area_05_exp.png" />).similar(<span class="dig">0.85</span>),
             <span class="dig">6</span>:Pattern(<img src="ensei_area_06_exp.png" />).similar(<span class="dig">0.90</span>)
             }
-    is_exp = exists(<img src="sortie_top_combat.png" />,<span class="dig">1</span>)
+    <span class="skw">sleep</span>(<span class="dig">1</span>)
+    is_exp = exists(Pattern(<img src="sortie_top_combat.png" />).similar(<span class="dig">0.95</span>),<span class="dig">1</span>)
     worlds = worlds_exp <span class="kw">if</span> is_exp <span class="kw">else</span> worlds_sortie
     <span class="kw">return</span> worlds[world_number]
-    <span class="cmt"># TODO: remove if needed</span>
-    <span class="cmt"># print inspect.getframeinfo(inspect.currentframe()).function + " " + str(world_number)</span>
-    <span class="cmt"># SPACE_BETWEEN_WORLD_BUTTONS = 61</span>
-    <span class="cmt"># print str((world_number - 1) * SPACE_BETWEEN_WORLD_BUTTONS)</span>
-    <span class="cmt"># pattern = Pattern("ensei_area_01_sortie.png").targetOffset((world_number - 1) * SPACE_BETWEEN_WORLD_BUTTONS, 0)</span>
-    <span class="cmt"># return pattern</span>
 
 <span class="cmt"># GAME ACTIONS</span>
 
@@ -239,15 +231,19 @@ crash_count = <span class="dig">0</span>
     sleep_random(<span class="dig">0.5</span>,<span class="dig">1.0</span>)
 
 <span class="kw">def</span> sortie_to_world():
+    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     wait_and_click(<img src="decision.png" />)
     remove_cursor()
 
 <span class="kw">def</span> select_event_world():
+    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     click_random(<img src="event_world.png.png" />)
 
 <span class="kw">def</span> sortie_to_event_world():
-    click_random(<img src="event_chalkboard.png" />)
-    click_random(<img src="event_chalkboard.png" />)
+    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
+    wait_and_click(<img src="event_chalkboard.png" />)
+    <span class="skw">sleep</span>(<span class="dig">1</span>)
+    wait_and_click(<img src="event_chalkboard.png" />)
     sortie_to_world()
 
 
@@ -267,16 +263,13 @@ crash_count = <span class="dig">0</span>
     click_random(<img src="combat_panel_1-1.png" />)
     sortie_to_world()
 
-
-<span class="kw">def</span> select_w_3_2():
+<span class="kw">def</span> select_w_3_3():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     select_sortie_combat()
     click_random(get_pattern_for_world(<span class="dig">3</span>))
+    click_random(<img src="combat_panel_3-3.png" />)
 
-    exit()
-    click_random(<img src="combat_panel_3-2.png" />)
     sortie_to_world()
-
 
 
 <span class="kw">def</span> begin_battle():
@@ -378,11 +371,11 @@ crash_count = <span class="dig">0</span>
 <span class="kw">def</span> accept_expeditions():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     <span class="skw">wait</span>(<img src="menu_main_sortie.png" />,LONG_WAIT_TIMEOUT)
-    <span class="skw">sleep</span>(<span class="dig">3</span>)
+    <span class="skw">sleep</span>(<span class="dig">1</span>)
     <span class="kw">print</span> <span class="str">"Will look for returned expeditions"</span>
-    <span class="kw">while</span> exists(Pattern(<img src="expedition_finish.png" />).similar(<span class="dig">0.65</span>),<span class="dig">0.5</span>):
+    <span class="kw">while</span> exists(<img src="expedition_finish.png" />,<span class="dig">1</span>):
         <span class="kw">print</span> <span class="str">"--CAWD-- INFO: Fleet was returned. Welcome home, my darlings"</span>
-        click_random(Pattern(<img src="expedition_finish.png" />).similar(<span class="dig">0.65</span>))
+        click_random(<img src="expedition_finish.png" />)
         <span class="skw">wait</span>(<img src="next.png" />,WAIT_TIMEOUT)
         <span class="skw">sleep</span>(<span class="dig">5</span>)
         click_random(<img src="next.png" />,out_of_area_click = True)

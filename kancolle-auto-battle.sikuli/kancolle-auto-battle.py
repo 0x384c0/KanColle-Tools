@@ -1,6 +1,6 @@
 from  kancolle_utils import *
 
-world = "e1"
+world = "w33"
 
 def generic_battle():# TODO: make it working
     begin_battle()
@@ -18,6 +18,7 @@ def preboss_formation():
 #1CL 4DD
 if world == "e1":
     go_home()
+    accept_expeditions()
     select_sortie_combat()
     #select e1
     select_event_world()
@@ -85,9 +86,12 @@ if world == "w21":
     preboss_formation()
     accept_battle_results()
 
-# bw7 FBB CVB 2CLT 2DD
+# bw7 2DD CVB 2CLT FBB
 # need radars
-if world == "w33": 
+if world == "w33":
+    go_home()
+    accept_expeditions()
+    select_w_3_3()
     begin_battle()
     
     preboss_formation()

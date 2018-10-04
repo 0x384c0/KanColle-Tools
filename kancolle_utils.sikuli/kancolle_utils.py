@@ -99,15 +99,10 @@ def get_pattern_for_world(world_number):
             5:Pattern("ensei_area_05_exp.png").similar(0.85),
             6:Pattern("ensei_area_06_exp.png").similar(0.90)
             }
-    is_exp = exists("sortie_top_combat.png",1)
+    sleep(1)
+    is_exp = exists(Pattern("sortie_top_combat.png").similar(0.95),1)
     worlds = worlds_exp if is_exp else worlds_sortie
     return worlds[world_number]
-    # TODO: remove if needed
-    # print inspect.getframeinfo(inspect.currentframe()).function + " " + str(world_number)
-    # SPACE_BETWEEN_WORLD_BUTTONS = 61
-    # print str((world_number - 1) * SPACE_BETWEEN_WORLD_BUTTONS)
-    # pattern = Pattern("ensei_area_01_sortie.png").targetOffset((world_number - 1) * SPACE_BETWEEN_WORLD_BUTTONS, 0)
-    # return pattern
 
 # GAME ACTIONS
 
@@ -195,17 +190,14 @@ def select_w_1_1():
     select_sortie_combat()
     click_random("combat_panel_1-1.png")
     sortie_to_world()
-    
 
-def select_w_3_2():
+def select_w_3_3():
     print inspect.getframeinfo(inspect.currentframe()).function
     select_sortie_combat()
     click_random(get_pattern_for_world(3))
+    click_random("combat_panel_3-3.png")
     
-    exit()
-    click_random("combat_panel_3-2.png")
     sortie_to_world()
-
 
 
 def begin_battle():
@@ -309,9 +301,9 @@ def accept_expeditions():
     wait("menu_main_sortie.png",LONG_WAIT_TIMEOUT)
     sleep(1)
     print "Will look for returned expeditions"
-    while exists(Pattern("expedition_finish.png").similar(0.7),1):
+    while exists("expedition_finish.png",1):
         print "--CAWD-- INFO: Fleet was returned. Welcome home, my darlings"
-        click_random(Pattern("expedition_finish.png").similar(0.7))
+        click_random("expedition_finish.png")
         wait("next.png",WAIT_TIMEOUT)
         sleep(5)
         click_random("next.png",out_of_area_click = True)
