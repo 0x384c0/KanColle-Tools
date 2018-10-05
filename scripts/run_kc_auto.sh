@@ -1,1 +1,0 @@
-java -jar sikulix.jar -r "kcauto-kai/kcauto-kai.sikuli"

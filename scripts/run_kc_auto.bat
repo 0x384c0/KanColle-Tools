@@ -1,0 +1,1 @@
+java -jar sikulix.jar -r "kcauto/kcauto.sikuli" & minimise.vbs & "alarm.mp3"
