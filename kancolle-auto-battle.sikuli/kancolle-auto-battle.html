@@ -72,7 +72,7 @@
 <pre class="sikuli-code">
 <span class="kw">from</span>  kancolle_utils <span class="kw">import</span> *
 
-world = <span class="str">"w33"</span>
+world = <span class="str">"w22"</span>
 
 <span class="kw">def</span> generic_battle():<span class="cmt"># TODO: make it working</span>
     begin_battle()
@@ -83,7 +83,7 @@ world = <span class="str">"w33"</span>
         next_node()
 
 <span class="kw">def</span> preboss_formation():
-    <span class="kw">return</span> formation_guard() <span class="cmt">#formation_line_ahead()</span>
+    <span class="kw">return</span> formation_line_ahead() <span class="cmt">#formation_guard()</span>
 
 
 
@@ -157,6 +157,22 @@ world = <span class="str">"w33"</span>
 
     preboss_formation()
     accept_battle_results()
+
+
+<span class="cmt">#transports 2CLT 3CV(B) 1FBB</span>
+<span class="kw">if</span> world == <span class="str">"w22"</span>:
+    go_home()
+    accept_expeditions()
+    select_w_2_2()
+    begin_battle()
+
+    compass()
+    formation_line_ahead()
+    accept_battle_results()
+    next_node()
+
+    accept_empty_node()
+
 
 <span class="cmt"># bw7 2DD CVB 2CLT FBB</span>
 <span class="cmt"># need radars</span>

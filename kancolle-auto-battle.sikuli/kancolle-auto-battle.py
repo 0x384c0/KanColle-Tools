@@ -1,6 +1,6 @@
 from  kancolle_utils import *
 
-world = "w33"
+world = "w22"
 
 def generic_battle():# TODO: make it working
     begin_battle()
@@ -11,7 +11,7 @@ def generic_battle():# TODO: make it working
         next_node()
 
 def preboss_formation():
-    return formation_guard() #formation_line_ahead()
+    return formation_line_ahead() #formation_guard()
     
     
 
@@ -85,6 +85,22 @@ if world == "w21":
     
     preboss_formation()
     accept_battle_results()
+
+
+#transports 2CLT 3CV(B) 1FBB
+if world == "w22":
+    go_home()
+    accept_expeditions()
+    select_w_2_2()
+    begin_battle()
+    
+    compass()
+    formation_line_ahead()
+    accept_battle_results()
+    next_node()
+    
+    accept_empty_node()
+    
 
 # bw7 2DD CVB 2CLT FBB
 # need radars

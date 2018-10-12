@@ -191,6 +191,14 @@ def select_w_1_1():
     click_random("combat_panel_1-1.png")
     sortie_to_world()
 
+def select_w_2_2():
+    print inspect.getframeinfo(inspect.currentframe()).function
+    select_sortie_combat()
+    click_random(get_pattern_for_world(2))
+    click_random(Pattern("combat_panel_2-2.png.png").similar(0.90))
+    
+    sortie_to_world()
+
 def select_w_3_3():
     print inspect.getframeinfo(inspect.currentframe()).function
     select_sortie_combat()
@@ -247,6 +255,8 @@ def accept_battle_results(combined_fleet=False):
     sleep_random(0.5,1.0)
     rethreat_if_taiha(isTaiha)
         
+def accept_empty_node():
+     click_random("next_alt.png",out_of_area_click = True)
 
 def is_taiha():
     print inspect.getframeinfo(inspect.currentframe()).function

@@ -263,6 +263,14 @@ crash_count = <span class="dig">0</span>
     click_random(<img src="combat_panel_1-1.png" />)
     sortie_to_world()
 
+<span class="kw">def</span> select_w_2_2():
+    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
+    select_sortie_combat()
+    click_random(get_pattern_for_world(<span class="dig">2</span>))
+    click_random(Pattern(<img src="combat_panel_2-2.png.png" />).similar(<span class="dig">0.90</span>))
+
+    sortie_to_world()
+
 <span class="kw">def</span> select_w_3_3():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     select_sortie_combat()
@@ -319,6 +327,8 @@ crash_count = <span class="dig">0</span>
     sleep_random(<span class="dig">0.5</span>,<span class="dig">1.0</span>)
     rethreat_if_taiha(isTaiha)
 
+<span class="kw">def</span> accept_empty_node():
+     click_random(<img src="next_alt.png" />,out_of_area_click = True)
 
 <span class="kw">def</span> is_taiha():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
