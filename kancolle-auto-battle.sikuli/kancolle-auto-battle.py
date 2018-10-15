@@ -1,6 +1,6 @@
 from  kancolle_utils import *
 
-world = "w22"
+world = "w33"
 
 def generic_battle():# TODO: make it working
     begin_battle()
@@ -48,6 +48,9 @@ if world == "w14":
 
 # 2CL BBV CVL
 if world == "w15": 
+    go_home()
+    accept_expeditions()
+    select_w_1_5()
     begin_battle()
 
     formation_line_abreast()

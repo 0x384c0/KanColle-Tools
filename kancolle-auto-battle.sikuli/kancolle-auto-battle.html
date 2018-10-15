@@ -72,7 +72,7 @@
 <pre class="sikuli-code">
 <span class="kw">from</span>  kancolle_utils <span class="kw">import</span> *
 
-world = <span class="str">"w22"</span>
+world = <span class="str">"w33"</span>
 
 <span class="kw">def</span> generic_battle():<span class="cmt"># TODO: make it working</span>
     begin_battle()
@@ -120,6 +120,9 @@ world = <span class="str">"w22"</span>
 
 <span class="cmt"># 2CL BBV CVL</span>
 <span class="kw">if</span> world == <span class="str">"w15"</span>:
+    go_home()
+    accept_expeditions()
+    select_w_1_5()
     begin_battle()
 
     formation_line_abreast()

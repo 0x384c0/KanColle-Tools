@@ -75,6 +75,7 @@
 FLEET_NUMBER = <span class="dig">1</span>
 
 <span class="kw">def</span> check_fleet_for_sparkling():
+    <span class="cmt">#return</span>
     <span class="skw">sleep</span>(<span class="dig">1</span>)
     <span class="kw">if</span> <span class="kw">not</span> exists(Pattern(<img src="three_ships_fleet.png" />).exact()):
         <span class="kw">print</span> <span class="str">"ERROR: wrong fleet"</span>
@@ -88,9 +89,11 @@ select_w_1_1()
 select_fleet(FLEET_NUMBER)
 check_fleet_for_sparkling()
 begin_battle()
+<span class="cmt">#formation_line_ahead()</span>
 accept_battle_results()
 next_node()
 compass()
+<span class="cmt">#formation_line_ahead()</span>
 accept_battle_results()
 </pre>
 </body>

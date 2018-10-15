@@ -191,6 +191,15 @@ def select_w_1_1():
     click_random("combat_panel_1-1.png")
     sortie_to_world()
 
+def select_w_1_5():
+    print inspect.getframeinfo(inspect.currentframe()).function
+    select_sortie_combat()
+    click_random("combat_panel_1-extra.png")
+    remove_cursor()
+    click_random("combat_panel_1-5.png")
+    
+    sortie_to_world()
+
 def select_w_2_2():
     print inspect.getframeinfo(inspect.currentframe()).function
     select_sortie_combat()
