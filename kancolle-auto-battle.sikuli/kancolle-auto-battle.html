@@ -72,7 +72,7 @@
 <pre class="sikuli-code">
 <span class="kw">from</span>  kancolle_utils <span class="kw">import</span> *
 
-world = <span class="str">"w33"</span>
+world = <span class="str">"w22"</span>
 
 <span class="kw">def</span> generic_battle():<span class="cmt"># TODO: make it working</span>
     begin_battle()
@@ -175,6 +175,9 @@ world = <span class="str">"w33"</span>
     next_node()
 
     accept_empty_node()
+
+    accept_expeditions()
+    resupply()
 
 
 <span class="cmt"># bw7 2DD CVB 2CLT FBB</span>
