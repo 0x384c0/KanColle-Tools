@@ -1,6 +1,6 @@
 from  kancolle_utils import *
 
-world = "w22"
+world = "w15"
 
 def generic_battle():# TODO: make it working
     begin_battle()
@@ -106,6 +106,26 @@ if world == "w22":
     
     accept_expeditions()
     resupply()
+
+
+# CL CV CVL 3DD los >= 34
+if world == "w25": 
+    begin_battle()
+    
+    compass()
+    formation_line_ahead()
+    accept_battle_results()
+    next_node()
+    
+    compass()
+    formation_line_ahead()
+    accept_battle_results()
+    next_node()
+
+    compass()
+    compass()
+    formation_line_ahead()
+    #TODO: night battle
     
 
 # bw7 2DD CVB 2CLT FBB
