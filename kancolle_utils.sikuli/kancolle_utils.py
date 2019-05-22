@@ -342,7 +342,7 @@ def resupply():
     sleep(1)
 
 #EXPED
-def send_fleet_to_expedition(fleet_number,expedition_number):
+def send_fleet_to_expedition(fleet_number,expedition_name):
     if not exists("sortie_top_combat.png"):
         # go to exp screen
         wait_and_click("menu_main_sortie.png")
@@ -353,36 +353,53 @@ def send_fleet_to_expedition(fleet_number,expedition_number):
         sleep(1)
     # on exp screen
     expeditions = {
-            2      : Pattern("ensei_name_02.png").similar(0.90),
-            3      : Pattern("ensei_name_03.png").similar(0.90),
-            4      : Pattern("ensei_name_04.png").similar(0.90),
-            5      : Pattern("ensei_name_05.png").similar(0.90),
-            6      : Pattern("ensei_name_06.png").similar(0.90),
-            11     : Pattern("ensei_name_11.png").similar(0.90),
-            20     : Pattern("ensei_name_20.png").similar(0.90),
-            21     : Pattern("ensei_name_21.png").similar(0.90),
-            38     : Pattern("ensei_name_38.png").similar(0.95)
-            }
-    expedition_world = {
-            2      : get_pattern_for_world(1),
-            3      : get_pattern_for_world(1),
-            4      : get_pattern_for_world(1),
-            5      : get_pattern_for_world(1),
-            6      : get_pattern_for_world(1),
-            11     : get_pattern_for_world(2),
-            20     : get_pattern_for_world(3),
-            21     : get_pattern_for_world(3),
-            38     : get_pattern_for_world(6)
+            "2"      : Pattern("ensei_name_02.png").similar(0.90),
+            "3"      : Pattern("ensei_name_03.png").similar(0.90),
+            "4"      : Pattern("ensei_name_04.png").similar(0.90),
+            "5"      : Pattern("ensei_name_05.png").similar(0.90),
+            "6"      : Pattern("ensei_name_06.png").similar(0.90),
+            "A2"     : Pattern("ensei_name_a2.png").similar(0.90),
+            "11"     : Pattern("ensei_name_11.png").similar(0.90),
+            "20"     : Pattern("ensei_name_20.png").similar(0.90),
+            "21"     : Pattern("ensei_name_21.png").similar(0.90),
+            "38"     : Pattern("ensei_name_38.png").similar(0.95)
             }
 
-    if exists(expedition_world[expedition_number],1):
-        click_random(expedition_world[expedition_number])
+    expedition_scroll_down_counts = {
+            "A2"     : 2
+            }
+    
+    expedition_world = {
+            "2"      : get_pattern_for_world(1),
+            "3"      : get_pattern_for_world(1),
+            "4"      : get_pattern_for_world(1),
+            "5"      : get_pattern_for_world(1),
+            "6"      : get_pattern_for_world(1),
+            "A2"     : get_pattern_for_world(1),
+            "11"     : get_pattern_for_world(2),
+            "20"     : get_pattern_for_world(3),
+            "21"     : get_pattern_for_world(3),
+            "38"     : get_pattern_for_world(6)
+            }
+    # select world
+    if exists(expedition_world[expedition_name],1):
+        click_random(expedition_world[expedition_name])
         sleep(1)
-    expedition = expeditions[expedition_number]
+
+    # scroll down if needed
+    expedition_scroll_down_count = expedition_scroll_down_counts.get(expedition_name,0)
+    for i in range(expedition_scroll_down_count):
+        sleep(0.5)
+        click_random("exp_scroll_down.png")
+        sleep(0.5)
+
+    # select expedition
+    expedition = expeditions[expedition_name]
     if not exists(expedition):
         expedition = expedition.similar(0.75)
     click_random(expedition)
-        
+
+    #send fleet
     if exists("decision.png"):
         click_random("decision.png")
         select_fleet(fleet_number)

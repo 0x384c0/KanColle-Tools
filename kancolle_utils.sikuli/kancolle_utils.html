@@ -414,7 +414,7 @@ crash_count = <span class="dig">0</span>
     <span class="skw">sleep</span>(<span class="dig">1</span>)
 
 <span class="cmt">#EXPED</span>
-<span class="kw">def</span> send_fleet_to_expedition(fleet_number,expedition_number):
+<span class="kw">def</span> send_fleet_to_expedition(fleet_number,expedition_name):
     <span class="kw">if</span> <span class="kw">not</span> exists(<img src="sortie_top_combat.png" />):
         <span class="cmt"># go to exp screen</span>
         wait_and_click(<img src="menu_main_sortie.png" />)
@@ -425,34 +425,53 @@ crash_count = <span class="dig">0</span>
         <span class="skw">sleep</span>(<span class="dig">1</span>)
     <span class="cmt"># on exp screen</span>
     expeditions = {
-            <span class="dig">2</span>      : Pattern(<img src="ensei_name_02.png" />).similar(<span class="dig">0.90</span>),
-            <span class="dig">3</span>      : Pattern(<img src="ensei_name_03.png" />).similar(<span class="dig">0.90</span>),
-            <span class="dig">4</span>      : Pattern(<img src="ensei_name_04.png" />).similar(<span class="dig">0.90</span>),
-            <span class="dig">5</span>      : Pattern(<img src="ensei_name_05.png" />).similar(<span class="dig">0.90</span>),
-            <span class="dig">6</span>      : Pattern(<img src="ensei_name_06.png" />).similar(<span class="dig">0.90</span>),
-            <span class="dig">11</span>     : Pattern(<img src="ensei_name_11.png" />).similar(<span class="dig">0.90</span>),
-            <span class="dig">21</span>     : Pattern(<img src="ensei_name_21.png" />).similar(<span class="dig">0.90</span>),
-            <span class="dig">38</span>     : Pattern(<img src="ensei_name_38.png" />).similar(<span class="dig">0.95</span>)
-            }
-    expedition_world = {
-            <span class="dig">2</span>      : get_pattern_for_world(<span class="dig">1</span>),
-            <span class="dig">3</span>      : get_pattern_for_world(<span class="dig">1</span>),
-            <span class="dig">4</span>      : get_pattern_for_world(<span class="dig">1</span>),
-            <span class="dig">5</span>      : get_pattern_for_world(<span class="dig">1</span>),
-            <span class="dig">6</span>      : get_pattern_for_world(<span class="dig">1</span>),
-            <span class="dig">11</span>     : get_pattern_for_world(<span class="dig">2</span>),
-            <span class="dig">21</span>     : get_pattern_for_world(<span class="dig">3</span>),
-            <span class="dig">38</span>     : get_pattern_for_world(<span class="dig">6</span>)
+            <span class="str">"2"</span>      : Pattern(<img src="ensei_name_02.png" />).similar(<span class="dig">0.90</span>),
+            <span class="str">"3"</span>      : Pattern(<img src="ensei_name_03.png" />).similar(<span class="dig">0.90</span>),
+            <span class="str">"4"</span>      : Pattern(<img src="ensei_name_04.png" />).similar(<span class="dig">0.90</span>),
+            <span class="str">"5"</span>      : Pattern(<img src="ensei_name_05.png" />).similar(<span class="dig">0.90</span>),
+            <span class="str">"6"</span>      : Pattern(<img src="ensei_name_06.png" />).similar(<span class="dig">0.90</span>),
+            <span class="str">"A2"</span>     : Pattern(<img src="ensei_name_a2.png" />).similar(<span class="dig">0.90</span>),
+            <span class="str">"11"</span>     : Pattern(<img src="ensei_name_11.png" />).similar(<span class="dig">0.90</span>),
+            <span class="str">"20"</span>     : Pattern(<img src="ensei_name_20.png" />).similar(<span class="dig">0.90</span>),
+            <span class="str">"21"</span>     : Pattern(<img src="ensei_name_21.png" />).similar(<span class="dig">0.90</span>),
+            <span class="str">"38"</span>     : Pattern(<img src="ensei_name_38.png" />).similar(<span class="dig">0.95</span>)
             }
 
-    <span class="kw">if</span> exists(expedition_world[expedition_number],<span class="dig">1</span>):
-        click_random(expedition_world[expedition_number])
+    expedition_scroll_down_counts = {
+            <span class="str">"A2"</span>     : <span class="dig">2</span>
+            }
+
+    expedition_world = {
+            <span class="str">"2"</span>      : get_pattern_for_world(<span class="dig">1</span>),
+            <span class="str">"3"</span>      : get_pattern_for_world(<span class="dig">1</span>),
+            <span class="str">"4"</span>      : get_pattern_for_world(<span class="dig">1</span>),
+            <span class="str">"5"</span>      : get_pattern_for_world(<span class="dig">1</span>),
+            <span class="str">"6"</span>      : get_pattern_for_world(<span class="dig">1</span>),
+            <span class="str">"A2"</span>     : get_pattern_for_world(<span class="dig">1</span>),
+            <span class="str">"11"</span>     : get_pattern_for_world(<span class="dig">2</span>),
+            <span class="str">"20"</span>     : get_pattern_for_world(<span class="dig">3</span>),
+            <span class="str">"21"</span>     : get_pattern_for_world(<span class="dig">3</span>),
+            <span class="str">"38"</span>     : get_pattern_for_world(<span class="dig">6</span>)
+            }
+    <span class="cmt"># select world</span>
+    <span class="kw">if</span> exists(expedition_world[expedition_name],<span class="dig">1</span>):
+        click_random(expedition_world[expedition_name])
         <span class="skw">sleep</span>(<span class="dig">1</span>)
-    expedition = expeditions[expedition_number]
+
+    <span class="cmt"># scroll down if needed</span>
+    expedition_scroll_down_count = expedition_scroll_down_counts.get(expedition_name,<span class="dig">0</span>)
+    <span class="kw">for</span> i <span class="kw">in</span> range(expedition_scroll_down_count):
+        <span class="skw">sleep</span>(<span class="dig">0.5</span>)
+        click_random(<img src="exp_scroll_down.png" />)
+        <span class="skw">sleep</span>(<span class="dig">0.5</span>)
+
+    <span class="cmt"># select expedition</span>
+    expedition = expeditions[expedition_name]
     <span class="kw">if</span> <span class="kw">not</span> exists(expedition):
         expedition = expedition.similar(<span class="dig">0.75</span>)
     click_random(expedition)
 
+    <span class="cmt">#send fleet</span>
     <span class="kw">if</span> exists(<img src="decision.png" />):
         click_random(<img src="decision.png" />)
         select_fleet(fleet_number)
