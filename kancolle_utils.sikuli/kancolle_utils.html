@@ -341,7 +341,7 @@ crash_count = <span class="dig">0</span>
 
 <span class="kw">def</span> is_taiha():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    <span class="kw">return</span> exists(<img src="kc3_fleet_critical_state.png" />,<span class="dig">0.5</span>) <span class="kw">or</span> exists(<img src="dmg_critical.png" />,<span class="dig">2</span>)
+    <span class="kw">return</span> exists(Pattern(<img src="kc3_fleet_critical_state.png" />).similar(<span class="dig">0.80</span>),<span class="dig">0.5</span>) <span class="kw">or</span> exists(<img src="dmg_critical.png" />,<span class="dig">2</span>)
 
 <span class="kw">def</span> rethreat_if_taiha(is_taiha):
     <span class="kw">if</span> is_taiha:

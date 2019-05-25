@@ -269,7 +269,7 @@ def accept_empty_node():
 
 def is_taiha():
     print inspect.getframeinfo(inspect.currentframe()).function
-    return exists("kc3_fleet_critical_state.png",0.5) or exists("dmg_critical.png",2)
+    return exists(Pattern("kc3_fleet_critical_state.png").similar(0.80),0.5) or exists("dmg_critical.png",2)
 
 def rethreat_if_taiha(is_taiha):
     if is_taiha:
