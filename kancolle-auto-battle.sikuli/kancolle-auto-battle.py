@@ -13,33 +13,57 @@ def generic_battle():# TODO: make it working
 def preboss_formation():
     return formation_line_ahead() #formation_guard()
     
-    
 
-#1CL 4DD
-if world == "e1":
-    go_home()
-    accept_expeditions()
-    select_sortie_combat()
-    #select e1
-    select_event_world()
-    click_random("w_e_1.png")
-    sortie_to_event_world()
-    
-    begin_battle()
-    
-    compass()
-    formation_guard()
-    accept_battle_results()
-    next_node()
-    
-    compass()
-    formation_guard()
-    accept_battle_results()
-    next_node()
-    
+
+def formation_diamond():
+    print inspect.getframeinfo(inspect.currentframe()).function
+    wait_and_click(Pattern("1558865540376.png").similar(0.97))
+
+# 4(F)BB(V) 2CCL
+if world == "e2":
     formation_line_abreast()
-    boss_preview()
     accept_battle_results()
+    next_node()
+
+    # select node P1
+    remove_cursor()
+    wait("1558995198165.png",LONG_WAIT_TIMEOUT)
+    sleep(1)
+    wait_and_click(Pattern("e2_node_p2.png").similar(0.80))
+    formation_diamond()
+    accept_battle_results()
+    next_node()
+    
+    formation_diamond()
+    accept_battle_results()
+    next_node()
+    
+    compass()
+    formation_diamond()
+    accept_battle_results()
+    next_node()
+    
+    formation_diamond()
+    accept_battle_results()
+    next_node()
+    
+    compass()
+    formation_diamond()
+    accept_battle_results()
+    next_node()
+    
+    formation_guard()
+    accept_battle_results()
+    next_node()
+    
+    compass()
+    formation_guard()
+    accept_battle_results()
+    next_node()
+    
+    compass()
+    formation_line_ahead()
+    boss_preview()
 
 # bm3 3CL 3DD
 # CL - falgship

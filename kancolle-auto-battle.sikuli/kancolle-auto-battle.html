@@ -87,31 +87,55 @@ world = <span class="str">"w15"</span>
 
 
 
-<span class="cmt">#1CL 4DD</span>
-<span class="kw">if</span> world == <span class="str">"e1"</span>:
-    go_home()
-    accept_expeditions()
-    select_sortie_combat()
-    <span class="cmt">#select e1</span>
-    select_event_world()
-    click_random(<img src="w_e_1.png" />)
-    sortie_to_event_world()
+<span class="kw">def</span> formation_diamond():
+    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
+    wait_and_click(Pattern(<img src="1558865540376.png" />).similar(<span class="dig">0.97</span>))
 
-    begin_battle()
-
-    compass()
-    formation_guard()
-    accept_battle_results()
-    next_node()
-
-    compass()
-    formation_guard()
-    accept_battle_results()
-    next_node()
-
+<span class="cmt"># 4(F)BB(V) 2CCL</span>
+<span class="kw">if</span> world == <span class="str">"e2"</span>:
     formation_line_abreast()
-    boss_preview()
     accept_battle_results()
+    next_node()
+
+    <span class="cmt"># select node P1</span>
+    remove_cursor()
+    <span class="skw">wait</span>(<img src="1558995198165.png" />,LONG_WAIT_TIMEOUT)
+    <span class="skw">sleep</span>(<span class="dig">1</span>)
+    wait_and_click(Pattern(<img src="e2_node_p2.png" />).similar(<span class="dig">0.80</span>))
+    formation_diamond()
+    accept_battle_results()
+    next_node()
+
+    formation_diamond()
+    accept_battle_results()
+    next_node()
+
+    compass()
+    formation_diamond()
+    accept_battle_results()
+    next_node()
+
+    formation_diamond()
+    accept_battle_results()
+    next_node()
+
+    compass()
+    formation_diamond()
+    accept_battle_results()
+    next_node()
+
+    formation_guard()
+    accept_battle_results()
+    next_node()
+
+    compass()
+    formation_guard()
+    accept_battle_results()
+    next_node()
+
+    compass()
+    formation_line_ahead()
+    boss_preview()
 
 <span class="cmt"># bm3 3CL 3DD</span>
 <span class="cmt"># CL - falgship</span>
