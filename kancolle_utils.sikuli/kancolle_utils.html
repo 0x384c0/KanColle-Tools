@@ -119,16 +119,26 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
 
 <span class="kw">def</span> show_kancolle_page():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    <span class="kw">if</span> exists(Pattern(<img src="chrome_kancolle_page_icon.png" />).similar(<span class="dig">0.80</span>)):
-        <span class="skw">click</span>(Pattern(<img src="chrome_kancolle_page_icon.png" />).similar(<span class="dig">0.80</span>))
+    images = {
+            <span class="str">"chrome_kancolle_page_icon"</span>:Pattern(<img src="chrome_kancolle_page_icon.png" />).similar(<span class="dig">0.80</span>),
+            <span class="str">"opera_kancolle_page_icon"</span>:Pattern(<img src="opera_kancolle_page_icon.png" />).similar(<span class="dig">0.85</span>)
+            }
+    <span class="kw">if</span> exists(images[<span class="str">"opera_kancolle_page_icon"</span>]):
+        <span class="skw">click</span>(images[<span class="str">"opera_kancolle_page_icon"</span>])
     <span class="skw">sleep</span>(<span class="dig">2</span>)
 
 <span class="kw">def</span> hide_kancolle_page():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    <span class="kw">if</span> exists(<img src="chrome_empty_tab_header.png" />):
-        <span class="skw">click</span>(<img src="chrome_empty_tab_header.png" />)
+    images = {
+            <span class="str">"chrome_empty"</span>:<img src="chrome_empty_tab_header.png" />,
+            <span class="str">"chrome_new"</span>:<img src="chrome_new_tab_button.png" />,
+            <span class="str">"opera_empty"</span>:<img src="opera_empty_tab_header.png" />,
+            <span class="str">"opera_new"</span>:<img src="opera_new_tab_button.png" />
+            }
+    <span class="kw">if</span> exists(images[<span class="str">"opera_empty"</span>]):
+        <span class="skw">click</span>(images[<span class="str">"opera_empty"</span>])
     <span class="kw">else</span>:
-        <span class="skw">click</span>(<img src="chrome_new_tab_button.png" />)
+        <span class="skw">click</span>(images[<span class="str">"opera_new"</span>])
 
 
 

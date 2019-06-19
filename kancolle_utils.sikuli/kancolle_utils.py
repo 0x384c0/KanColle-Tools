@@ -47,16 +47,26 @@ def remove_cursor():
     
 def show_kancolle_page():
     print inspect.getframeinfo(inspect.currentframe()).function
-    if exists(Pattern("chrome_kancolle_page_icon.png").similar(0.80)):
-        click(Pattern("chrome_kancolle_page_icon.png").similar(0.80))
+    images = {
+            "chrome_kancolle_page_icon":Pattern("chrome_kancolle_page_icon.png").similar(0.80),
+            "opera_kancolle_page_icon":Pattern("opera_kancolle_page_icon.png").similar(0.85)
+            }
+    if exists(images["opera_kancolle_page_icon"]):
+        click(images["opera_kancolle_page_icon"])
     sleep(2)
 
 def hide_kancolle_page():
     print inspect.getframeinfo(inspect.currentframe()).function
-    if exists("chrome_empty_tab_header.png"):
-        click("chrome_empty_tab_header.png")
+    images = {
+            "chrome_empty":"chrome_empty_tab_header.png",
+            "chrome_new":"chrome_new_tab_button.png",
+            "opera_empty":"opera_empty_tab_header.png",
+            "opera_new":"opera_new_tab_button.png"
+            }
+    if exists(images["opera_empty"]):
+        click(images["opera_empty"])
     else:
-        click("chrome_new_tab_button.png")
+        click(images["opera_new"])
 
 
 
