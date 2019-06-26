@@ -72,7 +72,7 @@
 <pre class="sikuli-code">
 <span class="kw">from</span>  kancolle_utils <span class="kw">import</span> *
 
-world = <span class="str">"w15"</span>
+world = <span class="str">"e4"</span>
 
 <span class="kw">def</span> generic_battle():<span class="cmt"># TODO: make it working</span>
     begin_battle()
@@ -85,56 +85,45 @@ world = <span class="str">"w15"</span>
 <span class="kw">def</span> preboss_formation():
     <span class="kw">return</span> formation_line_ahead() <span class="cmt">#formation_guard()</span>
 
+<span class="kw">def</span> wait_for_select_node_dialog():
+    remove_cursor()
+    <span class="skw">wait</span>(<img src="select_node_dialog.png" />,LONG_WAIT_TIMEOUT)
+    <span class="skw">sleep</span>(<span class="dig">1</span>)
 
 
 <span class="kw">def</span> formation_diamond():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    wait_and_click(Pattern(<img src="1558865540376.png" />).similar(<span class="dig">0.97</span>))
+    wait_and_click(Pattern(<img src="formation_diamond.png" />).similar(<span class="dig">0.97</span>))
 
-<span class="cmt"># 4(F)BB(V) 2CCL</span>
-<span class="kw">if</span> world == <span class="str">"e2"</span>:
-    formation_line_abreast()
-    accept_battle_results()
-    next_node()
 
-    <span class="cmt"># select node P1</span>
-    remove_cursor()
-    <span class="skw">wait</span>(<img src="1558995198165.png" />,LONG_WAIT_TIMEOUT)
-    <span class="skw">sleep</span>(<span class="dig">1</span>)
-    wait_and_click(Pattern(<img src="e2_node_p2.png" />).similar(<span class="dig">0.80</span>))
-    formation_diamond()
-    accept_battle_results()
-    next_node()
+<span class="kw">def</span> formation_combined_aa():
+    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
+    wait_and_click(Pattern(<img src="1560898740258.png" />).similar(<span class="dig">0.97</span>))
 
-    formation_diamond()
-    accept_battle_results()
+
+<span class="kw">if</span> world == <span class="str">"e4"</span>:
+    compass()
+    formation_combined_asw()
+    accept_battle_results(True)
     next_node()
 
     compass()
-    formation_diamond()
-    accept_battle_results()
-    next_node()
-
-    formation_diamond()
-    accept_battle_results()
+    formation_combined_surface()
+    accept_battle_results(True)
     next_node()
 
     compass()
-    formation_diamond()
-    accept_battle_results()
-    next_node()
-
-    formation_guard()
-    accept_battle_results()
+    formation_combined_aa()
+    accept_battle_results(True)
     next_node()
 
     compass()
-    formation_guard()
-    accept_battle_results()
+    formation_combined_surface()
+    accept_battle_results(True)
     next_node()
 
     compass()
-    formation_line_ahead()
+    formation_combined_surface()
     boss_preview()
 
 <span class="cmt"># bm3 3CL 3DD</span>

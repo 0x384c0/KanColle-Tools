@@ -1,6 +1,6 @@
 from  kancolle_utils import *
 
-world = "w15"
+world = "e4"
 
 def generic_battle():# TODO: make it working
     begin_battle()
@@ -12,57 +12,46 @@ def generic_battle():# TODO: make it working
 
 def preboss_formation():
     return formation_line_ahead() #formation_guard()
-    
+
+def wait_for_select_node_dialog():
+    remove_cursor()
+    wait("select_node_dialog.png",LONG_WAIT_TIMEOUT)
+    sleep(1)
 
 
 def formation_diamond():
     print inspect.getframeinfo(inspect.currentframe()).function
-    wait_and_click(Pattern("1558865540376.png").similar(0.97))
+    wait_and_click(Pattern("formation_diamond.png").similar(0.97))
 
-# 4(F)BB(V) 2CCL
-if world == "e2":
-    formation_line_abreast()
-    accept_battle_results()
-    next_node()
 
-    # select node P1
-    remove_cursor()
-    wait("1558995198165.png",LONG_WAIT_TIMEOUT)
-    sleep(1)
-    wait_and_click(Pattern("e2_node_p2.png").similar(0.80))
-    formation_diamond()
-    accept_battle_results()
-    next_node()
-    
-    formation_diamond()
-    accept_battle_results()
+def formation_combined_aa():
+    print inspect.getframeinfo(inspect.currentframe()).function
+    wait_and_click(Pattern("1560898740258.png").similar(0.97))
+
+
+if world == "e4":
+    compass()
+    formation_combined_asw()
+    accept_battle_results(True)
     next_node()
     
     compass()
-    formation_diamond()
-    accept_battle_results()
-    next_node()
-    
-    formation_diamond()
-    accept_battle_results()
+    formation_combined_surface()
+    accept_battle_results(True)
     next_node()
     
     compass()
-    formation_diamond()
-    accept_battle_results()
-    next_node()
-    
-    formation_guard()
-    accept_battle_results()
+    formation_combined_aa()
+    accept_battle_results(True)
     next_node()
     
     compass()
-    formation_guard()
-    accept_battle_results()
+    formation_combined_surface()
+    accept_battle_results(True)
     next_node()
     
     compass()
-    formation_line_ahead()
+    formation_combined_surface()
     boss_preview()
 
 # bm3 3CL 3DD

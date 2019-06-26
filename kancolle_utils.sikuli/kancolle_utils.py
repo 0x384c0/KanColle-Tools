@@ -297,7 +297,7 @@ def formation_guard():
 
 def formation_combined_asw():
     print inspect.getframeinfo(inspect.currentframe()).function
-    wait_and_click("formation_combined_asw.png") # asw
+    wait_and_click(Pattern("formation_combined_asw.png").similar(0.97)) # asw
 
 def formation_combined_surface():
     print inspect.getframeinfo(inspect.currentframe()).function
