@@ -1,6 +1,6 @@
 from  kancolle_utils import *
 
-world = "e4"
+world = "w25"
 
 def generic_battle():# TODO: make it working
     begin_battle()

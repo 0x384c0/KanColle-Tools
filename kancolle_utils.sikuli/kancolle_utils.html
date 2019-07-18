@@ -379,7 +379,7 @@ crash_count = <span class="dig">0</span>
 
 <span class="kw">def</span> formation_combined_asw():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    wait_and_click(<img src="formation_combined_asw.png" />) <span class="cmt"># asw</span>
+    wait_and_click(Pattern(<img src="formation_combined_asw.png" />).similar(<span class="dig">0.97</span>)) <span class="cmt"># asw</span>
 
 <span class="kw">def</span> formation_combined_surface():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
