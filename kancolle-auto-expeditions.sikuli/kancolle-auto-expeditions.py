@@ -7,8 +7,8 @@ def main_loop():
         refresh_home()
         accept_expeditions()
         send_fleet_to_expedition(2,"2")
-        send_fleet_to_expedition(3,"38")
-        send_fleet_to_expedition(4,"A2")
+        send_fleet_to_expedition(3,"B1")
+        send_fleet_to_expedition(4,"38")
         hide_kancolle_page()
         sleep_random(60 * 30,60 * 45)
 
