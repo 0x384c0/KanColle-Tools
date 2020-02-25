@@ -51,8 +51,8 @@ def show_kancolle_page():
             "chrome_kancolle_page_icon":Pattern("chrome_kancolle_page_icon.png").similar(0.80),
             "opera_kancolle_page_icon":Pattern("opera_kancolle_page_icon.png").similar(0.85)
             }
-    if exists(images["opera_kancolle_page_icon"]):
-        click(images["opera_kancolle_page_icon"])
+    if exists(images["chrome_kancolle_page_icon"]):
+        click(images["chrome_kancolle_page_icon"])
     sleep(2)
 
 def hide_kancolle_page():
@@ -63,10 +63,10 @@ def hide_kancolle_page():
             "opera_empty":"opera_empty_tab_header.png",
             "opera_new":"opera_new_tab_button.png"
             }
-    if exists(images["opera_empty"]):
-        click(images["opera_empty"])
+    if exists(images["chrome_empty"]):
+        click(images["chrome_empty"])
     else:
-        click(images["opera_new"])
+        click(images["chrome_new"])
 
 
 
