@@ -10,16 +10,21 @@ def check_fleet_for_sparkling():
         exit(1)
         
 
-# main
-go_home()
-accept_expeditions()
-select_w_1_1()
-select_fleet(FLEET_NUMBER)
-check_fleet_for_sparkling()
-begin_battle()
-#formation_line_ahead()
-accept_battle_results()
-next_node()
-compass()
-#formation_line_ahead()
-accept_battle_results()
+try:
+    # main
+    go_home()
+    accept_expeditions()
+    select_w_1_1()
+    select_fleet(FLEET_NUMBER)
+    check_fleet_for_sparkling()
+    begin_battle()
+    #formation_line_ahead()
+    accept_battle_results()
+    next_node()
+    compass()
+    #formation_line_ahead()
+    accept_battle_results()
+except Exception, e:
+    print e
+finally:
+    beep()

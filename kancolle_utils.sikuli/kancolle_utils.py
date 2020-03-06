@@ -5,6 +5,8 @@ from time import sleep
 import inspect
 import datetime
 import traceback
+from java.applet.Applet import newAudioClip
+from java import io
 
 # SETTINGS
 WAIT_TIMEOUT = 20
@@ -14,6 +16,11 @@ MAX_CRASH_COUNT = 5
 setAutoWaitTimeout(WAIT_TIMEOUT)
 
 # BASICS
+def beep():
+    url = io.File("C:\Windows\Media\Windows Exclamation.wav").toURL()
+    audio = newAudioClip(url)
+    audio.play()
+
 def sleep_random(min,max):
     sleep(uniform(min, max))
 
@@ -287,34 +294,48 @@ def rethreat_if_taiha(is_taiha):
         print "ERROR: taiha, "
         exit(1)# safety first 
 
+# map navigation
+def wait_for_select_node_dialog():
+    remove_cursor()
+    wait("select_node_dialog.png",LONG_WAIT_TIMEOUT)
+    sleep(1)
+
 def compass():
     print inspect.getframeinfo(inspect.currentframe()).function
     sleep(1)
     if exists("compass.png",WAIT_TIMEOUT):
         click_random("compass.png")
 
-def formation_line_ahead():
+def formation_line_ahead(): # surface
     print inspect.getframeinfo(inspect.currentframe()).function
     wait_and_click(Pattern("line_ahead.png").similar(0.97))
 
-def formation_line_abreast():
+def formation_line_abreast():  # asw
     print inspect.getframeinfo(inspect.currentframe()).function
     wait_and_click(Pattern("line_abreast.png").similar(0.95))
 
-def formation_guard():
+def formation_guard(): # preboss surface
     print inspect.getframeinfo(inspect.currentframe()).function
     wait_and_click(Pattern("formation_guard.png").similar(0.95))
 
-def formation_combined_asw():
+def formation_diamond(): #aa
     print inspect.getframeinfo(inspect.currentframe()).function
-    wait_and_click(Pattern("formation_combined_asw.png").similar(0.97)) # asw
+    wait_and_click(Pattern("formation_diamond.png").similar(0.97))
 
-def formation_combined_surface():
+def formation_combined_asw(): # asw
     print inspect.getframeinfo(inspect.currentframe()).function
-    wait_and_click("formation_combined_surface.png") #surface
+    wait_and_click(Pattern("formation_combined_asw.png").similar(0.97)) 
 
-def boss_preview():
-     click_random(Pattern("boss_preview.png").similar(0.95))# boss preview
+def formation_combined_surface(): #surface
+    print inspect.getframeinfo(inspect.currentframe()).function
+    wait_and_click("formation_combined_surface.png")
+
+def formation_combined_aa(): # anti air
+    print inspect.getframeinfo(inspect.currentframe()).function
+    wait_and_click(Pattern("1560898740258.png").similar(0.97))
+
+def boss_preview(): # boss preview
+     click_random(Pattern("boss_preview.png").similar(0.95))
     
 
 def next_node():

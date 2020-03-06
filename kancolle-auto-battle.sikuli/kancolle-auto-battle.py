@@ -1,7 +1,13 @@
 from  kancolle_utils import *
 
 world = "w25"
+#world = "w15_ss"
 
+def preboss_formation():
+    return formation_guard()
+    # return formation_line_ahead()
+
+    
 def generic_battle():# TODO: make it working
     begin_battle()
     for i in range(3):
@@ -10,55 +16,24 @@ def generic_battle():# TODO: make it working
         accept_battle_results()
         next_node()
 
-def preboss_formation():
-    return formation_line_ahead() #formation_guard()
-
-def wait_for_select_node_dialog():
-    remove_cursor()
-    wait("select_node_dialog.png",LONG_WAIT_TIMEOUT)
-    sleep(1)
-
-
-def formation_diamond():
-    print inspect.getframeinfo(inspect.currentframe()).function
-    wait_and_click(Pattern("formation_diamond.png").similar(0.97))
-
-
-def formation_combined_aa():
-    print inspect.getframeinfo(inspect.currentframe()).function
-    wait_and_click(Pattern("1560898740258.png").similar(0.97))
-
-
-if world == "e4":
-    compass()
-    formation_combined_asw()
-    accept_battle_results(True)
-    next_node()
-    
-    compass()
-    formation_combined_surface()
-    accept_battle_results(True)
-    next_node()
-    
-    compass()
-    formation_combined_aa()
-    accept_battle_results(True)
-    next_node()
-    
-    compass()
-    formation_combined_surface()
-    accept_battle_results(True)
-    next_node()
-    
-    compass()
-    formation_combined_surface()
-    boss_preview()
-
 # bm3 3CL 3DD
 # CL - falgship
 if world == "w14": 
     generic_battle()
 
+# 2CL BBV CVL
+if world == "w15_ss": 
+    begin_battle()
+
+    accept_battle_results()
+    next_node()
+    
+    accept_battle_results()
+    next_node()
+    
+    compass()
+    accept_battle_results()
+    
 # 2CL BBV CVL
 if world == "w15": 
     go_home()

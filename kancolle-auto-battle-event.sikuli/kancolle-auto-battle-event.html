@@ -67,35 +67,44 @@
    </head>
 <body>
 <div class="info">
-<h2>kancolle-auto-sparkler.sikuli</h2> <a href="kancolle-auto-sparkler.zip">(Download this script)</a>
+<h2>kancolle-auto-battle-event.sikuli</h2> <a href="kancolle-auto-battle-event.zip">(Download this script)</a>
 </div>
 <pre class="sikuli-code">
 <span class="kw">from</span>  kancolle_utils <span class="kw">import</span> *
 
-FLEET_NUMBER = <span class="dig">1</span>
-
-<span class="kw">def</span> check_fleet_for_sparkling():
-    <span class="cmt">#return</span>
-    <span class="skw">sleep</span>(<span class="dig">1</span>)
-    <span class="kw">if</span> <span class="kw">not</span> exists(Pattern(<img src="three_ships_fleet.png" />).exact()):
-        <span class="kw">print</span> <span class="str">"ERROR: wrong fleet"</span>
-        exit(<span class="dig">1</span>)
-
+<span class="cmt"># compass()</span>
+<span class="cmt"># formation_combined_surface()</span>
+<span class="cmt"># formation_combined_aa()</span>
+<span class="cmt"># formation_combined_asw()</span>
+<span class="cmt"># formation_diamond()</span>
+<span class="cmt"># formation_guard()</span>
+<span class="cmt"># formation_line_ahead()</span>
+<span class="cmt"># formation_line_abreast():  # asw</span>
+<span class="cmt"># wait_for_select_node_dialog()</span>
+<span class="cmt"># accept_battle_results(True) # True if combined</span>
+<span class="cmt"># next_node()</span>
+<span class="cmt"># boss_preview()</span>
 
 <span class="kw">try</span>:
-    <span class="cmt"># main</span>
-    go_home()
-    accept_expeditions()
-    select_w_1_1()
-    select_fleet(FLEET_NUMBER)
-    check_fleet_for_sparkling()
-    begin_battle()
-    <span class="cmt">#formation_line_ahead()</span>
+    <span class="cmt"># e1 p2</span>
+    compass()
+    formation_guard()
     accept_battle_results()
     next_node()
+
     compass()
-    <span class="cmt">#formation_line_ahead()</span>
+    formation_line_abreast()
     accept_battle_results()
+    next_node()
+
+    compass()
+    formation_diamond()
+    accept_battle_results()
+    next_node()
+
+    formation_line_ahead()
+    boss_preview()
+
 <span class="kw">except</span> Exception, e:
     <span class="kw">print</span> e
 <span class="kw">finally</span>:

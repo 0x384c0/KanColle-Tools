@@ -73,6 +73,12 @@
 <span class="kw">from</span>  kancolle_utils <span class="kw">import</span> *
 
 world = <span class="str">"w25"</span>
+<span class="cmt">#world = "w15_ss"</span>
+
+<span class="kw">def</span> preboss_formation():
+    <span class="kw">return</span> formation_guard()
+    <span class="cmt"># return formation_line_ahead()</span>
+
 
 <span class="kw">def</span> generic_battle():<span class="cmt"># TODO: make it working</span>
     begin_battle()
@@ -82,54 +88,23 @@ world = <span class="str">"w25"</span>
         accept_battle_results()
         next_node()
 
-<span class="kw">def</span> preboss_formation():
-    <span class="kw">return</span> formation_line_ahead() <span class="cmt">#formation_guard()</span>
-
-<span class="kw">def</span> wait_for_select_node_dialog():
-    remove_cursor()
-    <span class="skw">wait</span>(<img src="select_node_dialog.png" />,LONG_WAIT_TIMEOUT)
-    <span class="skw">sleep</span>(<span class="dig">1</span>)
-
-
-<span class="kw">def</span> formation_diamond():
-    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    wait_and_click(Pattern(<img src="formation_diamond.png" />).similar(<span class="dig">0.97</span>))
-
-
-<span class="kw">def</span> formation_combined_aa():
-    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
-    wait_and_click(Pattern(<img src="1560898740258.png" />).similar(<span class="dig">0.97</span>))
-
-
-<span class="kw">if</span> world == <span class="str">"e4"</span>:
-    compass()
-    formation_combined_asw()
-    accept_battle_results(True)
-    next_node()
-
-    compass()
-    formation_combined_surface()
-    accept_battle_results(True)
-    next_node()
-
-    compass()
-    formation_combined_aa()
-    accept_battle_results(True)
-    next_node()
-
-    compass()
-    formation_combined_surface()
-    accept_battle_results(True)
-    next_node()
-
-    compass()
-    formation_combined_surface()
-    boss_preview()
-
 <span class="cmt"># bm3 3CL 3DD</span>
 <span class="cmt"># CL - falgship</span>
 <span class="kw">if</span> world == <span class="str">"w14"</span>:
     generic_battle()
+
+<span class="cmt"># 2CL BBV CVL</span>
+<span class="kw">if</span> world == <span class="str">"w15_ss"</span>:
+    begin_battle()
+
+    accept_battle_results()
+    next_node()
+
+    accept_battle_results()
+    next_node()
+
+    compass()
+    accept_battle_results()
 
 <span class="cmt"># 2CL BBV CVL</span>
 <span class="kw">if</span> world == <span class="str">"w15"</span>:
