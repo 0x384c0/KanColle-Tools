@@ -23,6 +23,12 @@ def beep():
 
 def sleep_random(min,max):
     sleep(uniform(min, max))
+    
+def click_offset(pic,w_offset,h_offset):
+    print str(inspect.getframeinfo(inspect.currentframe()).function) + " " + str(pic)
+    sleep_random(0.2, 1)
+    pattern = Pattern(pic).targetOffset(randrange(-w_offset, w_offset),randrange(-h_offset, h_offset))
+    click(pattern)
 
 def click_random(pic, out_of_area_click = False):
     print str(inspect.getframeinfo(inspect.currentframe()).function) + " " + str(pic)
@@ -288,11 +294,20 @@ def is_taiha():
     print inspect.getframeinfo(inspect.currentframe()).function
     return exists(Pattern("kc3_fleet_critical_state.png").similar(0.80),0.5) or exists("dmg_critical.png",2)
 
+
+auto_rethreat = True
+
+def disable_auto_rethreat():
+    global auto_rethreat
+    auto_rethreat = False
+
 def rethreat_if_taiha(is_taiha):
+    global auto_rethreat
     if is_taiha:
-        rethreat()
+        if auto_rethreat:
+            rethreat()
         print "ERROR: taiha, "
-        exit(1)# safety first 
+        exit(1)
 
 # map navigation
 def wait_for_select_node_dialog():

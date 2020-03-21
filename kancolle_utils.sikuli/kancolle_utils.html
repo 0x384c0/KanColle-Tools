@@ -96,6 +96,12 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
 <span class="kw">def</span> sleep_random(min,max):
     <span class="skw">sleep</span>(uniform(min, max))
 
+<span class="kw">def</span> click_offset(pic,w_offset,h_offset):
+    <span class="kw">print</span> str(inspect.getframeinfo(inspect.currentframe()).function) + <span class="str">" "</span> + str(pic)
+    sleep_random(<span class="dig">0.2</span>, <span class="dig">1</span>)
+    pattern = Pattern(pic).targetOffset(randrange(-w_offset, w_offset),randrange(-h_offset, h_offset))
+    <span class="skw">click</span>(pattern)
+
 <span class="kw">def</span> click_random(pic, out_of_area_click = False):
     <span class="kw">print</span> str(inspect.getframeinfo(inspect.currentframe()).function) + <span class="str">" "</span> + str(pic)
     sleep_random(<span class="dig">0.2</span>, <span class="dig">1</span>)
@@ -130,8 +136,8 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
             <span class="str">"chrome_kancolle_page_icon"</span>:Pattern(<img src="chrome_kancolle_page_icon.png" />).similar(<span class="dig">0.80</span>),
             <span class="str">"opera_kancolle_page_icon"</span>:Pattern(<img src="opera_kancolle_page_icon.png" />).similar(<span class="dig">0.85</span>)
             }
-    <span class="kw">if</span> exists(images[<span class="str">"opera_kancolle_page_icon"</span>]):
-        <span class="skw">click</span>(images[<span class="str">"opera_kancolle_page_icon"</span>])
+    <span class="kw">if</span> exists(images[<span class="str">"chrome_kancolle_page_icon"</span>]):
+        <span class="skw">click</span>(images[<span class="str">"chrome_kancolle_page_icon"</span>])
     <span class="skw">sleep</span>(<span class="dig">2</span>)
 
 <span class="kw">def</span> hide_kancolle_page():
@@ -142,10 +148,10 @@ setAutoWaitTimeout(WAIT_TIMEOUT)
             <span class="str">"opera_empty"</span>:<img src="opera_empty_tab_header.png" />,
             <span class="str">"opera_new"</span>:<img src="opera_new_tab_button.png" />
             }
-    <span class="kw">if</span> exists(images[<span class="str">"opera_empty"</span>]):
-        <span class="skw">click</span>(images[<span class="str">"opera_empty"</span>])
+    <span class="kw">if</span> exists(images[<span class="str">"chrome_empty"</span>]):
+        <span class="skw">click</span>(images[<span class="str">"chrome_empty"</span>])
     <span class="kw">else</span>:
-        <span class="skw">click</span>(images[<span class="str">"opera_new"</span>])
+        <span class="skw">click</span>(images[<span class="str">"chrome_new"</span>])
 
 
 
@@ -360,11 +366,20 @@ crash_count = <span class="dig">0</span>
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     <span class="kw">return</span> exists(Pattern(<img src="kc3_fleet_critical_state.png" />).similar(<span class="dig">0.80</span>),<span class="dig">0.5</span>) <span class="kw">or</span> exists(<img src="dmg_critical.png" />,<span class="dig">2</span>)
 
+
+auto_rethreat = True
+
+<span class="kw">def</span> disable_auto_rethreat():
+    <span class="kw">global</span> auto_rethreat
+    auto_rethreat = False
+
 <span class="kw">def</span> rethreat_if_taiha(is_taiha):
+    <span class="kw">global</span> auto_rethreat
     <span class="kw">if</span> is_taiha:
-        rethreat()
+        <span class="kw">if</span> auto_rethreat:
+            rethreat()
         <span class="kw">print</span> <span class="str">"ERROR: taiha, "</span>
-        exit(<span class="dig">1</span>)<span class="cmt"># safety first </span>
+        exit(<span class="dig">1</span>)
 
 <span class="cmt"># map navigation</span>
 <span class="kw">def</span> wait_for_select_node_dialog():

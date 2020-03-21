@@ -1,6 +1,6 @@
 from  kancolle_utils import *
 
-FLEET_NUMBER = 1
+FLEET_NUMBER = 2
 
 def check_fleet_for_sparkling():
     #return
@@ -11,6 +11,7 @@ def check_fleet_for_sparkling():
         
 
 try:
+    #popup("WARNING: CHECK EQUPMENT BEFORE SORTIE")
     # main
     go_home()
     accept_expeditions()

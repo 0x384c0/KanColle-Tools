@@ -72,21 +72,41 @@
 <pre class="sikuli-code">
 <span class="kw">from</span>  kancolle_utils <span class="kw">import</span> *
 
-<span class="cmt"># compass()</span>
-<span class="cmt"># formation_combined_surface()</span>
-<span class="cmt"># formation_combined_aa()</span>
-<span class="cmt"># formation_combined_asw()</span>
-<span class="cmt"># formation_diamond()</span>
-<span class="cmt"># formation_guard()</span>
-<span class="cmt"># formation_line_ahead()</span>
-<span class="cmt"># formation_line_abreast():  # asw</span>
-<span class="cmt"># wait_for_select_node_dialog()</span>
-<span class="cmt"># accept_battle_results(True) # True if combined</span>
-<span class="cmt"># next_node()</span>
-<span class="cmt"># boss_preview()</span>
+<span class="kw">def</span> hinamatsuri_2020_e1_p4():
+    <span class="skw">popup</span>(<span class="str">"WARNING: CHECK AKASHI EQUPMENT BEFORE SORTIE"</span>)
+    click_random(<img src="1584755580907.png" />)
+    click_offset(<img src="1584750182160.png" />,<span class="dig">10</span>,<span class="dig">10</span>)
+    click_offset(<img src="1584750279049.png" />,<span class="dig">10</span>,<span class="dig">10</span>)
+    click_random(<img src="confirm_lbas.png" />)
+    click_offset(<img src="1584750359020.png" />,<span class="dig">10</span>,<span class="dig">10</span>)
+    click_offset(<img src="1584750373284.png" />,<span class="dig">10</span>,<span class="dig">10</span>)
+    click_random(<img src="confirm_lbas.png" />)
 
-<span class="kw">try</span>:
-    <span class="cmt"># e1 p2</span>
+    compass()
+    compass()
+    formation_combined_asw()
+    accept_battle_results(True)
+    next_node()
+
+    compass()
+    formation_combined_surface()
+    accept_battle_results(True)
+    next_node()
+
+    compass()
+    <span class="cmt">#skip repair</span>
+    formation_combined_aa()
+    accept_battle_results(True)
+    next_node()
+
+    formation_combined_surface()
+    accept_battle_results(True)
+    next_node()
+
+    compass()
+    exit()
+
+<span class="kw">def</span> hinamatsuri_2020_e1_p2():
     compass()
     formation_guard()
     accept_battle_results()
@@ -105,10 +125,33 @@
     formation_line_ahead()
     boss_preview()
 
-<span class="kw">except</span> Exception, e:
-    <span class="kw">print</span> e
-<span class="kw">finally</span>:
-    beep()
+
+
+<span class="kw">def</span> main():
+    <span class="kw">try</span>:
+        disable_auto_rethreat()
+        hinamatsuri_2020_e1_p4()
+    <span class="kw">except</span> Exception, e:
+        <span class="kw">print</span> e
+    <span class="kw">finally</span>:
+        beep()
+
+main()
+
+<span class="cmt"># disable_auto_rethreat()</span>
+<span class="cmt"># compass()</span>
+<span class="cmt"># formation_combined_surface()</span>
+<span class="cmt"># formation_combined_aa()</span>
+<span class="cmt"># formation_combined_asw()</span>
+<span class="cmt"># formation_diamond()</span>
+<span class="cmt"># formation_guard()</span>
+<span class="cmt"># formation_line_ahead()</span>
+<span class="cmt"># formation_line_abreast():  # asw</span>
+<span class="cmt"># wait_for_select_node_dialog()</span>
+<span class="cmt"># accept_battle_results(True) # True if combined</span>
+<span class="cmt"># next_node()</span>
+<span class="cmt"># boss_preview()</span>
+
 </pre>
 </body>
 </html>
