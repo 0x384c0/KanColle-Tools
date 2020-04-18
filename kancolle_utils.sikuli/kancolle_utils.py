@@ -409,12 +409,14 @@ def send_fleet_to_expedition(fleet_number,expedition_name):
             "B1"     : Pattern("1578031143800.png").similar(0.89),
             "20"     : Pattern("ensei_name_20.png").similar(0.90),
             "21"     : Pattern("ensei_name_21.png").similar(0.90),
+            "D1"     : Pattern("ensei_name_D1.png").similar(0.95),
             "38"     : Pattern("ensei_name_38.png").similar(0.95)
             }
 
     expedition_scroll_down_counts = {
             "A2"     : 2,
-            "B1"     : 1
+            "B1"     : 1,
+            "D1"     : 1
             }
     
     expedition_world = {
@@ -428,6 +430,7 @@ def send_fleet_to_expedition(fleet_number,expedition_name):
             "B1"     : get_pattern_for_world(2),
             "20"     : get_pattern_for_world(3),
             "21"     : get_pattern_for_world(3),
+            "D1"     : get_pattern_for_world(5),
             "38"     : get_pattern_for_world(6)
             }
     # select world
