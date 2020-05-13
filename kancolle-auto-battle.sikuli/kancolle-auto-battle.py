@@ -1,11 +1,10 @@
 from  kancolle_utils import *
 
-world = "w25"
-#world = "w15_ss"
+world = "w15"
 
 def preboss_formation():
-    return formation_guard()
-    # return formation_line_ahead()
+    # return formation_guard()
+    return formation_line_ahead()
 
     
 def generic_battle():# TODO: make it working
@@ -61,6 +60,9 @@ if world == "w15":
 
 #bw2 2CV 4BB 
 if world == "w21": 
+    go_home()
+    accept_expeditions()
+    select_w_2_5()
     begin_battle()
     
     preboss_formation()
@@ -98,6 +100,9 @@ if world == "w22":
 
 # CL CV CVL 3DD los >= 34
 if world == "w25": 
+    go_home()
+    accept_expeditions()
+    select_w_2_5()
     begin_battle()
     
     compass()
@@ -157,3 +162,43 @@ if world == "w34":
 # bw6 bm6 2CV 1CVL 1CL 2DD
 if world == "w42":
     generic_battle()
+
+# Bq8 1CL 4DD
+if world == "w721":
+    begin_battle()
+    
+    compass()
+    formation_line_abreast()
+    accept_battle_results()
+    next_node()
+    
+    compass()
+    formation_line_abreast()
+    accept_battle_results()
+    next_node()
+    
+    compass()
+    formation_line_abreast()
+
+    
+# Bq8 1CL 2DD
+if world == "w722":
+    begin_battle()
+    
+    compass()
+    preboss_formation()
+    accept_battle_results()
+    next_node()
+
+    formation_line_abreast()
+    accept_battle_results()
+    next_node()
+    
+    compass()
+    compass()
+    preboss_formation()
+    accept_battle_results()
+    next_node()
+    
+    compass()
+    formation_line_ahead()

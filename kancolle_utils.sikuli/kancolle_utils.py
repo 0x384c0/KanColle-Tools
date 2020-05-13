@@ -231,6 +231,17 @@ def select_w_2_2():
     
     sortie_to_world()
 
+
+def select_w_2_5():
+    print inspect.getframeinfo(inspect.currentframe()).function
+    select_sortie_combat()
+    click_random(get_pattern_for_world(2))
+    click_random("combat_panel_1-extra.png")
+    remove_cursor()
+    click_random("combat_panel_2-5.png")
+    
+    sortie_to_world()
+
 def select_w_3_3():
     print inspect.getframeinfo(inspect.currentframe()).function
     select_sortie_combat()

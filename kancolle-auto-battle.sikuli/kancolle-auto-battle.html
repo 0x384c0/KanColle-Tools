@@ -72,12 +72,11 @@
 <pre class="sikuli-code">
 <span class="kw">from</span>  kancolle_utils <span class="kw">import</span> *
 
-world = <span class="str">"w25"</span>
-<span class="cmt">#world = "w15_ss"</span>
+world = <span class="str">"w15"</span>
 
 <span class="kw">def</span> preboss_formation():
-    <span class="kw">return</span> formation_guard()
-    <span class="cmt"># return formation_line_ahead()</span>
+    <span class="cmt"># return formation_guard()</span>
+    <span class="kw">return</span> formation_line_ahead()
 
 
 <span class="kw">def</span> generic_battle():<span class="cmt"># TODO: make it working</span>
@@ -133,6 +132,9 @@ world = <span class="str">"w25"</span>
 
 <span class="cmt">#bw2 2CV 4BB </span>
 <span class="kw">if</span> world == <span class="str">"w21"</span>:
+    go_home()
+    accept_expeditions()
+    select_w_2_5()
     begin_battle()
 
     preboss_formation()
@@ -170,6 +172,9 @@ world = <span class="str">"w25"</span>
 
 <span class="cmt"># CL CV CVL 3DD los &gt;= 34</span>
 <span class="kw">if</span> world == <span class="str">"w25"</span>:
+    go_home()
+    accept_expeditions()
+    select_w_2_5()
     begin_battle()
 
     compass()
@@ -229,6 +234,46 @@ world = <span class="str">"w25"</span>
 <span class="cmt"># bw6 bm6 2CV 1CVL 1CL 2DD</span>
 <span class="kw">if</span> world == <span class="str">"w42"</span>:
     generic_battle()
+
+<span class="cmt"># Bq8 1CL 4DD</span>
+<span class="kw">if</span> world == <span class="str">"w721"</span>:
+    begin_battle()
+
+    compass()
+    formation_line_abreast()
+    accept_battle_results()
+    next_node()
+
+    compass()
+    formation_line_abreast()
+    accept_battle_results()
+    next_node()
+
+    compass()
+    formation_line_abreast()
+
+
+<span class="cmt"># Bq8 1CL 2DD</span>
+<span class="kw">if</span> world == <span class="str">"w722"</span>:
+    begin_battle()
+
+    compass()
+    preboss_formation()
+    accept_battle_results()
+    next_node()
+
+    formation_line_abreast()
+    accept_battle_results()
+    next_node()
+
+    compass()
+    compass()
+    preboss_formation()
+    accept_battle_results()
+    next_node()
+
+    compass()
+    formation_line_ahead()
 </pre>
 </body>
 </html>

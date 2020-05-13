@@ -303,6 +303,17 @@ crash_count = <span class="dig">0</span>
 
     sortie_to_world()
 
+
+<span class="kw">def</span> select_w_2_5():
+    <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
+    select_sortie_combat()
+    click_random(get_pattern_for_world(<span class="dig">2</span>))
+    click_random(<img src="combat_panel_1-extra.png" />)
+    remove_cursor()
+    click_random(<img src="combat_panel_2-5.png" />)
+
+    sortie_to_world()
+
 <span class="kw">def</span> select_w_3_3():
     <span class="kw">print</span> inspect.getframeinfo(inspect.currentframe()).function
     select_sortie_combat()

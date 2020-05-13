@@ -1,8 +1,10 @@
 from  kancolle_utils import *
 
 def hinamatsuri_2020_e1_p4():
-    popup("WARNING: CHECK AKASHI EQUPMENT BEFORE SORTIE")
+    popup("WARNING: AKASHI EQUPMENT, NELSON/NAGATO TOUCH")
     click_random("1584755580907.png")
+    sleep(3)
+    
     click_offset("1584750182160.png",10,10)
     click_offset("1584750279049.png",10,10)
     click_random("confirm_lbas.png")
